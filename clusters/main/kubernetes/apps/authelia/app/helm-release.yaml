@@ -1,0 +1,224 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: authelia
+    namespace: authelia
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: authelia
+            version: 24.1.4
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: authelia
+    values:
+        TZ: ${TIMEZONE}
+        access_control:
+            default_policy: deny
+            rules:
+                - domain:
+                    - '*.${DC_SUBDOMAIN}.${DC_DOMAIN}'
+                  domain_regex: []
+                  networks: []
+                  policy: bypass
+                  resources:
+                    - ^/api([/?].*)?$
+                    - ' ^/identity.*$'
+                    - ^/triggers.*$
+                    - ^/meshagents.*$
+                    - ^/meshsettings.*$
+                    - ^/agent.*$
+                    - ^/control.*$
+                    - ^/meshrelay.*$
+                    - ^/wl.*$
+                    - ^/emby*
+                  subject: []
+                - domain:
+                    - ${DOMAIN_VAULTWARDEN}
+                  domain_regex: []
+                  networks: []
+                  policy: one_factor
+                  resources:
+                    - ^*/admin.*$
+                  subject: []
+                - domain:
+                    - ${DOMAIN_VAULTWARDEN}
+                  domain_regex: []
+                  networks: []
+                  policy: bypass
+                  resources: []
+                  subject: []
+                - domain:
+                    - ${DOMAIN_WHOOGLE}
+                    - ${DOMAIN_LIBREDDIT}
+                    - ${DOMAIN_VPN}
+                    - ${DOMAIN_INVIDIOUS}
+                  domain_regex: []
+                  networks: []
+                  policy: bypass
+                  resources: []
+                  subject: []
+                - domain:
+                    - ${DOMAIN_EMBY}
+                    - ${DOMAIN_OMBI}
+                    - ${DOMAIN_LLDAP}
+                    - ${DOMAIN_EMULATOR_JS}
+                    - ${DOMAIN_GITEA}
+                    - ${DOMAIN_VOCECHAT_SERVER}
+                    - ${DOMAIN_JELLYSEERR}
+                    - ${DC_SUBDOMAIN}.${DC_DOMAIN}
+                  domain_regex: []
+                  networks: []
+                  policy: one_factor
+                  resources: []
+                  subject:
+                    - group: ${LLDAP_USER_GROUP}
+                    - group: ${LLDAP_ADMIN_GROUP}
+                - domain:
+                    - '*.${DC_SUBDOMAIN}.${DC_DOMAIN}'
+                  domain_regex: []
+                  networks: []
+                  policy: one_factor
+                  resources: []
+                  subject:
+                    - group: ${LLDAP_ADMIN_GROUP}
+        authentication_backend:
+            disable_reset_password: false
+            ldap:
+                additional_groups_dn: ou=groups
+                additional_users_dn: ou=people
+                base_dn: dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
+                display_name_attribute: displayName
+                enabled: true
+                group_name_attribute: cn
+                groups_filter: (member={dn})
+                implementation: custom
+                mail_attribute: mail
+                plain_password: ${AUTHELIA_LLDAP_PASSWORD}
+                start_tls: false
+                timeout: 5s
+                tls:
+                    minimum_version: TLS1.2
+                    server_name: ""
+                    skip_verify: false
+                url: ldap://lldap-ldap.ix-lldap.svc.cluster.local:${PORT_LLDAP_LDAP}
+                user: CN=${AUTHELIA_LLDAP_GROUP_NAME},ou=people,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}
+                username_attribute: uid
+                users_filter: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
+            refresh_interval: 5m
+        cnpg:
+            main:
+                backups:
+                    credentials: ${S3_NAME}
+                    enabled: true
+                    revision: ${CNPG_BACKUP_REVISION}
+                mode: recovery
+                password: ${CNPG_PASSWORD_AUTHELIA}
+                recovery:
+                    credentials: ${S3_NAME}
+                    enabled: true
+                    revision: ${CNPG_RECOVERY_REVISION}
+        credentials:
+            s3:
+                accessKey: ${S3_ACCESS_KEY}
+                bucket: ${S3_BUCKET}
+                encrKey: ${S3_ENCRYPTION_KEY}
+                name: ${S3_NAME}
+                path: ""
+                secretKey: ${S3_SECRET_KEY}
+                type: s3
+                url: ${S3_URL}
+        default_redirection_url: https://${DOMAIN_AUTHELIA}
+        domain: ${DC_SUBDOMAIN}.${DC_DOMAIN}
+        ingress:
+            main:
+                enabled: true
+                hosts:
+                    - host: ${DOMAIN_AUTHELIA}
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                integrations:
+                    certManager:
+                        enabled: false
+                    homepage:
+                        enabled: true
+                        group: Admin - Cluster
+                    traefik:
+                        allowCors: false
+                        enabled: true
+                        entrypoints:
+                            - websecure
+                required: true
+                tls:
+                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
+                      hosts:
+                        - ${DOMAIN_AUTHELIA}
+        notifier:
+            disable_startup_check: false
+            smtp:
+                disable_html_emails: false
+                disable_require_tls: true
+                enabled: true
+                enabledSecret: false
+                host: ${IP_PROTONMAIL}
+                identifier: 127.0.0.1
+                plain_password: ${PROTONMAIL_PASSWORD}
+                port: ${PROTONMAIL_PORT_SMTP}
+                sender: ${PROTONMAIL_USER}
+                startup_check_address: ${PROTONMAIL_USER}
+                subject: '[Authelia] {title}'
+                timeout: 5s
+                tls:
+                    minimum_version: TLS1.2
+                    server_name: ""
+                    skip_verify: true
+                username: ${PROTONMAIL_USER}
+        password_policy:
+            enabled: false
+            standard:
+                enabled: false
+                max_length: 0
+                min_length: 8
+                require_lowercase: false
+                require_number: false
+                require_special: false
+                require_uppercase: false
+            zxcvbn:
+                enabled: false
+                min_score: 3
+        persistence:
+            config:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: config
+                      src:
+                        enabled: true
+                      type: restic
+        regulation:
+            ban_time: 5m
+            find_time: 2m
+            max_retries: 3
+        service:
+            main:
+                enabled: true
+                ports:
+                    main:
+                        port: ${PORT_AUTHELIA}
+                type: ClusterIP
+        session:
+            expiration: 1h
+            inactivity: 5m
+            name: authelia_session
+            remember_me_duration: 5M
+            same_site: lax
+        theme: dark
+        totp:
+            issuer: ""
+            period: 30
+            skew: 1
