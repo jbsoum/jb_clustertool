@@ -4,3 +4,4 @@ resources:
   - kubernetes-dashboard/ks.yaml
   - authelia/ks.yaml
   - lldap/ks.yaml
+  - emby/ks.yaml
