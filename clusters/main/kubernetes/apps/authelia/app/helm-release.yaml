@@ -142,21 +142,17 @@ spec:
                         - path: /
                           pathType: Prefix
                 integrations:
-                    certManager:
-                        enabled: false
                     homepage:
                         enabled: true
                         group: Admin - Cluster
+                    certManager:
+                        enabled: true
+                        certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
                     traefik:
-                        allowCors: false
                         enabled: true
                         entrypoints:
                             - websecure
                 required: true
-                tls:
-                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_AUTHELIA}
         notifier:
             disable_startup_check: false
             smtp:

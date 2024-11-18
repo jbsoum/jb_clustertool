@@ -46,22 +46,21 @@ spec:
                         - path: /
                           pathType: Prefix
                 integrations:
-                    certManager:
-                        enabled: false
                     homepage:
                         enabled: true
                         group: Admin - Cluster
+                    certManager:
+                        enabled: true
+                        certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
                     traefik:
-                        allowCors: false
                         enabled: true
                         entrypoints:
                             - websecure
                         middlewares:
+                            - name: local
+                              namespace: traefik
                             - name: ${TRAEFIK_MIDDLEWARE}
-                tls:
-                      clusterCertificate: ${CLUSTER_CERTIFICATE}
-                      hosts:
-                        - ${DOMAIN_LLDAP}
+                              namespace: traefik
         persistence:
             data:
                 volsync:

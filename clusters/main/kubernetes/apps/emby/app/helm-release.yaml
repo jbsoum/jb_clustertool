@@ -35,8 +35,6 @@ spec:
                         - path: /
                           pathType: Prefix
                 integrations:
-                    certManager:
-                        enabled: false
                     homepage:
                         enabled: true
                         group: Media
@@ -44,17 +42,18 @@ spec:
                             custom:
                                 key: ${API_EMBY}
                             enabled: true
+                    certManager:
+                        enabled: true
+                        certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
                     traefik:
-                        allowCors: false
                         enabled: true
                         entrypoints:
                             - websecure
                         middlewares:
+                            - name: local
+                              namespace: traefik
                             - name: ${TRAEFIK_MIDDLEWARE}
-                tls:
-                    - clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_EMBY}
+                              namespace: traefik
         persistence:
             config:
                 volsync:

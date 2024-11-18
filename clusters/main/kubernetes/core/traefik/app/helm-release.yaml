@@ -38,3 +38,52 @@ spec:
     service:
       tcp:
         loadBalancerIP: ${TRAEFIK_IP}
+        ingress:
+            main:
+              enabled: true
+              hosts:
+                  - host: ${DOMAIN_TRAEFIK}
+                    paths:
+                      - path: /
+                        pathType: Prefix
+              integrations:
+                  certManager:
+                      enabled: true
+                      certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
+                  homepage:
+                      enabled: true
+                      group: Admin - Cluster
+                      widget:
+                          enabled: false
+                  traefik:
+                      allowCors: false
+                      enabled: true
+                      entrypoints:
+                          - websecure
+                      middlewares:
+                          - name: ${TRAEFIK_MIDDLEWARE}
+              tls:
+                    clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
+                    hosts:
+                      - ${DOMAIN_TRAEFIK}
+        middlewares:
+          ipWhiteList:
+            - name: local
+              sourceRange:
+                - 172.16.0.0/16
+                - 172.17.0.0/16
+                - 10.11.10.0/24
+                - 10.11.70.0/24
+          forwardAuth:
+              - name: ${TRAEFIK_MIDDLEWARE}
+                address: http://authelia.ix-authelia.svc.cluster.local:${PORT_AUTHELIA}/api/verify?rd=https://${DOMAIN_AUTHELIA}/
+                authRequestHeaders: []
+                authResponseHeaders:
+                  - Remote-User
+                  - Remote-Group
+                  - Remote-Name
+                  - Remote-Email
+                authResponseHeadersRegex: ""
+                tls:
+                  insecureSkipVerify: false
+                trustForwardHeader: true
