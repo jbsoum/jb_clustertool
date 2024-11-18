@@ -28,7 +28,7 @@ spec:
                     enabled: true
                     revision: ${CNPG_RECOVERY_REVISION}
         credentials:
-            s3:
+            backblaze:
                 accessKey: ${S3_ACCESS_KEY}
                 bucket: ${S3_BUCKET}
                 encrKey: ${S3_ENCRYPTION_KEY}
