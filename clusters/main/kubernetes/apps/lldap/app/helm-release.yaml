@@ -104,7 +104,7 @@ spec:
                                 LLDAP_SMTP_OPTIONS__PASSWORD: ${PROTONMAIL_PASSWORD}
                                 LLDAP_SMTP_OPTIONS__PORT: ${PROTONMAIL_PORT_SMTP}
                                 LLDAP_SMTP_OPTIONS__REPLY_TO: Do not reply <noreply@localhost>
-                                LLDAP_SMTP_OPTIONS__SERVER: http://protonmail-bridge.ix-protonmail-bridge.svc.cluster.local
+                                LLDAP_SMTP_OPTIONS__SERVER: http://protonmail-bridge.protonmail-bridge.svc.cluster.local
                                 LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION: STARTTLS
                                 LLDAP_SMTP_OPTIONS__USER: ${PROTONMAIL_USER}
                                 LLDAP_VERBOSE: false

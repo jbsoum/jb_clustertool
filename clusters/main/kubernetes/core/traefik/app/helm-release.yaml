@@ -76,7 +76,7 @@ spec:
                 - 10.11.70.0/24
           forwardAuth:
               - name: ${TRAEFIK_MIDDLEWARE}
-                address: http://authelia.ix-authelia.svc.cluster.local:${PORT_AUTHELIA}/api/verify?rd=https://${DOMAIN_AUTHELIA}/
+                address: http://authelia.authelia.svc.cluster.local:${PORT_AUTHELIA}/api/verify?rd=https://${DOMAIN_AUTHELIA}/
                 authRequestHeaders: []
                 authResponseHeaders:
                   - Remote-User
