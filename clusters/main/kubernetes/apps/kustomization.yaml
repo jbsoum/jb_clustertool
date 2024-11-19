@@ -32,7 +32,6 @@ resources:
   - readarr/ks.yaml
   - scrutiny/ks.yaml
   - sonarr/ks.yaml
-  - traefik/ks.yaml
   - truenas-gui/ks.yaml
   - vaultwarden/ks.yaml
   - vocechat-server/ks.yaml
