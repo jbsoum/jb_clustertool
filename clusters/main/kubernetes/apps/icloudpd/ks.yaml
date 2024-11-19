@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: clusters/main/kubernetes/apps/nfs/icloudpd/app
+  path: clusters/main/kubernetes/apps/icloudpd/app
   prune: true
   sourceRef:
     kind: GitRepository

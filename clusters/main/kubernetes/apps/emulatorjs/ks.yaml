@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: clusters/main/kubernetes/apps/nfs/emulatorjs/app
+  path: clusters/main/kubernetes/apps/emulatorjs/app
   prune: true
   sourceRef:
     kind: GitRepository
