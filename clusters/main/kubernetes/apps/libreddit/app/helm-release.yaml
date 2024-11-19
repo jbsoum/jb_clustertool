@@ -1,0 +1,77 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: libreddit
+    namespace: libreddit
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: libreddit
+            version: 9.0.9
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: libreddit
+    values:
+        TZ: ${TIMEZONE}
+        configmap:
+            libreddit:
+                data:
+                    LIBREDDIT_DEFAULT_AUTOPLAY_VIDEOS: '{{ ternary "on" "off" .Values.libreddit.autoplay_videos }}'
+                    LIBREDDIT_DEFAULT_COMMENT_SORT: '{{ .Values.libreddit.comment_sort }}'
+                    LIBREDDIT_DEFAULT_FRONT_PAGE: '{{ .Values.libreddit.front_page }}'
+                    LIBREDDIT_DEFAULT_HIDE_HLS_NOTIFICATION: '{{ ternary "on" "off" .Values.libreddit.hide_hls_notification }}'
+                    LIBREDDIT_DEFAULT_LAYOUT: '{{ .Values.libreddit.layout }}'
+                    LIBREDDIT_DEFAULT_POST_SORT: '{{ .Values.libreddit.post_sort }}'
+                    LIBREDDIT_DEFAULT_SHOW_NSFW: '{{ ternary "on" "off" .Values.libreddit.show_nsfw }}'
+                    LIBREDDIT_DEFAULT_THEME: '{{ .Values.libreddit.theme }}'
+                    LIBREDDIT_DEFAULT_USE_HLS: '{{ ternary "on" "off" .Values.libreddit.use_hls }}'
+                    LIBREDDIT_DEFAULT_WIDE: '{{ ternary "on" "off" .Values.libreddit.wide }}'
+                enabled: true
+        ingress:
+            main:
+                enabled: true
+                hosts:
+                    - host: ${DOMAIN_LIBREDDIT}
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                integrations:
+                    homepage:
+                        enabled: true
+                        group: Utilities
+                        widget:
+                            enabled: false
+                    certManager:
+                        enabled: true
+                        certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
+                    traefik:
+                        enabled: true
+                        entrypoints:
+                            - websecure
+                        middlewares:
+                            - name: local
+                              namespace: traefik
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
+        libreddit:
+            autoplay_videos: false
+            comment_sort: confidence
+            front_page: default
+            hide_hls_notification: false
+            layout: card
+            post_sort: hot
+            show_nsfw: false
+            theme: system
+            use_hls: false
+            wide: false
+        release_name: libreddit
+        service:
+            main:
+                enabled: true
+                ports:
+                    main:
+                        port: ${PORT_LIBREDDIT}
+                type: ClusterIP

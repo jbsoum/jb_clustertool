@@ -152,6 +152,11 @@ spec:
                         enabled: true
                         entrypoints:
                             - websecure
+                        middlewares:
+                            - name: local
+                              namespace: traefik
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
                 required: true
         notifier:
             disable_startup_check: false

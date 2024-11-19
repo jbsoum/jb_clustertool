@@ -1,0 +1,80 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: scrutiny
+    namespace: scrutiny
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: scrutiny
+            version: 11.0.8
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: scrutiny
+    values:
+        TZ: ${TIMEZONE}
+        credentials:
+            backblaze:
+                accessKey: ${S3_ACCESS_KEY}
+                bucket: ${S3_BUCKET}
+                encrKey: ${S3_ENCRYPTION_KEY}
+                name: ${S3_NAME}
+                path: ""
+                secretKey: ${S3_SECRET_KEY}
+                type: s3
+                url: ${S3_URL}
+        ingress:
+            main:
+                enabled: true
+                hosts:
+                    - host: ${DOMAIN_SCRUTINY}
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                integrations:
+                    homepage:
+                        enabled: true
+                        group: Admin - Cluster
+                        widget:
+                            enabled: true
+                    certManager:
+                        enabled: true
+                        certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
+                    traefik:
+                        enabled: true
+                        entrypoints:
+                            - websecure
+                        middlewares:
+                            - name: local
+                              namespace: traefik
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
+        persistence:
+            config:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: config
+                      src:
+                        enabled: true
+                      type: restic
+        release_name: scrutiny
+        service:
+            main:
+                enabled: true
+                ports:
+                    main:
+                        port: ${PORT_SCRUTINY}
+                type: ClusterIP
+        workload:
+            main:
+                podSpec:
+                    containers:
+                        main:
+                            env:
+                                COLLECTOR_CRON_SCHEDULE: 0 0 * * *
+                                COLLECTOR_HOST_ID: TrueNAS Scale

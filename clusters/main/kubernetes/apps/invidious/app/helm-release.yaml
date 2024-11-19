@@ -1,0 +1,193 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: invidious
+    namespace: invidious
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: invidious
+            version: 10.0.8
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: invidious
+    values:
+        TZ: ${TIMEZONE}
+        addons:
+            codeserver:
+                enabled: true
+                ingress:
+                    enabled: true
+                    hosts:
+                        - host: ${DOMAIN_INVIDIOUS_CFG}
+                          paths:
+                            - path: /
+                              pathType: Prefix
+                    integrations:
+                        certManager:
+                            enabled: true
+                            certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
+                        traefik:
+                            enabled: true
+                            entrypoints:
+                                - websecure
+                            middlewares:
+                                - name: local
+                                  namespace: traefik
+                                - name: ${TRAEFIK_MIDDLEWARE}
+                                  namespace: traefik
+                service:
+                    ports:
+                        codeserver:
+                            port: ${PORT_INVIDIOUS_CODE_SERVER}
+                    type: ClusterIP
+            netshoot:
+                enabled: false
+            vpn:
+                type: disabled
+        cnpg:
+            main:
+                backups:
+                    credentials: ${S3_NAME}
+                    enabled: true
+                    revision: ${CNPG_BACKUP_REVISION}
+                recovery:
+                    credentials: ${S3_NAME}
+                    enabled: true
+                    revision: ${CNPG_RECOVERY_REVISION}
+        credentials:
+             backblaze:
+                accessKey: ${S3_ACCESS_KEY}
+                bucket: ${S3_BUCKET}
+                encrKey: ${S3_ENCRYPTION_KEY}
+                name: ${S3_NAME}
+                path: ""
+                secretKey: ${S3_SECRET_KEY}
+                type: s3
+                url: ${S3_URL}
+        ingress:
+            main:
+                enabled: true
+                hosts:
+                    - host:  ${DOMAIN_INVIDIOUS}
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                integrations:
+                    homepage:
+                        enabled: true
+                        group: Utilities
+                        widget:
+                            enabled: false
+                    certManager:
+                        enabled: true
+                        certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
+                    traefik:
+                        enabled: true
+                        entrypoints:
+                            - websecure
+                        middlewares:
+                            - name: local
+                              namespace: traefik
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
+        invidious:
+            background_jobs:
+                channel_refresh_interval: 30m
+                channel_threads: 1
+                decrypt_polling: false
+                feed_threads: 1
+                full_refresh: false
+            captcha:
+                captcha_api_url: https://api.anti-captcha.com
+                captcha_key: ""
+            default_user_preferences:
+                interface:
+                    annotations: true
+                    annotations_subscribed: true
+                    comments:
+                        - youtube
+                        - reddit
+                    dark_mode: auto
+                    default_home: Trending
+                    feed_menu:
+                        - Popular
+                        - Trending
+                        - Subscriptions
+                        - Playlists
+                    max_results: 40
+                    player_style: invidious
+                    related_videos: true
+                    thin_mode: false
+                internationalization:
+                    locale: en-US
+                    region: US
+                miscellaneous:
+                    automatic_instance_redirect: false
+                    extend_desc: false
+                    local: false
+                    show_nick: true
+                subscription_feed:
+                    latest_only: true
+                    notifications_only: false
+                    sort: published
+                    unseen_only: true
+                video_playback_settings:
+                    quality: hd720
+                    quality_dash: auto
+                    speed: "1.00"
+                    volume: 100
+                    vr_mode: false
+                video_player_behavior:
+                    autoplay: false
+                    continue: true
+                    continue_autoplay: false
+                    listen: false
+                    video_loop: false
+            features:
+                popular_enabled: true
+                statistics_enabled: false
+            jobs:
+                clear_expired_items:
+                    enable: true
+                refresh_channels:
+                    enable: true
+                refresh_feeds:
+                    enable: true
+            logging:
+                log_level: Info
+                output: STDOUT
+            miscellaneous:
+                banner: ${INVIDIOUS_BANNER}
+                cache_annotations: true
+                playlist_length_limit: 500
+                use_pubsub_feeds: true
+            network:
+                inbound:
+                    domain:  ${DOMAIN_INVIDIOUS}
+                    external_port: ${PORT_INVIDIOUS}
+                    hsts: true
+                    https_only: true
+                outbound:
+                    disable_proxy: "false"
+                    force_resolve: ""
+                    pool_size: 100
+                    use_quic: true
+            users_accounts:
+                admins:
+                    - ${ADMIN_USER}
+                captcha_enabled: true
+                enable_user_notifications: true
+                login_enabled: true
+                registration_enabled: true
+        release_name: invidious
+        service:
+            main:
+                enabled: true
+                ports:
+                    main:
+                        port: ${PORT_INVIDIOUS}
+                type: ClusterIP

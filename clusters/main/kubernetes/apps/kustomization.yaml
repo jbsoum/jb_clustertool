@@ -1,7 +1,40 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - kubernetes-dashboard/ks.yaml
   - authelia/ks.yaml
-  - lldap/ks.yaml
+  - cloudflareddns/ks.yaml
+  - code-server/ks.yaml
+  - dashy/ks.yaml
+  - deluge/ks.yaml
   - emby/ks.yaml
+  - emulatorjs/ks.yaml
+  - firefox-syncserver/ks.yaml
+  - gitea/ks.yaml
+  - homepage/ks.yaml
+  - icloudpd/ks.yaml
+  - invidious/ks.yaml
+  - jellyfin/ks.yaml
+  - jellyseerr/ks.yaml
+  - joplin-server/ks.yaml
+  - kubernetes-dashboard/ks.yaml
+  - libreddit/ks.yaml
+  - lidarr/ks.yaml
+  - lldap/ks.yaml
+  - nitter/ks.yaml
+  - odoo/ks.yaml
+  - ombi/ks.yaml
+  - onlyoffice-document-server/ks.yaml
+  - pgadmin/ks.yaml
+  - protonmail-bridge/ks.yaml
+  - prowlarr/ks.yaml
+  - qbittorrent/ks.yaml
+  - radarr/ks.yaml
+  - readarr/ks.yaml
+  - scrutiny/ks.yaml
+  - sonarr/ks.yaml
+  - traefik/ks.yaml
+  - truenas-gui/ks.yaml
+  - vaultwarden/ks.yaml
+  - vocechat-server/ks.yaml
+  - watchyourlan/ks.yaml
+  - whoogle/ks.yaml

@@ -1,0 +1,90 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: prowlarr
+    namespace: prowlarr
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: prowlarr
+            version: 17.1.7
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: prowlarr
+    values:
+        TZ: ${TIMEZONE}
+        credentials:
+            backblaze:
+                accessKey: ${S3_ACCESS_KEY}
+                bucket: ${S3_BUCKET}
+                encrKey: ${S3_ENCRYPTION_KEY}
+                name: ${S3_NAME}
+                path: ""
+                secretKey: ${S3_SECRET_KEY}
+                type: s3
+                url: ${S3_URL}
+        ingress:
+            main:
+                enabled: true
+                hosts:
+                    - host: ${DOMAIN_PROWLARR}
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                integrations:
+                    homepage:
+                        enabled: true
+                        group: Admin - Media
+                        widget:
+                            custom:
+                                key: ${API_PROWLARR}
+                            enabled: true
+                    certManager:
+                        enabled: true
+                        certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
+                    traefik:
+                        enabled: true
+                        entrypoints:
+                            - websecure
+                        middlewares:
+                            - name: local
+                              namespace: traefik
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
+        persistence:
+            config:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: config
+                      src:
+                        enabled: true
+                      type: restic
+            backup:
+                enabled: true
+                type: nfs
+                server: ${IP_TRUENAS}
+                path: "${NFS_DATA_BACKUP}"
+                mountPath: "/backup"
+        release_name: prowlarr
+        service:
+            main:
+                enabled: true
+                loadBalancerIP: ""
+                ports:
+                    main:
+                        port: ${PORT_PROWLARR}
+                type: LoadBalancer
+        updated: true
+        workload:
+            main:
+                podSpec:
+                    containers:
+                        main:
+                            env:
+                                PROWLARR__AUTHENTICATION_METHOD: External
+                                PROWLARR__PORT: '{{ .Values.service.main.ports.main.port }}'

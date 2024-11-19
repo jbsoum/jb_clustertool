@@ -1,0 +1,105 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: jellyfin
+    namespace: jellyfin
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: jellyfin
+            version: 19.1.11
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: jellyfin
+    values:
+        TZ: ${TIMEZONE}
+        autodiscovery:
+            enabled: false
+        credentials:
+             backblaze:
+                accessKey: ${S3_ACCESS_KEY}
+                bucket: ${S3_BUCKET}
+                encrKey: ${S3_ENCRYPTION_KEY}
+                name: ${S3_NAME}
+                path: ""
+                secretKey: ${S3_SECRET_KEY}
+                type: s3
+                url: ${S3_URL}
+        ingress:
+            main:
+                enabled: true
+                hosts:
+                    - host: ${DOMAIN_JELLYFIN}
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                integrations:
+                    homepage:
+                        enabled: true
+                        group: Media
+                        widget:
+                            custom:
+                                key: ${API_JELLYFIN}
+                            enabled: true
+                    certManager:
+                        enabled: true
+                        certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
+                    traefik:
+                        enabled: true
+                        entrypoints:
+                            - websecure
+                        middlewares:
+                            - name: local
+                              namespace: traefik
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
+        persistence:
+            config:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: config
+                      src:
+                        enabled: true
+                      type: restic
+            transcode:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: transcode
+                      src:
+                        enabled: true
+                      type: restic
+            media:
+                enabled: true
+                type: nfs
+                server: ${IP_TRUENAS}
+                path: "${NFS_DATA_MEDIA}"
+                mountPath: "/media"
+            backup:
+                enabled: true
+                type: nfs
+                server: ${IP_TRUENAS}
+                path: "${NFS_DATA_BACKUP}"
+                mountPath: "/backup"
+        release_name: jellyfin
+        service:
+            autodiscovery:
+                enabled: true
+                ports:
+                    autodiscovery:
+                        enabled: true
+                        port: ${PORT_JELLYFIN_AUTODISCOVERY}
+                        protocol: udp
+            main:
+                enabled: true
+                ports:
+                    main:
+                        port: ${PORT_JELLYFIN}
+                type: ClusterIP
+        updated: true

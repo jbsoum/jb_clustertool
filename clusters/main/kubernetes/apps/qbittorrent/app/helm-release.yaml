@@ -1,0 +1,131 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: qbittorrent
+    namespace: qbittorrent
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: qbittorrent
+            version: 20.0.11
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: qbittorrent
+    values:
+        TZ: ${TIMEZONE}
+        addons:
+            codeserver:
+                enabled: true
+                ingress:
+                    enabled: true
+                    hosts:
+                        - host: ${DOMAIN_QBITTORRENT_CFG}
+                          paths:
+                            - path: /
+                              pathType: Prefix
+                    integrations:
+                        certManager:
+                            enabled: true
+                            certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
+                        traefik:
+                            enabled: true
+                            entrypoints:
+                                - websecure
+                            middlewares:
+                                - name: local
+                                  namespace: traefik
+                                - name: ${TRAEFIK_MIDDLEWARE}
+                                  namespace: traefik
+                service:
+                    ports:
+                        codeserver:
+                            port: ${PORT_QBITTORRENT_CODE_SERVER}
+                    type: ClusterIP
+        credentials:
+            backblaze:
+                accessKey: ${S3_ACCESS_KEY}
+                bucket: ${S3_BUCKET}
+                encrKey: ${S3_ENCRYPTION_KEY}
+                name: ${S3_NAME}
+                path: ""
+                secretKey: ${S3_SECRET_KEY}
+                type: s3
+                url: ${S3_URL}
+        ingress:
+            main:
+                enabled: true
+                hosts:
+                    - host: ${DOMAIN_QBITTORRENT}
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                integrations:
+                    homepage:
+                        enabled: true
+                        group: Admin - Media
+                        widget:
+                            enabled: true
+                    certManager:
+                        enabled: true
+                        certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
+                    traefik:
+                        enabled: true
+                        entrypoints:
+                            - websecure
+                        middlewares:
+                            - name: local
+                              namespace: traefik
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
+        persistence:
+            config:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: config
+                      src:
+                        enabled: true
+                      type: restic
+            media:
+                enabled: true
+                type: nfs
+                server: ${IP_TRUENAS}
+                path: "${NFS_DATA_MEDIA}"
+                mountPath: "/media"
+        qbitportforward:
+            QBT_PASSWORD: adminadmin
+            QBT_USERNAME: admin
+            enabled: false
+        release_name: qbittorrent
+        service:
+            gluetun:
+                enabled: true
+                ports:
+                    gluetun:
+                        enabled: true
+                        port: ${PORT_QBITTORRENT_GLUETUN}
+                type: ClusterIP
+            main:
+                enabled: true
+                loadBalancerIP: ${IP_QBITTORRENT}
+                ports:
+                    main:
+                        port: ${PORT_QBITTORRENT}
+                type: LoadBalancer
+            torrent:
+                enabled: true
+                loadBalancerIP: ${IP_QBITTORRENT}
+                ports:
+                    torrent:
+                        enabled: true
+                        port: ${PORT_QBITTORRENT_TORRENT}
+                        protocol: tcp
+                    torrentudp:
+                        enabled: true
+                        port: '{{ .Values.service.torrent.ports.torrent.port }}'
+                        protocol: udp
+                type: LoadBalancer

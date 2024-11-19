@@ -1,0 +1,100 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: firefox-syncserver
+    namespace: firefox-syncserver
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: firefox-syncserver
+            version: 18.0.9
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: firefox-syncserver
+    values:
+        TZ: ${TIMEZONE}
+        cnpg:
+            main:
+                backups:
+                    credentials: ${S3_NAME}
+                    enabled: true
+                    revision: ${CNPG_BACKUP_REVISION}
+                mode: recovery
+                recovery:
+                    credentials: ${S3_NAME}
+                    enabled: true
+                    revision: ${CNPG_RECOVERY_REVISION}
+        credentials:
+             backblaze:
+                accessKey: ${S3_ACCESS_KEY}
+                bucket: ${S3_BUCKET}
+                encrKey: ${S3_ENCRYPTION_KEY}
+                name: ${S3_NAME}
+                path: ""
+                secretKey: ${S3_SECRET_KEY}
+                type: s3
+                url: ${S3_URL}
+        ingress:
+            main:
+                enabled: true
+                hosts:
+                    - host: ${DOMAIN_FIREFOX_SYNC_SERVER}
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                integrations:
+                    homepage:
+                        enabled: true
+                        group: Utilities
+                        widget:
+                            enabled: false
+                    certManager:
+                        enabled: true
+                        certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
+                    traefik:
+                        enabled: true
+                        entrypoints:
+                            - websecure
+                        middlewares:
+                            - name: local
+                              namespace: traefik
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
+        persistence:
+            config:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: config
+                      src:
+                        enabled: true
+                      type: restic
+        release_name: firefox-syncserver
+        service:
+            main:
+                enabled: true
+                ports:
+                    main:
+                        port: ${PORT_FIREFOX_SYNC_SERVER}
+                type: ClusterIP
+        workload:
+            main:
+                podSpec:
+                    containers:
+                        main:
+                            env:
+                                FF_SYNCSERVER_ACCESSLOG: false
+                                FF_SYNCSERVER_ALLOW_NEW_USERS: true
+                                FF_SYNCSERVER_FORCE_WSGI_ENVIRON: true
+                                FF_SYNCSERVER_FORWARDED_ALLOW_IPS: '*'
+                                FF_SYNCSERVER_LOGLEVEL: info
+                                FF_SYNCSERVER_PUBLIC_URL: https://${DOMAIN_FIREFOX_SYNC_SERVER}
+                                FF_SYNCSERVER_SECRET: ${FIREFOX_SECRET}
+                                FF_SYNCSERVER_SQLURI:
+                                    secretKeyRef:
+                                        key: std
+                                        name: cnpg-main-urls

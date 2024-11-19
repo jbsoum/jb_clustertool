@@ -1,0 +1,108 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: gitea
+    namespace: gitea
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: gitea
+            version: 19.1.11
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: gitea
+    values:
+        TZ: ${TIMEZONE}
+        admin:
+            email: ${ADMIN_EMAIL}
+            password: ${ADMIN_PASSWORD}
+            username: ${ADMIN_USER}
+        cnpg:
+            main:
+                backups:
+                    credentials: ${S3_NAME}
+                    enabled: true
+                    revision: ${CNPG_BACKUP_REVISION}
+                mode: recovery
+                recovery:
+                    credentials: ${S3_NAME}
+                    enabled: true
+                    revision: ${CNPG_RECOVERY_REVISION}
+        config:
+            ALLOWED_HOST_LIST: 127.0.0.1
+            APP_NAME: Gitea
+            RUN_MODE: prod
+            nodeIP: ${IP_GITEA}
+        credentials:
+             backblaze:
+                accessKey: ${S3_ACCESS_KEY}
+                bucket: ${S3_BUCKET}
+                encrKey: ${S3_ENCRYPTION_KEY}
+                name: ${S3_NAME}
+                path: ""
+                secretKey: ${S3_SECRET_KEY}
+                type: s3
+                url: ${S3_URL}
+        ingress:
+            main:
+                enabled: true
+                hosts:
+                    - host: ${DOMAIN_GITEA}
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                integrations:
+                    homepage:
+                        enabled: true
+                        group: Utilities
+                        widget:
+                            enabled: false
+                    certManager:
+                        enabled: true
+                        certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
+                    traefik:
+                        enabled: true
+                        entrypoints:
+                            - websecure
+                        middlewares:
+                            - name: local
+                              namespace: traefik
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
+        ldap:
+            enabled: false
+        memcached:
+            enabled: true
+        oauth:
+            enabled: false
+        persistence:
+            data:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: data
+                      src:
+                        enabled: true
+                      type: restic
+        release_name: gitea
+        service:
+            main:
+                enabled: true
+                loadBalancerIP: ${IP_GITEA}
+                ports:
+                    main:
+                        port: ${PORT_GITEA_MAIN}
+                type: LoadBalancer
+            ssh:
+                enabled: true
+                loadBalancerIP: ${IP_GITEA}
+                ports:
+                    ssh:
+                        enabled: true
+                        port: ${PORT_GITEA_SSH}
+                type: LoadBalancer
+
