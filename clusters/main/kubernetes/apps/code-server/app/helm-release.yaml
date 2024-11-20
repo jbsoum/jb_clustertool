@@ -63,7 +63,7 @@ spec:
                       src:
                         enabled: true
                       type: restic
-            ssh_config:
+            ssh-config:
                 enabled: true
                 type: nfs
                 server: ${IP_TRUENAS}
