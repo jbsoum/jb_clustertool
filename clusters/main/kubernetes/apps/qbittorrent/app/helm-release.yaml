@@ -96,25 +96,10 @@ spec:
                 server: ${IP_TRUENAS}
                 path: "${NFS_DATA_MEDIA}"
                 mountPath: "/media"
-        qbitportforward:
-            QBT_PASSWORD: adminadmin
-            QBT_USERNAME: admin
-            enabled: false
-        release_name: qbittorrent
         service:
-            gluetun:
-                enabled: true
-                ports:
-                    gluetun:
-                        enabled: true
-                        port: ${PORT_QBITTORRENT_GLUETUN}
-                type: ClusterIP
             main:
                 enabled: true
                 loadBalancerIP: ${IP_QBITTORRENT}
-                ports:
-                    main:
-                        port: ${PORT_QBITTORRENT}
                 type: LoadBalancer
             torrent:
                 enabled: true
@@ -124,8 +109,4 @@ spec:
                         enabled: true
                         port: ${PORT_QBITTORRENT_TORRENT}
                         protocol: tcp
-                    torrentudp:
-                        enabled: true
-                        port: '{{ .Values.service.torrent.ports.torrent.port }}'
-                        protocol: udp
                 type: LoadBalancer
