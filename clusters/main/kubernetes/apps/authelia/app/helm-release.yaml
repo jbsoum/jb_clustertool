@@ -75,8 +75,8 @@ spec:
                   policy: one_factor
                   resources: []
                   subject:
-                    - group: ${LLDAP_USER_GROUP}
-                    - group: ${LLDAP_ADMIN_GROUP}
+                    - 'group: ${LLDAP_USER_GROUP}'
+                    - 'group: ${LLDAP_ADMIN_GROUP}'
                 - domain:
                     - '*.${DOMAIN_0}'
                   domain_regex: []
@@ -84,41 +84,19 @@ spec:
                   policy: one_factor
                   resources: []
                   subject:
-                    - group: ${LLDAP_ADMIN_GROUP}
+                    - 'group: ${LLDAP_ADMIN_GROUP}'
         authentication_backend:
-            disable_reset_password: false
             file:
                 enabled: false
-                password:
-                    algorithm: argon2id
-                    iterations: 1
-                    key_length: 32
-                    memory: 1024
-                    parallelism: 8
-                    salt_length: 16
-                path: /config/users_database.yml
             ldap:
-                additional_groups_dn: ou=groups
-                additional_users_dn: ou=people
-                base_dn: dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
-                display_name_attribute: displayName
                 enabled: true
-                group_name_attribute: cn
-                groups_filter: (member={dn})
+                base_dn: dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
                 implementation: custom
-                mail_attribute: mail
                 plain_password: ${AUTHELIA_LLDAP_PASSWORD}
-                start_tls: false
-                timeout: 5s
-                tls:
-                    minimum_version: TLS1.2
-                    server_name: ""
-                    skip_verify: false
                 url: ldap://lldap-ldap.lldap.svc.cluster.local:${PORT_LLDAP_LDAP}
                 user: CN=${AUTHELIA_LLDAP_GROUP_NAME},ou=people,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}
-                username_attribute: uid
+                groups_filter: (member={dn})
                 users_filter: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
-            # refresh_interval: 5m
         cnpg:
             main:
                 backups:
