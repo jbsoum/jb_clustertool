@@ -148,6 +148,8 @@ spec:
                 required: true
         notifier:
             disable_startup_check: false
+            filesystem:
+                enabled: false
             smtp:
                 disable_html_emails: false
                 disable_require_tls: true
