@@ -87,6 +87,16 @@ spec:
                     - group: ${LLDAP_ADMIN_GROUP}
         authentication_backend:
             disable_reset_password: false
+            file:
+                enabled: false
+                password:
+                    algorithm: argon2id
+                    iterations: 1
+                    key_length: 32
+                    memory: 1024
+                    parallelism: 8
+                    salt_length: 16
+                path: /config/users_database.yml
             ldap:
                 additional_groups_dn: ou=groups
                 additional_users_dn: ou=people
@@ -208,9 +218,6 @@ spec:
         service:
             main:
                 enabled: true
-                ports:
-                    main:
-                        port: ${PORT_AUTHELIA}
                 type: ClusterIP
         session:
             expiration: 1h
