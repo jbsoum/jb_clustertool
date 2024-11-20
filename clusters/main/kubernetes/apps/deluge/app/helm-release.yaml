@@ -62,6 +62,15 @@ spec:
                       src:
                         enabled: true
                       type: restic
+        securityContext:
+            container:
+                UMASK: "0022"
+                readOnlyRootFilesystem: false
+                runAsGroup: 0
+                runAsNonRoot: false
+                runAsUser: 0
+            pod:
+                fsGroupChangePolicy: OnRootMismatch
             media:
                 enabled: true
                 type: nfs
