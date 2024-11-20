@@ -70,11 +70,11 @@ spec:
                     main:
                         port: ${PORT_SCRUTINY}
                 type: ClusterIP
-        workload:
-            main:
-                podSpec:
-                    containers:
-                        main:
-                            env:
-                                COLLECTOR_CRON_SCHEDULE: 0 0 * * *
-                                COLLECTOR_HOST_ID: TrueNAS Scale
+        # workload:
+        #     main:
+        #         podSpec:
+        #             containers:
+        #                 main:
+        #                     env:
+        #                         COLLECTOR_CRON_SCHEDULE: 0 0 * * *
+        #                         COLLECTOR_HOST_ID: TrueNAS Scale

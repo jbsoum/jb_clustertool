@@ -108,7 +108,7 @@ spec:
                 user: CN=${AUTHELIA_LLDAP_GROUP_NAME},ou=people,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}
                 username_attribute: uid
                 users_filter: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
-            refresh_interval: 5m
+            # refresh_interval: 5m
         cnpg:
             main:
                 backups:

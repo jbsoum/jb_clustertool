@@ -112,7 +112,7 @@ spec:
                 volsync:
                     - credentials: ${S3_NAME}
                       dest:
-                        enabled: true
+                        enabled: false
                       name: config
                       src:
                         enabled: true
@@ -121,7 +121,7 @@ spec:
                 volsync:
                     - credentials: ${S3_NAME}
                       dest:
-                        enabled: true
+                        enabled: false
                       name: data
                       src:
                         enabled: true
@@ -192,17 +192,7 @@ spec:
                 server: ${IP_TRUENAS}
                 path: ${NFS_PCE}
                 mountPath: "/roms/pce"
-
         release_name: emulatorjs
-        securityContext:
-            container:
-                UMASK: "0022"
-                readOnlyRootFilesystem: false
-                runAsGroup: 0
-                runAsNonRoot: false
-                runAsUser: 0
-            pod:
-                fsGroupChangePolicy: OnRootMismatch
         service:
             front:
                 enabled: true
