@@ -62,37 +62,20 @@ spec:
                       src:
                         enabled: true
                       type: restic
-        securityContext:
-            container:
-                UMASK: "0022"
-                readOnlyRootFilesystem: false
-                runAsGroup: 0
-                runAsNonRoot: false
-                runAsUser: 0
-            pod:
-                fsGroupChangePolicy: OnRootMismatch
             media:
                 enabled: true
                 type: nfs
                 server: ${IP_TRUENAS}
                 path: "${NFS_DATA_MEDIA}"
                 mountPath: "/media"
-        release_name: deluge
         service:
             main:
                 enabled: true
                 loadBalancerIP: ${IP_DELUGE}
-                ports:
-                    main:
-                        port: ${PORT_DELUGE}
                 type: LoadBalancer
             rpc:
                 enabled: true
                 loadBalancerIP: ${IP_DELUGE}
-                ports:
-                    rpc:
-                        enabled: true
-                        port: ${PORT_DELUGE_RPC}
                 type: LoadBalancer
             torrent:
                 enabled: true
@@ -101,9 +84,4 @@ spec:
                     tcp:
                         enabled: true
                         port: ${PORT_DELUGE_TORRENT}
-                    udp:
-                        enabled: true
-                        port: '{{ .Values.service.torrent.ports.tcp.port }}'
-                        protocol: udp
-                        targetPort: '{{ .Values.service.torrent.ports.tcp.targetPort }}'
                 type: LoadBalancer
