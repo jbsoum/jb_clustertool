@@ -13,7 +13,6 @@ resources:
   - homepage/ks.yaml
   - icloudpd/ks.yaml
   - invidious/ks.yaml
-  - jellyfin/ks.yaml
   - jellyseerr/ks.yaml
   - joplin-server/ks.yaml
   - kubernetes-dashboard/ks.yaml
@@ -22,8 +21,6 @@ resources:
   - lldap/ks.yaml
   - nitter/ks.yaml
   - odoo/ks.yaml
-  - ombi/ks.yaml
-  - onlyoffice-document-server/ks.yaml
   - pgadmin/ks.yaml
   - protonmail-bridge/ks.yaml
   - prowlarr/ks.yaml
