@@ -218,3 +218,4 @@ spec:
                 main:
                 command:
                     - authelia storage encryption change-key --new-encryption-key ${CNPG_PASSWORD_AUTHELIA}
+                    - authelia
