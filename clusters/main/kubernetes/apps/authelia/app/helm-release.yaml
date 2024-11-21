@@ -103,8 +103,8 @@ spec:
                     credentials: ${S3_NAME}
                     enabled: true
                     revision: "${CNPG_BACKUP_REVISION}"
+                    password: ${CNPG_PASSWORD_AUTHELIA}
                 mode: recovery
-                password: ${CNPG_PASSWORD_AUTHELIA}
                 recovery:
                     credentials: ${S3_NAME}
                     enabled: true
@@ -211,13 +211,13 @@ spec:
             period: 30
             skew: 1
         
-        # added to try and change encryption key at pod start
-        workload:
-            main:
-                podSpec:
-                    containers:
-                        main:
-                            command: ["/bin/sh","-c"]
-                            args: 
-                                - authelia storage --config=/configuration.yaml --postgres.password ${CNPG_PASSWORD_AUTHELIA}
-                                - authelia --config=/configuration.yaml
+        # # added to try and change encryption key at pod start
+        # workload:
+        #     main:
+        #         podSpec:
+        #             containers:
+        #                 main:
+        #                     command: ["/bin/sh","-c"]
+        #                     args: 
+        #                         - authelia storage --config=/configuration.yaml --postgres.password ${CNPG_PASSWORD_AUTHELIA}
+        #                         - authelia --config=/configuration.yaml
