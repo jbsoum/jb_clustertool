@@ -219,5 +219,5 @@ spec:
                         main:
                             command: ["/bin/sh","-c"]
                             args: 
-                                - authelia storage encryption change-key --config=/configuration.yaml --new-encryption-key ${CNPG_PASSWORD_AUTHELIA}
+                                - authelia storage --config=/configuration.yaml --postgres.password ${CNPG_PASSWORD_AUTHELIA}
                                 - authelia --config=/configuration.yaml
