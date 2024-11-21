@@ -217,14 +217,7 @@ spec:
                 podSpec:
                     containers:
                         main:
-                            command:
-                                - authelia
-                                - storage
-                                - encryption
-                                - change-key
-                                - --config=/configuration.yaml
-                                - --new-encryption-key
-                                - ${CNPG_PASSWORD_AUTHELIA}
-                                - "&&"
-                                - authelia
-                                - --config=/configuration.yaml
+                            command: ["/bin/sh","-c"]
+                            args: 
+                                - authelia storage encryption change-key --config=/configuration.yaml --new-encryption-key ${CNPG_PASSWORD_AUTHELIA}
+                                - authelia --config=/configuration.yaml
