@@ -213,12 +213,8 @@ spec:
         
         # added to try and change encryption key at pod start
         workload:
-        workload-name:
-            enabled: true
-            primary: true
-            podSpec:
+        main:
             containers:
-                container-name:
-                enabled: true
-                primary: true
-                command: authelia storage encryption change-key --config /etc/authelia/configuration.yml --new-encryption-key ${CNPG_PASSWORD_AUTHELIA}
+                main:
+                command:
+                    - authelia storage encryption change-key --new-encryption-key ${CNPG_PASSWORD_AUTHELIA}
