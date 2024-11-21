@@ -219,5 +219,7 @@ spec:
                         main:
                             command:
                                 - authelia storage encryption change-key
+                                - authelia 
                             args:
-                                - --new-encryption-key ${CNPG_PASSWORD_AUTHELIA} 
+                                - --config=/configuration.yaml --new-encryption-key ${CNPG_PASSWORD_AUTHELIA} 
+                                - --config=/configuration.yaml
