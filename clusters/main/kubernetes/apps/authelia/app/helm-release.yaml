@@ -218,8 +218,11 @@ spec:
                     containers:
                         main:
                             command:
-                                - authelia storage encryption change-key
                                 - authelia 
-                            args:
-                                - --config=/configuration.yaml --new-encryption-key ${CNPG_PASSWORD_AUTHELIA} 
+                                - storage encryption change-key
+                                - --config=/configuration.yaml
+                                - --new-encryption-key
+                                - ${CNPG_PASSWORD_AUTHELIA}
+                                - "&&"
+                                - authelia
                                 - --config=/configuration.yaml
