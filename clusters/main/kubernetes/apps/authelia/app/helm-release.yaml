@@ -104,7 +104,7 @@ spec:
                     enabled: true
                     revision: "${CNPG_BACKUP_REVISION}"
                     # password: ${CNPG_PASSWORD_AUTHELIA}
-                mode: recovery
+                mode: replica
                 recovery:
                     credentials: ${S3_NAME}
                     enabled: true
