@@ -103,12 +103,13 @@ spec:
                     credentials: ${S3_NAME}
                     enabled: true
                     revision: "${CNPG_BACKUP_REVISION}"
-                    # password: ${CNPG_PASSWORD_AUTHELIA}
                 mode: replica
-                recovery:
-                    credentials: ${S3_NAME}
-                    enabled: true
-                    revision: "${CNPG_BACKUP_REVISION}"
+                # recovery:
+                    # password: ${CNPG_PASSWORD_AUTHELIA}
+                #     method: object_store
+                #     credentials: ${S3_NAME}
+                #     enabled: true
+                #     revision: "${CNPG_BACKUP_REVISION}"
         credentials:
             backblaze:
                 accessKey: ${S3_ACCESS_KEY}

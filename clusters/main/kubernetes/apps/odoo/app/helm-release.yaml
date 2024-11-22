@@ -24,6 +24,7 @@ spec:
                     revision: ${CNPG_BACKUP_REVISION}
                 mode: recovery
                 recovery:
+                    method: object_store
                     credentials: ${S3_NAME}
                     enabled: true
                     revision: ${CNPG_RECOVERY_REVISION}
