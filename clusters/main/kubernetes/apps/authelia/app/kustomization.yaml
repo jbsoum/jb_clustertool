@@ -3,3 +3,9 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - namespace.yaml
+  - .devcontainer
+  - .github
+  - .sops.yaml
+  - .vscode
+  - clusters
+  - repositories

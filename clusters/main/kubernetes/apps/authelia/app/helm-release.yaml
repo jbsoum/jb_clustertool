@@ -16,6 +16,47 @@ spec:
     releaseName: authelia
     values:
         TZ: ${TIMEZONE}
+        domain: ${DOMAIN_0}
+        default_redirection_url: https://${DOMAIN_AUTHELIA}
+        authentication_backend:
+            file:
+                enabled: false
+            ldap:
+                enabled: true
+                implementation: custom
+                url: ldap://lldap-ldap.lldap.svc.cluster.local:${PORT_LLDAP_LDAP}
+                base_dn: dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
+                username_attribute: uid
+                additional_users_dn: ou=people
+                users_filter: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
+                additional_groups_dn: ou=groups
+                groups_filter: (member={dn})
+                group_name_attribute: cn
+                mail_attribute: mail
+                display_name_attribute: displayName
+                user: CN=${AUTHELIA_LLDAP_GROUP_NAME},ou=people,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}
+                plain_password: ${AUTHELIA_LLDAP_PASSWORD}
+        notifier:
+            filesystem:
+                enabled: false
+            smtp:
+                disable_html_emails: false
+                disable_require_tls: true
+                enabled: true
+                enabledSecret: false
+                host: ${IP_PROTONMAIL}
+                identifier: 127.0.0.1
+                port: ${PROTONMAIL_PORT_SMTP}
+                startup_check_address: ${PROTONMAIL_USER}
+                subject: '[Authelia] {title}'
+                timeout: 5s
+                tls:
+                    minimum_version: TLS1.2
+                    server_name: ""
+                    skip_verify: true
+                username: ${PROTONMAIL_USER}
+                plain_password: ${PROTONMAIL_PASSWORD}
+                sender: ${PROTONMAIL_USER}
         access_control:
             default_policy: deny
             rules:
@@ -85,32 +126,20 @@ spec:
                   resources: []
                   subject:
                     - 'group: ${LLDAP_ADMIN_GROUP}'
-        authentication_backend:
-            file:
-                enabled: false
-            ldap:
-                enabled: true
-                base_dn: dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
-                implementation: custom
-                plain_password: ${AUTHELIA_LLDAP_PASSWORD}
-                url: ldap://lldap-ldap.lldap.svc.cluster.local:${PORT_LLDAP_LDAP}
-                user: CN=${AUTHELIA_LLDAP_GROUP_NAME},ou=people,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}
-                groups_filter: (member={dn})
-                users_filter: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
-        cnpg:
-            main:
-                backups:
-                    credentials: ${S3_NAME}
-                    enabled: true
-                    revision: "${CNPG_BACKUP_REVISION}"
-                mode: recovery
-                password: ${CNPG_PASSWORD_AUTHELIA}
-                recovery:
-                    method: object_store
-                    credentials: ${S3_NAME}
-                    enabled: true
-                    revision: "${CNPG_BACKUP_REVISION}"
-                    # revision: "${CNPG_RECOVERY_REVISION}"
+        # cnpg:
+        #     main:
+        #         backups:
+        #             credentials: ${S3_NAME}
+        #             enabled: true
+        #             revision: "${CNPG_BACKUP_REVISION}"
+        #         mode: recovery
+        #         password: ${CNPG_PASSWORD_AUTHELIA}
+        #         recovery:
+        #             method: object_store
+        #             credentials: ${S3_NAME}
+        #             enabled: true
+        #             revision: "${CNPG_BACKUP_REVISION}"
+        #             # revision: "${CNPG_RECOVERY_REVISION}"
         credentials:
             backblaze:
                 accessKey: ${S3_ACCESS_KEY}
@@ -121,16 +150,9 @@ spec:
                 secretKey: ${S3_SECRET_KEY}
                 type: s3
                 url: ${S3_URL}
-        default_redirection_url: https://${DOMAIN_AUTHELIA}
-        domain: ${DOMAIN_0}
         ingress:
             main:
                 enabled: true
-                hosts:
-                    - host: ${DOMAIN_AUTHELIA}
-                      paths:
-                        - path: /
-                          pathType: Prefix
                 integrations:
                     homepage:
                         enabled: true
@@ -147,29 +169,11 @@ spec:
                               namespace: traefik
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
-                required: true
-        notifier:
-            disable_startup_check: false
-            filesystem:
-                enabled: false
-            smtp:
-                disable_html_emails: false
-                disable_require_tls: true
-                enabled: true
-                enabledSecret: false
-                host: ${IP_PROTONMAIL}
-                identifier: 127.0.0.1
-                plain_password: ${PROTONMAIL_PASSWORD}
-                port: ${PROTONMAIL_PORT_SMTP}
-                sender: ${PROTONMAIL_USER}
-                startup_check_address: ${PROTONMAIL_USER}
-                subject: '[Authelia] {title}'
-                timeout: 5s
-                tls:
-                    minimum_version: TLS1.2
-                    server_name: ""
-                    skip_verify: true
-                username: ${PROTONMAIL_USER}
+                hosts:
+                    - host: ${DOMAIN_AUTHELIA}
+                      paths:
+                        - path: /
+                          pathType: Prefix
         password_policy:
             enabled: false
             standard:
@@ -180,9 +184,6 @@ spec:
                 require_number: false
                 require_special: false
                 require_uppercase: false
-            zxcvbn:
-                enabled: false
-                min_score: 3
         # persistence:
         #     config:
         #         volsync:
@@ -197,10 +198,6 @@ spec:
             ban_time: 5m
             find_time: 2m
             max_retries: 3
-        service:
-            main:
-                enabled: true
-                type: ClusterIP
         session:
             expiration: 1h
             inactivity: 5m
