@@ -102,8 +102,8 @@ spec:
                 backups:
                     credentials: ${S3_NAME}
                     enabled: true
-                    revision: "${CNPG_RECOVERY_REVISION}"
-                    # password: ${CNPG_PASSWORD_AUTHELIA}
+                    revision: "${CNPG_BACKUP_REVISION}"
+                    password: ${CNPG_PASSWORD_AUTHELIA}
                 mode: recovery
                 recovery:
                     credentials: ${S3_NAME}
@@ -181,16 +181,16 @@ spec:
             zxcvbn:
                 enabled: false
                 min_score: 3
-        persistence:
-            config:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: config
-                      src:
-                        enabled: true
-                      type: restic
+        # persistence:
+        #     config:
+        #         volsync:
+        #             - credentials: ${S3_NAME}
+        #               dest:
+        #                 enabled: true
+        #               name: config
+        #               src:
+        #                 enabled: true
+        #               type: restic
         regulation:
             ban_time: 5m
             find_time: 2m
