@@ -33,14 +33,3 @@ spec:
                 secretKey: ${S3_SECRET_KEY}
                 type: s3
                 url: ${S3_URL}
-        persistence:
-            config:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: config
-                      src:
-                        enabled: true
-                      type: restic
-        release_name: cloudflareddns
