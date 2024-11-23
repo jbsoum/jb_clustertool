@@ -126,91 +126,17 @@ spec:
                       src:
                         enabled: true
                       type: restic
-            nes:
+            roms:
                 enabled: true
                 type: nfs
                 server: ${IP_TRUENAS}
-                path: ${NFS_NES}
-                mountPath: "/roms/nes"
-            snes:
-                enabled: true
-                type: nfs
-                server: ${IP_TRUENAS}
-                path: ${NFS_SNES}
-                mountPath: "/roms/snes"
-            n64:
-                enabled: true
-                type: nfs
-                server: ${IP_TRUENAS}
-                path: ${NFS_N64}
-                mountPath: "/roms/n64"
-            ms:
-                enabled: true
-                type: nfs
-                server: ${IP_TRUENAS}
-                path: ${NFS_MS}
-                mountPath: "/roms/segaMS"
-            gen:
-                enabled: true
-                type: nfs
-                server: ${IP_TRUENAS}
-                path: ${NFS_GEN}
-                mountPath: "/roms/segaMD"
-            scd:
-                enabled: true
-                type: nfs
-                server: ${IP_TRUENAS}
-                path: ${NFS_SCD}
-                mountPath: "/roms/segaCD"               
-            32x:
-                enabled: true
-                type: nfs
-                server: ${IP_TRUENAS}
-                path: ${NFS_32X}
-                mountPath: "/roms/sega32x"
-            gg:
-                enabled: true
-                type: nfs
-                server: ${IP_TRUENAS}
-                path: ${NFS_GG}
-                mountPath: "/roms/segaGG"
-            gba:
-                enabled: true
-                type: nfs
-                server: ${IP_TRUENAS}
-                path: ${NFS_GBA}
-                mountPath: "/roms/gba"
-            gbc:
-                enabled: true
-                type: nfs
-                server: ${IP_TRUENAS}
-                path: ${NFS_GBC}
-                mountPath: "/roms/gbc"
-            pce:
-                enabled: true
-                type: nfs
-                server: ${IP_TRUENAS}
-                path: ${NFS_PCE}
-                mountPath: "/roms/pce"
-        release_name: emulatorjs
+                path: ${NFS_ROMS}
+                mountPath: "/roms"
         service:
             front:
-                enabled: true
-                ports:
-                    front:
-                        enabled: true
-                        port: ${PORT_EMULATOR_JS}
                 type: ClusterIP
             ipfs:
-                enabled: true
-                ports:
-                    ipfs:
-                        enabled: true
-                        port: ${PORT_EMULATOR_JS_IPFS}
                 type: ClusterIP
             main:
                 enabled: true
-                ports:
-                    main:
-                        port: ${PORT_EMULATOR_JS_CFG}
                 type: ClusterIP
