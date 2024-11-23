@@ -66,30 +66,15 @@ spec:
                       src:
                         enabled: true
                       type: restic
-        podOptions:
-            hostNetwork: true
         release_name: watchyourlan
-        securityContext:
-            container:
-                UMASK: "0022"
-                capabilities:
-                    add:
-                        - NET_RAW
-                readOnlyRootFilesystem: false
-                runAsGroup: 0
-                runAsNonRoot: false
-                runAsUser: 0
-            pod:
-                fsGroupChangePolicy: OnRootMismatch
         service:
             main:
                 enabled: true
-                ports:
-                    main:
-                        port: ${PORT_WATCHYOURLAN}
                 type: ClusterIP
         watchyourlan:
             gui_ip: ${IP_TRUENAS}
+            interfaces:
+                - enp1s0
             shoutrrr_url: ""
             theme: darkly
             timeout: 300
