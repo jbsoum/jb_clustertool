@@ -52,23 +52,19 @@ spec:
                               namespace: traefik
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
-        persistence:
-            config:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: config
-                      src:
-                        enabled: true
-                      type: restic
-        release_name: scrutiny
+        # persistence:
+        #     config:
+        #         volsync:
+        #             - credentials: ${S3_NAME}
+        #               dest:
+        #                 enabled: true
+        #               name: config
+        #               src:
+        #                 enabled: true
+        #               type: restic
         service:
             main:
                 enabled: true
-                ports:
-                    main:
-                        port: ${PORT_SCRUTINY}
                 type: ClusterIP
         # workload:
         #     main:
