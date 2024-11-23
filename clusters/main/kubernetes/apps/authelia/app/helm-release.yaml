@@ -126,20 +126,20 @@ spec:
                   resources: []
                   subject:
                     - 'group: ${LLDAP_ADMIN_GROUP}'
-        # cnpg:
-        # #     main:
-        # #         backups:
-        # #             credentials: ${S3_NAME}
-        # #             enabled: true
-        # #             revision: "${CNPG_BACKUP_REVISION}"
-        # #         mode: recovery
-        #         password: ${CNPG_PASSWORD_AUTHELIA}
-        #         recovery:
-        #             method: object_store
-        #             credentials: ${S3_NAME}
-        #             enabled: true
-        #             revision: "${CNPG_BACKUP_REVISION}"
-        #             # revision: "${CNPG_RECOVERY_REVISION}"
+        cnpg:
+            main:
+                backups:
+                    credentials: ${S3_NAME}
+                    enabled: true
+                    revision: "${CNPG_BACKUP_REVISION}"
+                mode: recovery
+                recovery:
+                    method: object_store
+                    credentials: ${S3_NAME}
+                    enabled: true
+                    revision: "${CNPG_BACKUP_REVISION}"
+                    # password: ${CNPG_PASSWORD_AUTHELIA}
+                    # revision: "${CNPG_RECOVERY_REVISION}"
         credentials:
             backblaze:
                 accessKey: ${S3_ACCESS_KEY}
