@@ -126,14 +126,14 @@ spec:
                   resources: []
                   subject:
                     - 'group: ${LLDAP_ADMIN_GROUP}'
-        cnpg:
-        #     main:
-        #         backups:
-        #             credentials: ${S3_NAME}
-        #             enabled: true
-        #             revision: "${CNPG_BACKUP_REVISION}"
-        #         mode: recovery
-                password: ${CNPG_PASSWORD_AUTHELIA}
+        # cnpg:
+        # #     main:
+        # #         backups:
+        # #             credentials: ${S3_NAME}
+        # #             enabled: true
+        # #             revision: "${CNPG_BACKUP_REVISION}"
+        # #         mode: recovery
+        #         password: ${CNPG_PASSWORD_AUTHELIA}
         #         recovery:
         #             method: object_store
         #             credentials: ${S3_NAME}
