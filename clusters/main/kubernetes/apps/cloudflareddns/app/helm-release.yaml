@@ -34,3 +34,9 @@ spec:
                 secretKey: ${S3_SECRET_KEY}
                 type: s3
                 url: ${S3_URL}
+        persistence:
+            config:
+                enabled: true
+                mountPath: /config
+                readOnly: false
+                storageClass: ""
