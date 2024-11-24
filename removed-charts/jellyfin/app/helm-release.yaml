@@ -36,6 +36,12 @@ spec:
                       paths:
                         - path: /
                           pathType: Prefix
+                tls:
+                    - certificateIssuer: ""
+                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
+                      hosts:
+                        - "{{ .Values.ingress.main.hosts.host }}"
+                      secretName: ""
                 integrations:
                     homepage:
                         enabled: true
@@ -45,8 +51,8 @@ spec:
                                 key: ${API_JELLYFIN}
                             enabled: true
                     certManager:
-                        enabled: true
-                        certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
+                        enabled: false
+                        certificateIssuer: ""
                     traefik:
                         enabled: true
                         entrypoints:
