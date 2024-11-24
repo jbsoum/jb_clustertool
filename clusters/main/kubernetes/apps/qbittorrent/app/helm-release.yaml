@@ -30,7 +30,7 @@ spec:
                         - certificateIssuer: ""
                           clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
                           hosts:
-                            - "{{ .Values.addons.codeserver.ingress.hosts.host }}"
+                            - ${DOMAIN_QBITTORRENT_CFG}
                           secretName: ""
                     integrations:
                         certManager:
@@ -72,7 +72,7 @@ spec:
                     - certificateIssuer: ""
                       clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
                       hosts:
-                        - "{{ .Values.ingress.main.hosts.host }}"
+                        - ${DOMAIN_QBITTORRENT}
                       secretName: ""
                 integrations:
                     homepage:

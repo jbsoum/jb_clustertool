@@ -48,8 +48,8 @@ spec:
                         pathType: Prefix
               integrations:
                   certManager:
-                      enabled: true
-                      certificateIssuer: ${DNS_CLUSTER_CERT_NAME}
+                      enabled: false
+                      certificateIssuer: ""
                   homepage:
                       enabled: true
                       group: Admin - Cluster

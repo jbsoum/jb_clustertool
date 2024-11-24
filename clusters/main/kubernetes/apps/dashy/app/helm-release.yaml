@@ -30,7 +30,7 @@ spec:
                         - certificateIssuer: ""
                           clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
                           hosts:
-                            - "{{ .Values.addons.codeserver.ingress.hosts.host }}"
+                            - ${DOMAIN_DASHY_CONFIG}
                           secretName: ""
                     integrations:
                         certManager:
@@ -76,7 +76,7 @@ spec:
                     - certificateIssuer: ""
                       clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
                       hosts:
-                        - "{{ .Values.ingress.main.hosts.host }}"
+                        - ${DOMAIN_0}
                       secretName: ""
                 integrations:
                     homepage:

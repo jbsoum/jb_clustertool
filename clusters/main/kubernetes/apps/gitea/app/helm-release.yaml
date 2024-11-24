@@ -59,7 +59,7 @@ spec:
                     - certificateIssuer: ""
                       clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
                       hosts:
-                        - "{{ .Values.ingress.main.hosts.host }}"
+                        - ${DOMAIN_GITEA}
                       secretName: ""
                 integrations:
                     homepage:
