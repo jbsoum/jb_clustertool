@@ -17,6 +17,7 @@ spec:
     values:
         TZ: ${TIMEZONE}
         cloudflareddns:
+            user: ""
             api_token: ${DNS_API_TOKEN}
             detect_mode: dig-whoami.cloudflare
             host_zone_record:
