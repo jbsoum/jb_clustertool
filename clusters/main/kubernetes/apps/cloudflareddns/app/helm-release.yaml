@@ -15,28 +15,50 @@ spec:
                 namespace: flux-system
     releaseName: cloudflareddns
     values:
-        TZ: ${TIMEZONE}
-        cloudflareddns:
-            user: ""
-            api_token: ${DNS_API_TOKEN}
-            detect_mode: dig-whoami.cloudflare
-            host_zone_record:
-                - domain: ${DOMAIN_0}
-                  record: A
-                  zone: ${DNS_ZONE_ID}
-        credentials:
-           backblaze:
-                accessKey: ${S3_ACCESS_KEY}
-                bucket: ${S3_BUCKET}
-                encrKey: ${S3_ENCRYPTION_KEY}
-                name: ${S3_NAME}
-                path: ""
-                secretKey: ${S3_SECRET_KEY}
-                type: s3
-                url: ${S3_URL}
-        persistence:
-            config:
-                enabled: true
-                mountPath: /config
-                readOnly: false
-                storageClass: ""
+      image:
+        repository: ghcr.io/hotio/cloudflareddns
+        pullPolicy: IfNotPresent
+        tag: latest@sha256:8c2b8e9d47e7139ba7260b2ae5ff467a08e86fc25992a108aa3e02a162eef3d3
+      securityContext:
+        container:
+          runAsNonRoot: false
+          readOnlyRootFilesystem: false
+          runAsUser: 0
+          runAsGroup: 0
+      TZ: ${TIMEZONE}
+      cloudflareddns:
+          user: ""
+          api_token: ${DNS_API_TOKEN}
+          detect_mode: dig-whoami.cloudflare
+          host_zone_record:
+              - domain: ${DOMAIN_0}
+                record: A
+                zone: ${DNS_ZONE_ID}
+      persistence:
+          config:
+              enabled: true
+              mountPath: /config
+              readOnly: false
+              storageClass: ""
+      service:
+        main:
+          enabled: false
+          ports:
+            main:
+              enabled: false
+      workload:
+        main:
+          podSpec:
+            containers:
+              main:
+                probes:
+                  liveness:
+                    enabled: false
+                  readiness:
+                    enabled: false
+                  startup:
+                    enabled: false
+                envFrom:
+                  - secretRef:
+                      name: "secret"
+                env: {}
