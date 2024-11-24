@@ -40,6 +40,8 @@ spec:
               mountPath: /config
               readOnly: false
               storageClass: ""
+          volsync:
+            enabled: false
       service:
         main:
           enabled: false
