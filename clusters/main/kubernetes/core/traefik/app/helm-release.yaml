@@ -70,13 +70,12 @@ spec:
                 clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
                 hosts:
                   - ${DOMAIN_TRAEFIK}
-        #   ipWhiteList:
-        #     - name: local
-        #       sourceRange:
-        #         - 172.16.0.0/16
-        #         - 172.17.0.0/16
-        #         - 10.11.10.0/24
-        #         - 10.11.70.0/24
+    ipWhiteList:
+      - name: local
+        sourceRange:
+          - 172.16.0.0/16
+          - 172.17.0.0/16
+          - 10.11.10.0/24
     middlewares:
       forwardAuth:
           - name: ${TRAEFIK_MIDDLEWARE}
@@ -87,7 +86,7 @@ spec:
               - Remote-Group
               - Remote-Name
               - Remote-Email
-            authResponseHeadersRegex: ""
+            # authResponseHeadersRegex: ""
             tls:
               insecureSkipVerify: false
             trustForwardHeader: true
