@@ -1,0 +1,88 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  annotations:
+    metadata.weave.works/description: This is the source location for the Weave GitOps
+      Dashboard's helm chart.
+  labels:
+    app.kubernetes.io/component: ui
+    app.kubernetes.io/created-by: weave-gitops-cli
+    app.kubernetes.io/name: weave-gitops-dashboard
+    app.kubernetes.io/part-of: weave-gitops
+  name: weave-gitops
+  namespace: flux-system
+spec:
+  interval: 1h0m0s
+  type: oci
+  url: oci://ghcr.io/weaveworks/charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  annotations:
+    metadata.weave.works/description: This is the Weave GitOps Dashboard.  It provides
+      a simple way to get insights into your GitOps workloads.
+  name: weave-gitops
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: weave-gitops
+      version: 4.0.36
+      sourceRef:
+        kind: HelmRepository
+        name: weave-gitops
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  interval: 1h0m0s
+
+  values:
+    adminUser:
+      create: true
+      passwordHash: $2a$10$Dk6fzRfnYwkWxBBhcbH64O383Gzo8RqSj3CwF8sOycdShVgWsl3Ju
+      username: admin
+
+      ingress:
+        enabled: true
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          cert-manager.io/cluster-issuer: domain-0-le-prod
+          cert-manager.io/private-key-rotation-policy: Always
+          traefik.ingress.kubernetes.io/router.tls: 'true'
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-bouncer@kubernetescrd,traefik-local@kubernetescrd
+        tls:
+          - hosts:
+              - gitops.${DOMAIN_0}
+            secretName: flux-system-weave-gitops
+        hosts:
+          - host: gitops.${DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
+      networkPolicy:
+        create: false
+      metrics:
+        enabled: true
+      rbac:
+        create: true
+        impersonationResourceNames: ["admin"]
+        additionalRules:
+          - apiGroups: ["infra.contrib.fluxcd.io"]
+            resources: ["terraforms"]
+            verbs: ["get", "list", "patch"]
+      annotations:
+        reloader.stakater.com/auto: "true"
+

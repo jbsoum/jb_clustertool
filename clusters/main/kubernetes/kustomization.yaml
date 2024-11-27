@@ -4,6 +4,6 @@ resources:
   - apps
   - core
   - flux-entry.yaml
-  - flux-system
   - kube-system
   - system
+  - flux-system/ks.yaml
