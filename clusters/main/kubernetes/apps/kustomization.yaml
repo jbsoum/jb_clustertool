@@ -34,4 +34,3 @@ resources:
   - vocechat-server/ks.yaml
   - watchyourlan/ks.yaml
   - whoogle/ks.yaml
-  - weave-gitops/ks.yaml
