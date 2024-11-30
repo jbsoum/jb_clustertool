@@ -51,42 +51,41 @@ spec:
                   - path: /
                     pathType: Prefix
           integrations:
-              certManager:
-                  enabled: false
-                  certificateIssuer: ""
               homepage:
                   enabled: true
                   group: Admin - Cluster
                   widget:
                       enabled: false
+              certManager:
+                  enabled: false
+                  certificateIssuer: ""
               traefik:
-                  allowCors: false
                   enabled: true
                   entrypoints:
                       - websecure
                   middlewares:
+                      - name: local
+                        namespace: traefik
                       - name: ${TRAEFIK_MIDDLEWARE}
+                        namespace: traefik
           tls:
+              - certificateIssuer: ""
                 clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
                 hosts:
                   - ${DOMAIN_TRAEFIK}
-    ipWhiteList:
-      - name: local
-        sourceRange:
-          - 172.16.0.0/16
-          - 172.17.0.0/16
-          - 10.11.10.0/24
     middlewares:
       forwardAuth:
           - name: ${TRAEFIK_MIDDLEWARE}
-            address: http://authelia.authelia.svc.cluster.local:${PORT_AUTHELIA}/api/verify?rd=https://${DOMAIN_AUTHELIA}/
-            authRequestHeaders: []
+            address: http://authelia.authelia.svc.cluster.local:9091/api/verify?rd=https://${DOMAIN_AUTHELIA}/
             authResponseHeaders:
               - Remote-User
               - Remote-Group
               - Remote-Name
               - Remote-Email
-            # authResponseHeadersRegex: ""
-            tls:
-              insecureSkipVerify: false
             trustForwardHeader: true
+      ipWhiteList:
+        - name: local
+          sourceRange:
+            - 172.16.0.0/16
+            - 172.17.0.0/16
+            - 10.11.0.0/16
