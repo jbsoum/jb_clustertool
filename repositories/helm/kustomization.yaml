@@ -28,5 +28,4 @@ resources:
   - stakater.yaml
   - topolvm.yaml
   - truecharts.yaml
-  - weave-gitops.yaml
 # more goes here!

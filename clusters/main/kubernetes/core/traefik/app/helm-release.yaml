@@ -65,10 +65,7 @@ spec:
                   entrypoints:
                       - websecure
                   middlewares:
-                      - name: local
-                        namespace: traefik
                       - name: ${TRAEFIK_MIDDLEWARE}
-                        namespace: traefik
           tls:
                 clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
                 hosts:
