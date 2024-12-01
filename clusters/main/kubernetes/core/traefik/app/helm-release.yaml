@@ -76,7 +76,7 @@ spec:
                   enabled: false
                   certificateIssuer: ""
               traefik:
-                  enabled: false
+                  enabled: true
                   entrypoints:
                       - websecure
                   middlewares:
