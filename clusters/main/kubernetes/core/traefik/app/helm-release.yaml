@@ -42,6 +42,22 @@ spec:
       tcp:
         enabled: true
         loadBalancerIP: ${TRAEFIK_IP}
+    middlewares:
+      forwardAuth:
+          - name: ${TRAEFIK_MIDDLEWARE}
+            address: http://authelia.authelia.svc.cluster.local:9091/api/verify?rd=https://${DOMAIN_AUTHELIA}/
+            authResponseHeaders:
+              - Remote-User
+              - Remote-Group
+              - Remote-Name
+              - Remote-Email
+            trustForwardHeader: true
+      ipWhiteList:
+        - name: local
+          sourceRange:
+            - 172.16.0.0/16
+            - 172.17.0.0/16
+            - 10.11.0.0/16
     ingress:
         main:
           enabled: true
@@ -64,8 +80,8 @@ spec:
                   entrypoints:
                       - websecure
                   middlewares:
-                      - name: local
-                        namespace: traefik
+                      # - name: local
+                      #   namespace: traefik
                       - name: ${TRAEFIK_MIDDLEWARE}
                         namespace: traefik
           tls:
@@ -73,19 +89,3 @@ spec:
                 clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
                 hosts:
                   - ${DOMAIN_TRAEFIK}
-    middlewares:
-      forwardAuth:
-          - name: ${TRAEFIK_MIDDLEWARE}
-            address: http://authelia.authelia.svc.cluster.local:9091/api/verify?rd=https://${DOMAIN_AUTHELIA}/
-            authResponseHeaders:
-              - Remote-User
-              - Remote-Group
-              - Remote-Name
-              - Remote-Email
-            trustForwardHeader: true
-      ipWhiteList:
-        - name: local
-          sourceRange:
-            - 172.16.0.0/16
-            - 172.17.0.0/16
-            - 10.11.0.0/16
