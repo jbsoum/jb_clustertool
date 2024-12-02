@@ -136,7 +136,7 @@ spec:
                 recovery:
                     method: object_store
                     credentials: ${S3_NAME}
-                    enabled: true
+                    enabled: false
                     revision: "${CNPG_BACKUP_REVISION}"
                     # password: ${CNPG_PASSWORD_AUTHELIA}
                     # revision: "${CNPG_RECOVERY_REVISION}"
