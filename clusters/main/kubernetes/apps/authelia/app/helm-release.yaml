@@ -37,6 +37,7 @@ spec:
                 user: CN=${AUTHELIA_LLDAP_GROUP_NAME},ou=people,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}
                 plain_password: ${AUTHELIA_LLDAP_PASSWORD}
         notifier:
+            disable_startup_check: true
             filesystem:
                 enabled: false
             smtp:
@@ -137,7 +138,7 @@ spec:
                     method: object_store
                     credentials: ${S3_NAME}
                     enabled: true
-                    revision: "${CNPG_BACKUP_REVISION}"
+                    revision: "${CNPG_RECOVERY_REVISION}"
                     # password: ${CNPG_PASSWORD_AUTHELIA}
                     # revision: "${CNPG_RECOVERY_REVISION}"
         credentials:
