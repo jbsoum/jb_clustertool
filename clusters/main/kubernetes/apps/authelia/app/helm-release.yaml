@@ -152,7 +152,7 @@ spec:
                 url: ${S3_URL}
         ingress:
             main:
-                enabled: true
+                enabled: false
                 integrations:
                     homepage:
                         enabled: true
