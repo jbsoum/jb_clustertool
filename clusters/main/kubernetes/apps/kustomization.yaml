@@ -1,6 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - authelia/ks.yaml
   - cloudflareddns/ks.yaml
   - code-server/ks.yaml
   - dashy/ks.yaml
