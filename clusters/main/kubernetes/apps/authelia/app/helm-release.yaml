@@ -18,6 +18,9 @@ spec:
         TZ: ${TIMEZONE}
         domain: ${DOMAIN_0}
         default_redirection_url: https://${DOMAIN_AUTHELIA}
+        # Need to keep encryption keys consistent for migrations (use old key here)
+        storage:
+            encryption_key: ${AUTHELIA_STORAGE_ENCRYPTION_KEY}
         authentication_backend:
             file:
                 enabled: false
