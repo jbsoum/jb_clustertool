@@ -220,13 +220,13 @@ spec:
             period: 30
             skew: 1
         
-        # # added to try and change encryption key at pod start
-        # workload:
-        #     main:
-        #         podSpec:
-        #             containers:
-        #                 main:
-        #                     command: ["/bin/sh","-c"]
-        #                     args: 
-        #                         - authelia storage --config=/configuration.yaml --postgres.password ${CNPG_PASSWORD_AUTHELIA}
-        #                         - authelia --config=/configuration.yaml
+        # added to try and change encryption key at pod start
+        workload:
+            main:
+                podSpec:
+                    containers:
+                        main:
+                            command: []
+                            args: []
+                                # - authelia storage --config=/configuration.yaml --postgres.password ${CNPG_PASSWORD_AUTHELIA}
+                                # - authelia --config=/configuration.yaml
