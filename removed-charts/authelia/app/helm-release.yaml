@@ -130,18 +130,18 @@ spec:
                   resources: []
                   subject:
                     - 'group: ${LLDAP_ADMIN_GROUP}'
-        cnpg:
-            main:
-                backups:
-                    credentials: ${S3_NAME}
-                    enabled: true
-                    revision: "${CNPG_BACKUP_REVISION}"
-                mode: recovery
-                recovery:
-                    method: object_store
-                    credentials: ${S3_NAME}
-                    enabled: true
-                    revision: "${CNPG_RECOVERY_REVISION}"
+        # cnpg:
+        #     main:
+        #         backups:
+        #             credentials: ${S3_NAME}
+        #             enabled: true
+        #             revision: "${CNPG_BACKUP_REVISION}"
+        #         mode: recovery
+        #         recovery:
+        #             method: object_store
+        #             credentials: ${S3_NAME}
+        #             enabled: true
+        #             revision: "${CNPG_BACKUP_REVISION}"
                     # password: ${CNPG_PASSWORD_AUTHELIA}
                     # revision: "${CNPG_RECOVERY_REVISION}"
         credentials:
@@ -220,13 +220,13 @@ spec:
             period: 30
             skew: 1
         
-        # added to try and change encryption key at pod start
-        workload:
-            main:
-                podSpec:
-                    containers:
-                        main:
-                            command: []
-                            args: []
-                                # - authelia storage --config=/configuration.yaml --postgres.password ${CNPG_PASSWORD_AUTHELIA}
-                                # - authelia --config=/configuration.yaml
+        # # added to try and change encryption key at pod start
+        # workload:
+        #     main:
+        #         podSpec:
+        #             containers:
+        #                 main:
+        #                     command: []
+        #                     args: []
+        #                         # - authelia storage --config=/configuration.yaml --postgres.password ${CNPG_PASSWORD_AUTHELIA}
+        #                         # - authelia --config=/configuration.yaml
