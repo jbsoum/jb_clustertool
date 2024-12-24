@@ -78,7 +78,7 @@ spec:
                     containers:
                         main:
                             env:
-                                WHOOGLE_ALT_RD: ${DOMAIN_LIBREDDIT}
+                                # WHOOGLE_ALT_RD: ${DOMAIN_LIBREDDIT}
                                 WHOOGLE_ALT_YT: ${DOMAIN_INVIDIOUS}
                                 WHOOGLE_CONFIG_ALTS: true
                                 WHOOGLE_CONFIG_COUNTRY: US
