@@ -70,11 +70,15 @@ spec:
                       src:
                         enabled: true
                       type: restic
-        release_name: jellyseerr
         service:
             main:
                 enabled: true
-                ports:
-                    main:
-                        port: ${PORT_JELLYSEERR}
                 type: ClusterIP
+        workload:
+            main:
+                podSpec:
+                    containers:
+                        main:
+                            env:
+                                JELLYFIN_TYPE: emby
+                                LOG_LEVEL: info
