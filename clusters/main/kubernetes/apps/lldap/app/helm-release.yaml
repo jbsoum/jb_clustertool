@@ -78,20 +78,12 @@ spec:
                       src:
                         enabled: true
                       type: restic
-        release_name: lldap
         service:
             ldap:
                 enabled: true
-                ports:
-                    ldap:
-                        enabled: true
-                        port: ${PORT_LLDAP_LDAP}
                 type: ClusterIP
             main:
                 enabled: true
-                ports:
-                    main:
-                        port: ${PORT_LLDAP_MAIN}
                 type: ClusterIP
         workload:
             main:
