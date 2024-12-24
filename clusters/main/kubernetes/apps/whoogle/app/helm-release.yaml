@@ -68,13 +68,9 @@ spec:
                       src:
                         enabled: true
                       type: restic
-        release_name: whoogle
         service:
             main:
                 enabled: true
-                ports:
-                    main:
-                        port: 10052
                 type: ClusterIP
         workload:
             main:
@@ -82,12 +78,8 @@ spec:
                     containers:
                         main:
                             env:
-                                WHOOGLE_ALT_RD:
-                                    name: WHOOGLE_ALT_RD
-                                    value: ${DOMAIN_LIBREDDIT}
-                                WHOOGLE_ALT_YT:
-                                    name: WHOOGLE_ALT_YT
-                                    value: ${DOMAIN_INVIDIOUS}
+                                WHOOGLE_ALT_RD: ${DOMAIN_LIBREDDIT}
+                                WHOOGLE_ALT_YT: ${DOMAIN_INVIDIOUS}
                                 WHOOGLE_CONFIG_ALTS: true
                                 WHOOGLE_CONFIG_COUNTRY: US
                                 WHOOGLE_CONFIG_GET_ONLY: false
