@@ -27,7 +27,7 @@ spec:
             ldap:
                 enabled: true
                 implementation: custom
-                url: ldap://lldap-ldap.lldap.svc.cluster.local:${PORT_LLDAP_LDAP}
+                url: ldap://lldap-ldap.lldap.svc.cluster.local:3890
                 base_dn: dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
                 username_attribute: uid
                 additional_users_dn: ou=people
@@ -44,9 +44,9 @@ spec:
             filesystem:
                 enabled: false
             smtp:
+                enabled: true
                 disable_html_emails: false
                 disable_require_tls: true
-                enabled: true
                 enabledSecret: false
                 host: ${IP_PROTONMAIL}
                 identifier: 127.0.0.1
@@ -166,13 +166,13 @@ spec:
                         certificateIssuer: ""
                     traefik:
                         enabled: true
-                        entrypoints:
-                            - websecure
-                        middlewares:
-                            - name: local
-                              namespace: traefik
-                            - name: ${TRAEFIK_MIDDLEWARE}
-                              namespace: traefik
+                        # entrypoints:
+                        #     - websecure
+                        # middlewares:
+                        #     - name: local
+                        #       namespace: traefik
+                        #     - name: ${TRAEFIK_MIDDLEWARE}
+                        #       namespace: traefik
                 hosts:
                     - host: ${DOMAIN_AUTHELIA}
                       paths:
