@@ -101,13 +101,13 @@ spec:
                     - ${DOMAIN_LIBREDDIT}
                     - ${DOMAIN_VPN}
                     - ${DOMAIN_INVIDIOUS}
+                    - ${DOMAIN_EMBY}
                   domain_regex: []
                   networks: []
                   policy: bypass
                   resources: []
                   subject: []
                 - domain:
-                    - ${DOMAIN_EMBY}
                     - ${DOMAIN_OMBI}
                     - ${DOMAIN_LLDAP}
                     - ${DOMAIN_EMULATOR_JS}
