@@ -62,7 +62,7 @@ spec:
                 plain_password: ${PROTONMAIL_PASSWORD}
                 sender: ${PROTONMAIL_USER}
         access_control:
-            default_policy: deny
+            # default_policy: deny
             rules:
                 - domain:
                     - '*.${DOMAIN_0}'
