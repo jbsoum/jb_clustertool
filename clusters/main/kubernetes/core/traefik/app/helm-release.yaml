@@ -36,7 +36,7 @@ spec:
       stopAll: false
     defaultCertificate: "domain-0-wildcard"
     service:
-      main: 
+      main:
         enabled: true
         loadBalancerIP: ${TRAEFIK_IP}
       tcp:

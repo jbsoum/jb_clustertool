@@ -62,10 +62,10 @@ spec:
                 plain_password: ${PROTONMAIL_PASSWORD}
                 sender: ${PROTONMAIL_USER}
         access_control:
-            # default_policy: deny
+            default_policy: deny
             rules:
                 - domain:
-                    - '*.${DOMAIN_0}'
+                    - "*.${DOMAIN_0}"
                   domain_regex: []
                   networks: []
                   policy: bypass
@@ -120,16 +120,16 @@ spec:
                   policy: one_factor
                   resources: []
                   subject:
-                    - 'group: ${LLDAP_USER_GROUP}'
-                    - 'group: ${LLDAP_ADMIN_GROUP}'
+                    - "group:${LLDAP_USER_GROUP}"
+                    - "group:${LLDAP_ADMIN_GROUP}"
                 - domain:
-                    - '*.${DOMAIN_0}'
+                    - "*.${DOMAIN_0}"
                   domain_regex: []
                   networks: []
                   policy: one_factor
                   resources: []
                   subject:
-                    - 'group: ${LLDAP_ADMIN_GROUP}'
+                    - "group:${LLDAP_ADMIN_GROUP}"
         # cnpg:
         #     main:
         #         backups:
