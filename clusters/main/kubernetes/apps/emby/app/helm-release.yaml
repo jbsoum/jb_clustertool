@@ -53,11 +53,11 @@ spec:
                         certificateIssuer: ""
                     traefik:
                         enabled: true
-                        entrypoints:
-                            - websecure
+                        # entrypoints:
+                        #     - websecure
                         middlewares:
-                            - name: local
-                              namespace: traefik
+                            # - name: local
+                            #   namespace: traefik
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
         persistence:
