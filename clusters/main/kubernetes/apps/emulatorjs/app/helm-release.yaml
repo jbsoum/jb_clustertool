@@ -158,3 +158,9 @@ spec:
             main:
                 enabled: true
                 type: ClusterIP
+        securityContext:
+            container:
+                runAsNonRoot: false
+                readOnlyRootFilesystem: false
+                runAsUser: 0
+                runAsGroup: 0
