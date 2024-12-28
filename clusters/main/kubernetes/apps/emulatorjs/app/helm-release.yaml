@@ -164,3 +164,6 @@ spec:
                 readOnlyRootFilesystem: false
                 runAsUser: 0
                 runAsGroup: 0
+                UMASK: "0022"
+            pod:
+                fsGroupChangePolicy: OnRootMismatch
