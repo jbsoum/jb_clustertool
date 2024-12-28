@@ -169,11 +169,11 @@ spec:
                         enabled: true
                         # entrypoints:
                         #     - websecure
-                        # middlewares:
-                        #     - name: local
-                        #       namespace: traefik
-                        #     - name: ${TRAEFIK_MIDDLEWARE}
-                        #       namespace: traefik
+                        middlewares:
+                            - name: local
+                              namespace: traefik
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
                 hosts:
                     - host: ${DOMAIN_AUTHELIA}
                       paths:
