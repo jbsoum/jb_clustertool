@@ -170,8 +170,6 @@ spec:
                         # entrypoints:
                         #     - websecure
                         middlewares:
-                            - name: local
-                              namespace: traefik
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
                 hosts:
