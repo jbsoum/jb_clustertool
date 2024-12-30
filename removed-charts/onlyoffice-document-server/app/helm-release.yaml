@@ -63,18 +63,9 @@ spec:
                         certificateIssuer: ""
                     traefik:
                         enabled: true
-                        entrypoints:
-                            - websecure
                         middlewares:
-                            - name: local
-                              namespace: traefik
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
-        release_name: onlyoffice-document-server
         service:
             main:
                 enabled: true
-                ports:
-                    main:
-                        port: ${PORT_ONLYOFFICE_DOCUMENT_SERVER}
-                type: ClusterIP
