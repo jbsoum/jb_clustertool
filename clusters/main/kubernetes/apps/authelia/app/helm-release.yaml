@@ -64,64 +64,64 @@ spec:
         access_control:
             default_policy: deny
             rules:
-                # - domain:
-                #     - "*.${DOMAIN_0}"
-                #   domain_regex: []
-                #   networks: []
-                #   policy: bypass
-                #   resources:
-                #     - ^/api([/?].*)?$
-                #     - ' ^/identity.*$'
-                #     - ^/triggers.*$
-                #     - ^/meshagents.*$
-                #     - ^/meshsettings.*$
-                #     - ^/agent.*$
-                #     - ^/control.*$
-                #     - ^/meshrelay.*$
-                #     - ^/wl.*$
-                #     - ^/emby*
-                #   subject: []
-                # - domain:
-                #     - ${DOMAIN_VAULTWARDEN}
-                #   domain_regex: []
-                #   networks: []
-                #   policy: one_factor
-                #   resources:
-                #     - ^*/admin.*$
-                #   subject: []
-                # - domain:
-                #     - ${DOMAIN_VAULTWARDEN}
-                #   domain_regex: []
-                #   networks: []
-                #   policy: bypass
-                #   resources: []
-                #   subject: []
-                # - domain:
-                #     - ${DOMAIN_WHOOGLE}
-                #     - ${DOMAIN_LIBREDDIT}
-                #     - ${DOMAIN_VPN}
-                #     - ${DOMAIN_INVIDIOUS}
-                #     - ${DOMAIN_EMBY}
-                #   domain_regex: []
-                #   networks: []
-                #   policy: bypass
-                #   resources: []
-                #   subject: []
-                # - domain:
-                #     - ${DOMAIN_OMBI}
-                #     - ${DOMAIN_LLDAP}
-                #     - ${DOMAIN_EMULATOR_JS}
-                #     - ${DOMAIN_GITEA}
-                #     - ${DOMAIN_VOCECHAT_SERVER}
-                #     - ${DOMAIN_JELLYSEERR}
-                #     - ${DOMAIN_0}
-                #   domain_regex: []
-                #   networks: []
-                #   policy: one_factor
-                #   resources: []
-                #   subject:
-                #     - "group:${LLDAP_USER_GROUP}"
-                #     - "group:${LLDAP_ADMIN_GROUP}"
+                - domain:
+                    - "*.${DOMAIN_0}"
+                  domain_regex: []
+                  networks: []
+                  policy: bypass
+                  resources:
+                    - ^/api([/?].*)?$
+                    - ' ^/identity.*$'
+                    - ^/triggers.*$
+                    - ^/meshagents.*$
+                    - ^/meshsettings.*$
+                    - ^/agent.*$
+                    - ^/control.*$
+                    - ^/meshrelay.*$
+                    - ^/wl.*$
+                    - ^/emby*
+                  subject: []
+                - domain:
+                    - ${DOMAIN_VAULTWARDEN}
+                  domain_regex: []
+                  networks: []
+                  policy: one_factor
+                  resources:
+                    - ^*/admin.*$
+                  subject: []
+                - domain:
+                    - ${DOMAIN_VAULTWARDEN}
+                  domain_regex: []
+                  networks: []
+                  policy: bypass
+                  resources: []
+                  subject: []
+                - domain:
+                    - ${DOMAIN_WHOOGLE}
+                    - ${DOMAIN_LIBREDDIT}
+                    - ${DOMAIN_VPN}
+                    - ${DOMAIN_INVIDIOUS}
+                    - ${DOMAIN_EMBY}
+                  domain_regex: []
+                  networks: []
+                  policy: bypass
+                  resources: []
+                  subject: []
+                - domain:
+                    - ${DOMAIN_OMBI}
+                    - ${DOMAIN_LLDAP}
+                    - ${DOMAIN_EMULATOR_JS}
+                    - ${DOMAIN_GITEA}
+                    - ${DOMAIN_VOCECHAT_SERVER}
+                    - ${DOMAIN_JELLYSEERR}
+                    - ${DOMAIN_0}
+                  domain_regex: []
+                  networks: []
+                  policy: one_factor
+                  resources: []
+                  subject:
+                    - "group:${LLDAP_USER_GROUP}"
+                    - "group:${LLDAP_ADMIN_GROUP}"
                 - domain:
                     - "*.${DOMAIN_0}"
                     - ${DOMAIN_0}
@@ -169,9 +169,9 @@ spec:
                         enabled: true
                         # entrypoints:
                         #     - websecure
-                        middlewares:
-                            - name: ${TRAEFIK_MIDDLEWARE}
-                              namespace: traefik
+                        # middlewares:
+                        #     - name: ${TRAEFIK_MIDDLEWARE}
+                        #       namespace: traefik
                 hosts:
                     - host: ${DOMAIN_AUTHELIA}
                       paths:
