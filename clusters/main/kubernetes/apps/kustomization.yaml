@@ -34,3 +34,4 @@ resources:
   - vocechat-server/ks.yaml
   - watchyourlan/ks.yaml
   - whoogle/ks.yaml
+  - onlyoffice-document-server/ks.yaml
