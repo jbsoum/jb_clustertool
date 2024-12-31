@@ -22,12 +22,14 @@ resources:
   - lldap/ks.yaml
   - nitter/ks.yaml
   - odoo/ks.yaml
+  - onlyoffice-document-server/ks.yaml
   - pgadmin/ks.yaml
   - protonmail-bridge/ks.yaml
   - prowlarr/ks.yaml
   - qbittorrent/ks.yaml
   - radarr/ks.yaml
   - readarr/ks.yaml
+  - renovate/ks.yaml
   - scrutiny/ks.yaml
   - sonarr/ks.yaml
   - truenas-gui/ks.yaml
@@ -35,4 +37,3 @@ resources:
   - vocechat-server/ks.yaml
   - watchyourlan/ks.yaml
   - whoogle/ks.yaml
-  - onlyoffice-document-server/ks.yaml
