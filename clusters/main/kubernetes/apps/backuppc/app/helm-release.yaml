@@ -99,12 +99,18 @@ spec:
                       src:
                         enabled: true
                       type: restic
+            # data:
+            #     volsync:
+            #         - credentials: ${S3_NAME}
+            #           dest:
+            #             enabled: true
+            #           name: data
+            #           src:
+            #             enabled: true
+            #           type: restic
             data:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: data
-                      src:
-                        enabled: true
-                      type: restic
+                enabled: true
+                type: nfs
+                server: ${IP_TRUENAS}
+                path: ${NFS_DATA_BACKUPPC}
+                mountPath: "/data"
