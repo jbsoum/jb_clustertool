@@ -57,7 +57,7 @@ spec:
         backuppc:
             smtp:
                 auto_from: false
-                host: http://protonmail-bridge.protonmail-bridge.svc.cluster.local
+                host: http://protonmail-bridge.protonmail-bridge.svc.cluster.local/
                 port: ${PROTONMAIL_PORT_SMTP}
                 domain: protonmail.com
                 maildomain: protonmail.com
@@ -113,4 +113,4 @@ spec:
                 type: nfs
                 server: ${IP_TRUENAS}
                 path: ${NFS_DATA_BACKUPPC}
-                mountPath: "/data"
+                mountPath: /data
