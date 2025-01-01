@@ -17,6 +17,9 @@ spec:
   values:
     global:
       stopAll: false
+    configmap:
+      config:
+        enabled: true
     persistence:
       renovate-tmp:
         enabled: true
