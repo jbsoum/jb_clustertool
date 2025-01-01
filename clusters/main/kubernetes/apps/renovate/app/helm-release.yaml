@@ -14,10 +14,10 @@ spec:
         name: truecharts
         namespace: flux-system
   releaseName: renovate
-values:
-  persistence:
-    renovate-tmp:
-      enabled: true
-      type: emptyDir
-      defaultMode: "0777"
-      mountPath: /tmp/renovate
+  values:
+    persistence:
+      renovate-tmp:
+        enabled: true
+        type: emptyDir
+        defaultMode: "0777"
+        mountPath: /tmp/renovate
