@@ -16,7 +16,7 @@ spec:
   releaseName: renovate
   values:
     global:
-      stopAll: true
+      stopAll: false
     persistence:
       renovate-tmp:
         enabled: true
