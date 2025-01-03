@@ -8,7 +8,7 @@ spec:
     chart:
         spec:
             chart: whoogle
-            version: 11.0.8
+            version: 12.5.0
             sourceRef:
                 kind: HelmRepository
                 name: truecharts
