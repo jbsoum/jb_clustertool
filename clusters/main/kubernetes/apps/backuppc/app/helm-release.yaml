@@ -111,11 +111,11 @@ spec:
             #             enabled: true
             #           type: restic
             data:
-                enabled: false
+                # enabled: false
                 type: nfs
                 server: ${IP_TRUENAS}
                 path: ${NFS_DATA_BACKUPPC}
-                mountPath: /var/lib/backuppc
+                mountPath: /data
                 mountOptions:
                 - nfsvers=3
                 - tcp
