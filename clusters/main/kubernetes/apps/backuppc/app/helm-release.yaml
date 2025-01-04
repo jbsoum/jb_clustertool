@@ -15,6 +15,8 @@ spec:
                 namespace: flux-system
     releaseName: backuppc
     values:
+        global:
+            stopAll: true
         TZ: ${TIMEZONE}
         credentials:
              backblaze:
