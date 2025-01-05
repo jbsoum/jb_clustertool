@@ -5,7 +5,7 @@ resources:
   - backuppc/ks.yaml
   - cloudflareddns/ks.yaml
   - code-server/ks.yaml
-  - dashy/ks.yaml
+  # - dashy/ks.yaml
   - deluge/ks.yaml
   - emby/ks.yaml
   - emulatorjs/ks.yaml
