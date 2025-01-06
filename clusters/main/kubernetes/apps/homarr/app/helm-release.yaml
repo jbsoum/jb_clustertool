@@ -103,7 +103,7 @@ spec:
                   groupMemberUserAttribute: dn
                   adminGroup: ${LLDAP_ADMIN_GROUP}
                   searchScope: base
-                  userNameFilterExtraArg: (&(uid={0})(memberOf=cn=${LLDAP_USER_GROUP},ou=groups,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}))
+                  userNameFilterExtraArg: (&(objectclass=person)(memberof=cn=${LLDAP_USER_GROUP},ou=groups,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}))
 
         workload:
             main:
