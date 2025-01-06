@@ -111,17 +111,17 @@ spec:
                     containers:
                         main:
                             env:
-                                AUTH_PROVIDER: {{ .Values.homarr.auth.provider | default "credentials" }}
-                                AUTH_LDAP_URI: {{ .Values.homarr.auth.ldap.URI }}
-                                AUTH_LDAP_BASE: {{ .Values.homarr.auth.ldap.base }}
-                                AUTH_LDAP_BIND_DN: {{ .Values.homarr.auth.ldap.bindDN }}
-                                AUTH_LDAP_BIND_PASSWORD: {{ .Values.homarr.auth.ldap.bindPassword }}
-                                AUTH_LDAP_USERNAME_ATTRIBUTE: {{ .Values.homarr.auth.ldap.userNameAttribute }}
-                                AUTH_LDAP_USER_MAIL_ATTRIBUTE: {{ .Values.homarr.auth.ldap.userMailAttribute }}
-                                AUTH_LDAP_GROUP_CLASS: {{ .Values.homarr.auth.ldap.groupClass }}
-                                AUTH_LDAP_GROUP_MEMBER_ATTRIBUTE: {{ .Values.homarr.auth.ldap.groupMemberAttribute }}
-                                AUTH_LDAP_GROUP_MEMBER_USER_ATTRIBUTE: {{ .Values.homarr.auth.ldap.groupMemberUserAttribute }}
-                                AUTH_LDAP_ADMIN_GROUP: {{ .Values.homarr.auth.ldap.adminGroup }}
-                                AUTH_LDAP_OWNER_GROUP: {{ .Values.homarr.auth.ldap.adminGroup }}
-                                AUTH_LDAP_SEARCH_SCOPE: {{ .Values.homarr.auth.ldap.searchScope }}
-                                AUTH_LDAP_USERNAME_FILTER_EXTRA_ARG: {{ .Values.homarr.auth.ldap.userNameFilterExtraArg }}
+                                AUTH_PROVIDER: '{{ .Values.homarr.auth.provider | default "credentials" }}'
+                                AUTH_LDAP_URI: "{{ .Values.homarr.auth.ldap.URI }}"
+                                AUTH_LDAP_BASE: "{{ .Values.homarr.auth.ldap.base }}"
+                                AUTH_LDAP_BIND_DN: "{{ .Values.homarr.auth.ldap.bindDN }}"
+                                AUTH_LDAP_BIND_PASSWORD: "{{ .Values.homarr.auth.ldap.bindPassword }}"
+                                AUTH_LDAP_USERNAME_ATTRIBUTE: "{{ .Values.homarr.auth.ldap.userNameAttribute }}"
+                                AUTH_LDAP_USER_MAIL_ATTRIBUTE: "{{ .Values.homarr.auth.ldap.userMailAttribute }}"
+                                AUTH_LDAP_GROUP_CLASS: "{{ .Values.homarr.auth.ldap.groupClass }}"
+                                AUTH_LDAP_GROUP_MEMBER_ATTRIBUTE: "{{ .Values.homarr.auth.ldap.groupMemberAttribute }}"
+                                AUTH_LDAP_GROUP_MEMBER_USER_ATTRIBUTE: "{{ .Values.homarr.auth.ldap.groupMemberUserAttribute }}"
+                                AUTH_LDAP_ADMIN_GROUP: "{{ .Values.homarr.auth.ldap.adminGroup }}"
+                                AUTH_LDAP_OWNER_GROUP: "{{ .Values.homarr.auth.ldap.adminGroup }}"
+                                AUTH_LDAP_SEARCH_SCOPE: "{{ .Values.homarr.auth.ldap.searchScope }}"
+                                AUTH_LDAP_USERNAME_FILTER_EXTRA_ARG: "{{ .Values.homarr.auth.ldap.userNameFilterExtraArg }}"
