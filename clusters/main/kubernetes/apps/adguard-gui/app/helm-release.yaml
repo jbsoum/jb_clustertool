@@ -55,6 +55,6 @@ spec:
                     main:
                         enabled: true
                         port: ${PORT_ADGUARD}
-                        protocol: http
+                        protocol: https
                 type: ExternalIP
                 useSlice: false
