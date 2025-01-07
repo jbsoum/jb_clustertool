@@ -1,0 +1,58 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: adguard-gui
+    namespace: adguard-gui
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: external-service
+            version: 15.5.0
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: truenas-gui
+    values:
+        ingress:
+            main:
+                annotations:
+                    traefik.frontend.passHostHeader: "false"
+                enabled: true
+                hosts:
+                    - host: ${DOMAIN_ADGUARD_GUI}
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                tls:
+                    - certificateIssuer: ""
+                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
+                      hosts:
+                        - ${DOMAIN_ADGUARD_GUI}
+                      secretName: ""
+                integrations:
+                    homepage:
+                        enabled: true
+                        group: Admin - Cluster
+                        widget:
+                            enabled: false
+                    certManager:
+                        enabled: false
+                        certificateIssuer: ""
+                    traefik:
+                        enabled: true
+                        middlewares:
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
+        service:
+            main:
+                enabled: true
+                externalIP: ${IP_ADGUARD}
+                ports:
+                    main:
+                        enabled: true
+                        port: ${PORT_ADGUARD_GUI}
+                        protocol: http
+                type: ExternalIP
+                useSlice: false
