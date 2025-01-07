@@ -16,7 +16,7 @@ spec:
     releaseName: adguard-gui
     values:
         global:
-            stopAll: true
+            stopAll: false
         ingress:
             main:
                 annotations:
