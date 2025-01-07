@@ -52,7 +52,7 @@ spec:
                 ports:
                     main:
                         enabled: true
-                        port: ${PORT_ADGUARD_GUI}
+                        port: ${PORT_ADGUARD}
                         protocol: http
                 type: ExternalIP
                 useSlice: false
