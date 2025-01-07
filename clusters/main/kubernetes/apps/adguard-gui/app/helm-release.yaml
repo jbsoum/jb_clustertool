@@ -23,7 +23,7 @@ spec:
                     traefik.frontend.passHostHeader: "false"
                 enabled: true
                 hosts:
-                    - host: ${DOMAIN_ADGUARD_GUI}
+                    - host: ${DOMAIN_ADGUARD}
                       paths:
                         - path: /
                           pathType: Prefix
@@ -31,7 +31,7 @@ spec:
                     - certificateIssuer: ""
                       clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
                       hosts:
-                        - ${DOMAIN_ADGUARD_GUI}
+                        - ${DOMAIN_ADGUARD}
                       secretName: ""
                 integrations:
                     homepage:
