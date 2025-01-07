@@ -15,6 +15,8 @@ spec:
                 namespace: flux-system
     releaseName: adguard-gui
     values:
+        global:
+            stopAll: true
         ingress:
             main:
                 annotations:
