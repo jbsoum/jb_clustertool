@@ -16,7 +16,7 @@ spec:
     releaseName: searxng
     values:
         global:
-            stopAll: true
+            stopAll: false
         TZ: ${TIMEZONE}
         credentials:
             backblaze:
