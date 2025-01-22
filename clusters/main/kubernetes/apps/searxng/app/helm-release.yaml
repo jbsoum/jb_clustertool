@@ -1,0 +1,70 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: searxng
+    namespace: searxng
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: searxng
+            version: 12.5.0
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: searxng
+    values:
+        TZ: ${TIMEZONE}
+        credentials:
+            backblaze:
+                accessKey: ${S3_ACCESS_KEY}
+                bucket: ${S3_BUCKET}
+                encrKey: ${S3_ENCRYPTION_KEY}
+                name: ${S3_NAME}
+                path: ""
+                secretKey: ${S3_SECRET_KEY}
+                type: s3
+                url: ${S3_URL}
+        ingress:
+            main:
+                enabled: true
+                hosts:
+                    - host: ${DOMAIN_SEARXNG}
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                tls:
+                    - certificateIssuer: ""
+                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
+                      hosts:
+                        - ${DOMAIN_SEARXNG}
+                      secretName: ""
+                integrations:
+                    homepage:
+                        enabled: true
+                        group: Utilities
+                        widget:
+                            enabled: false
+                    certManager:
+                        enabled: false
+                        certificateIssuer: ""
+                    traefik:
+                        enabled: true
+                        middlewares:
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
+        persistence:
+            config:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: config
+                      src:
+                        enabled: true
+                      type: restic
+        service:
+            main:
+                enabled: true
+                type: ClusterIP
