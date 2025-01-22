@@ -1,0 +1,88 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: beets
+    namespace: beets
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: beets
+            version: 13.4.0
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: beets
+    values:
+        global:
+            stopAll: false
+        TZ: ${TIMEZONE}
+        credentials:
+             backblaze:
+                accessKey: ${S3_ACCESS_KEY}
+                bucket: ${S3_BUCKET}
+                encrKey: ${S3_ENCRYPTION_KEY}
+                name: ${S3_NAME}
+                path: ""
+                secretKey: ${S3_SECRET_KEY}
+                type: s3
+                url: ${S3_URL}
+        ingress:
+            main:
+                enabled: true
+                hosts:
+                    - host: ${DOMAIN_BEETS}
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                tls:
+                    - certificateIssuer: ""
+                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
+                      hosts:
+                        - ${DOMAIN_BEETS}
+                      secretName: ""
+                integrations:
+                    homepage:
+                        enabled: true
+                        group: Utilities
+                        widget:
+                            enabled: false
+                    certManager:
+                        enabled: false
+                        certificateIssuer: ""
+                    traefik:
+                        enabled: true
+                        entrypoints:
+                            - websecure
+                        middlewares:
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
+        service:
+            main:
+                enabled: true
+                type: ClusterIP
+        persistence:
+            config:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: config
+                      src:
+                        enabled: true
+                      type: restic
+            data:
+                enabled: true
+                type: nfs
+                server: ${IP_TRUENAS}
+                path: ${NFS_DATA_MEDIA}
+                mountPath: /data
+                # mountOptions:
+                # - nfsvers=4
+                # - tcp
+                # - intr
+                # - hard
+                # - noatime
+                # - nodiratime
+                # - nolock
