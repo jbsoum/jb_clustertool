@@ -96,7 +96,7 @@ spec:
                   resources: []
                   subject: []
                 - domain:
-                    - ${DOMAIN_WHOOGLE}
+                    - ${DOMAIN_SEARXNG}
                     - ${DOMAIN_LIBREDDIT}
                     - ${DOMAIN_VPN}
                     - ${DOMAIN_INVIDIOUS}
