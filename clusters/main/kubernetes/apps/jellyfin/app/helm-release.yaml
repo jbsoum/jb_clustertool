@@ -8,7 +8,7 @@ spec:
     chart:
         spec:
             chart: jellyfin
-            version: 19.1.11
+            version: 20.5.0
             sourceRef:
                 kind: HelmRepository
                 name: truecharts
@@ -58,8 +58,6 @@ spec:
                         entrypoints:
                             - websecure
                         middlewares:
-                            - name: local
-                              namespace: traefik
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
         persistence:
@@ -69,6 +67,15 @@ spec:
                       dest:
                         enabled: true
                       name: config
+                      src:
+                        enabled: true
+                      type: restic
+            cache:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: cache
                       src:
                         enabled: true
                       type: restic
@@ -93,19 +100,10 @@ spec:
                 server: ${IP_TRUENAS}
                 path: "${NFS_DATA_BACKUP}"
                 mountPath: "/backup"
-        release_name: jellyfin
         service:
-            autodiscovery:
-                enabled: true
-                ports:
-                    autodiscovery:
-                        enabled: true
-                        port: ${PORT_JELLYFIN_AUTODISCOVERY}
-                        protocol: udp
             main:
                 enabled: true
+                type: ClusterIP
                 ports:
                     main:
-                        port: ${PORT_JELLYFIN}
-                type: ClusterIP
-        updated: true
+                        port: 8097
