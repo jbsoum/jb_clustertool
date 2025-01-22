@@ -101,6 +101,7 @@ spec:
                     - ${DOMAIN_VPN}
                     - ${DOMAIN_INVIDIOUS}
                     - ${DOMAIN_EMBY}
+                    - ${DOMAIN_JELLYFIN}
                   domain_regex: []
                   networks: []
                   policy: bypass
@@ -113,7 +114,6 @@ spec:
                     - ${DOMAIN_GITEA}
                     - ${DOMAIN_VOCECHAT_SERVER}
                     - ${DOMAIN_JELLYSEERR}
-                    - ${DOMAIN_JELLYFIN}
                     - ${DOMAIN_0}
                   domain_regex: []
                   networks: []
