@@ -68,7 +68,9 @@ spec:
                   policy: bypass
                   resources:
                     - ^/api([/?].*)?$
-                    - ' ^/identity.*$'
+                    - ^/share([/?].*)?$
+                    - ^/rest([/?].*)?$
+                    - ^/identity.*$'
                     - ^/triggers.*$
                     - ^/meshagents.*$
                     - ^/meshsettings.*$
@@ -76,7 +78,7 @@ spec:
                     - ^/control.*$
                     - ^/meshrelay.*$
                     - ^/wl.*$
-                    - ^/emby*
+                    - ^/emby.*$
                   subject: []
                 - domain:
                     - ${DOMAIN_VAULTWARDEN}
@@ -111,6 +113,7 @@ spec:
                     - ${DOMAIN_GITEA}
                     - ${DOMAIN_VOCECHAT_SERVER}
                     - ${DOMAIN_JELLYSEERR}
+                    - ${DOMAIN_JELLYFIN}
                     - ${DOMAIN_0}
                   domain_regex: []
                   networks: []
