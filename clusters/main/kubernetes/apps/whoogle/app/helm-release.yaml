@@ -75,8 +75,8 @@ spec:
                         main:
                             env:
                                 # WHOOGLE_ALT_RD: ${DOMAIN_LIBREDDIT}
-                                WHOOGLE_ALT_YT: ${DOMAIN_INVIDIOUS}
-                                WHOOGLE_CONFIG_ALTS: true
+                                # WHOOGLE_ALT_YT: ${DOMAIN_INVIDIOUS}
+                                WHOOGLE_CONFIG_ALTS: false
                                 WHOOGLE_CONFIG_COUNTRY: US
                                 WHOOGLE_CONFIG_GET_ONLY: false
                                 WHOOGLE_CONFIG_NEW_TAB: true
