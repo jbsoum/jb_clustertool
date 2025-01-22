@@ -42,18 +42,28 @@ spec:
       tcp:
         enabled: true
         loadBalancerIP: ${TRAEFIK_IP}
+    ## For navidrome authentication
+    routers:
+      navidrome:
+        rule: Host(`${DOMAIN_NAVIDROME}`)
+        entrypoints: https
+        middlewares: ${TRAEFIK_MIDDLEWARE}
+      navidrome-subsonic:
+        rule: Host(`${DOMAIN_NAVIDROME}`) && PathPrefix(`/rest/`) && !Query(`c`, `NavidromeUI`)
+        entrypoints: https
+        middlewares: ${TRAEFIK_MIDDLEWARE}
     middlewares:
       forwardAuth:
-          - name: ${TRAEFIK_MIDDLEWARE}
-            address: http://authelia.authelia.svc.cluster.local:9091/api/verify?rd=https://${DOMAIN_AUTHELIA}/
-            authResponseHeaders:
-              - Remote-User
-              - Remote-Group
-              - Remote-Name
-              - Remote-Email
-            tls:
-              insecureSkipVerify: false
-            trustForwardHeader: true
+        - name: ${TRAEFIK_MIDDLEWARE}
+          address: http://authelia.authelia.svc.cluster.local:9091/api/verify?rd=https://${DOMAIN_AUTHELIA}/
+          authResponseHeaders:
+            - Remote-User
+            - Remote-Group
+            - Remote-Name
+            - Remote-Email
+          tls:
+            insecureSkipVerify: false
+          trustForwardHeader: true
       # ipWhiteList:
       #   - name: local
       #     sourceRange:
