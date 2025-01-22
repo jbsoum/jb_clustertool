@@ -68,8 +68,8 @@ spec:
                   policy: bypass
                   resources:
                     - ^/api([/?].*)?$
-                    - ^/share([/?].*)?$
-                    - ^/rest([/?].*)?$
+                    - ^/share.*$
+                    - ^/rest.*$
                     - ^/identity.*$
                     - ^/triggers.*$
                     - ^/meshagents.*$
