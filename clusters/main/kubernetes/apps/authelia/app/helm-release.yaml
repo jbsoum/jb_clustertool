@@ -70,7 +70,7 @@ spec:
                     - ^/api([/?].*)?$
                     - ^/share([/?].*)?$
                     - ^/rest([/?].*)?$
-                    - ^/identity.*$'
+                    - ^/identity.*$
                     - ^/triggers.*$
                     - ^/meshagents.*$
                     - ^/meshsettings.*$
