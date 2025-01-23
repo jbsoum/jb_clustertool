@@ -71,6 +71,8 @@ spec:
                 server: ${IP_TRUENAS}
                 path: "${NFS_CODE_SERVER_CONFIG}"
                 mountPath: "/root/.ssh"
+                autoPermissions:
+                    enabled: true
             code:
                 enabled: true
                 type: nfs
