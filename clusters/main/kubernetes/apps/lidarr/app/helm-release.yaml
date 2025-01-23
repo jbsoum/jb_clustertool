@@ -16,7 +16,7 @@ spec:
     releaseName: lidarr
     values:
         global:
-            stopAll: true
+            stopAll: false
         TZ: ${TIMEZONE}
         credentials:
             backblaze:
