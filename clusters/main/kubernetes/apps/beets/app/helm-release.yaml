@@ -78,11 +78,11 @@ spec:
                 server: ${IP_TRUENAS}
                 path: ${NFS_DATA_MEDIA}/Music
                 mountPath: /music
-                # mountOptions:
-                # - nfsvers=4
-                # - tcp
-                # - intr
-                # - hard
-                # - noatime
-                # - nodiratime
-                # - nolock
+                mountOptions:
+                - nfsvers=4
+                - tcp
+                - intr
+                - hard
+                - noatime
+                - nodiratime
+                - nolock
