@@ -42,16 +42,16 @@ spec:
       tcp:
         enabled: true
         loadBalancerIP: ${TRAEFIK_IP}
-    ## For navidrome authentication
-    routers:
-      navidrome:
-        rule: Host(`${DOMAIN_NAVIDROME}`)
-        entrypoints: https
-        middlewares: ${TRAEFIK_MIDDLEWARE}
-      navidrome-subsonic:
-        rule: Host(`${DOMAIN_NAVIDROME}`) && PathPrefix(`/rest/`) && !Query(`c`, `NavidromeUI`)
-        entrypoints: https
-        middlewares: ${TRAEFIK_MIDDLEWARE}
+    # ## For navidrome authentication
+    # routers:
+    #   navidrome:
+    #     rule: Host(`${DOMAIN_NAVIDROME}`)
+    #     entrypoints: https
+    #     middlewares: ${TRAEFIK_MIDDLEWARE}
+    #   navidrome-subsonic:
+    #     rule: Host(`${DOMAIN_NAVIDROME}`) && PathPrefix(`/rest/`) && !Query(`c`, `NavidromeUI`)
+    #     entrypoints: https
+    #     middlewares: ${TRAEFIK_MIDDLEWARE}
     middlewares:
       forwardAuth:
         - name: ${TRAEFIK_MIDDLEWARE}
