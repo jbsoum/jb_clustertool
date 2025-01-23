@@ -64,7 +64,7 @@ spec:
               containers:
                 main:
                   env:
-                    ND_MUSICFOLDER: /media/Music
+                    ND_MUSICFOLDER: /media/music
                     ND_SCANSCHEDULE: "@every 15m"
                     ND_LOGLEVEL: info
                     ND_SESSIONTIMEOUT: 24h
