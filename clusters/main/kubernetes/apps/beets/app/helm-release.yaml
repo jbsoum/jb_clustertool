@@ -76,13 +76,13 @@ spec:
                 enabled: true
                 type: nfs
                 server: ${IP_TRUENAS}
-                path: ${NFS_DATA_MEDIA}/Music
+                path: ${NFS_DATA_MEDIA_MUSIC}
                 mountPath: /music
-                mountOptions:
-                - nfsvers=4
-                - tcp
-                - intr
-                - hard
-                - noatime
-                - nodiratime
-                - nolock
+                # mountOptions:
+                # - nfsvers=4
+                # - tcp
+                # - intr
+                # - hard
+                # - noatime
+                # - nodiratime
+                # - nolock
