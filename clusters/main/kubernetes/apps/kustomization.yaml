@@ -35,7 +35,7 @@ resources:
   - qbittorrent/ks.yaml
   - radarr/ks.yaml
   - readarr/ks.yaml
-  - renovate/ks.yaml
+  # - renovate/ks.yaml
   - scrutiny/ks.yaml
   - searxng/ks.yaml
   - sonarr/ks.yaml
@@ -43,4 +43,4 @@ resources:
   - vaultwarden/ks.yaml
   - vocechat-server/ks.yaml
   - watchyourlan/ks.yaml
-  # - whoogle/ks.yaml
+  # # - whoogle/ks.yaml
