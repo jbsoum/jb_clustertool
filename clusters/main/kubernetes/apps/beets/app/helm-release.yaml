@@ -76,7 +76,7 @@ spec:
                 enabled: true
                 type: nfs
                 server: ${IP_TRUENAS}
-                path: ${NFS_DATA_MEDIA_MUSIC}
+                path: ${NFS_DATA_MEDIA}
                 mountPath: /music
                 # mountOptions:
                 # - nfsvers=4
