@@ -68,5 +68,8 @@ spec:
                       type: restic
         service:
             main:
+                ports:
+                    main:
+                        port: 8081 
                 enabled: true
                 type: ClusterIP
