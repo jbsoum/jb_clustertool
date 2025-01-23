@@ -15,6 +15,8 @@ spec:
                 namespace: flux-system
     releaseName: lidarr
     values:
+        global:
+            stopAll: true
         TZ: ${TIMEZONE}
         credentials:
             backblaze:
