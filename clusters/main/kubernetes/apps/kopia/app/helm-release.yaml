@@ -80,8 +80,8 @@ spec:
                               - name: ${TRAEFIK_MIDDLEWARE}
                                 namespace: traefik
                             services:
-                              - name: kopia-kopia-10238@kubernetes
-                                port: 443
+                              - name: kopia
+                                # port: 443 
                                 scheme: https
                                 serversTransport: insecure-skip-verify
         kopia:
