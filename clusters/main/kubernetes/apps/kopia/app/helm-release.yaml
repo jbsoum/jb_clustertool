@@ -76,8 +76,11 @@ spec:
                         routes:
                           - match: Host(`${DOMAIN_KOPIA}`)
                             kind: Rule
+                            middlewares:
+                              - name: ${TRAEFIK_MIDDLEWARE}
+                                namespace: traefik
                             services:
-                              - name: kopia-kopia-10238
+                              - name: kopia-kopia-10238@kubernetes
                                 port: 443
                                 scheme: https
                                 serversTransport: insecure-skip-verify
