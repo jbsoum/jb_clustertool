@@ -4,7 +4,7 @@ resources:
   - adguard-gui/ks.yaml
   - authelia/ks.yaml
   - backuppc/ks.yaml
-  # - beets/ks.yaml
+  - beets/ks.yaml
   - cloudflareddns/ks.yaml
   - code-server/ks.yaml
   # - dashy/ks.yaml
@@ -23,7 +23,7 @@ resources:
   - kopia/ks.yaml
   - kubernetes-dashboard/ks.yaml
   - libreddit/ks.yaml
-  # - lidarr/ks.yaml
+  - lidarr/ks.yaml
   - lldap/ks.yaml
   - navidrome/ks.yaml
   - nitter/ks.yaml
