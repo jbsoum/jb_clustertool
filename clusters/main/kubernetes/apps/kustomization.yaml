@@ -42,5 +42,5 @@ resources:
   - truenas-gui/ks.yaml
   - vaultwarden/ks.yaml
   - vocechat-server/ks.yaml
-  - watchyourlan/ks.yaml
+  # - watchyourlan/ks.yaml
   # # - whoogle/ks.yaml
