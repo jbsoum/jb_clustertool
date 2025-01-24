@@ -73,6 +73,14 @@ spec:
                         middlewares:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
+                        routes:
+                          - match: Host(`${DOMAIN_KOPIA}`)
+                            kind: Rule
+                            services:
+                              - name: kopia-kopia-10238
+                                port: 443
+                                scheme: https
+                                serversTransport: insecure-skip-verify
         kopia:
             user: ${ADMIN_USER}
             password: ${KOPIA_SECRET}
