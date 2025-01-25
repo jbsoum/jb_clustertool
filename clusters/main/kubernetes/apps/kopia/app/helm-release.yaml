@@ -26,10 +26,10 @@ spec:
                   args:
                     - server
                     - start
-                    - --tls-generate-cert
-                    - --disable-csrf-token-checks
+                    # - --tls-generate-cert
+                    # - --disable-csrf-token-checks
                     - --address=http://0.0.0.0:{{ .Values.service.main.ports.main.port }}
-                    # - --insecure
+                    - --insecure
                     - --server-username={{ .Values.kopia.server_username }}
                     - --server-password={{ .Values.kopia.server_password }}
         TZ: ${TIMEZONE}
@@ -45,8 +45,8 @@ spec:
                 url: ${S3_URL}
         ingress:
             enabled: true
-            annotations:
-                traefik.ingress.kubernetes.io/service.serverstransport.kopia.insecureSkipVerify: 'true'
+            # annotations:
+            #     traefik.ingress.kubernetes.io/service.serverstransport.kopia.insecureSkipVerify: 'true'
             main:
                 enabled: true
                 hosts:
