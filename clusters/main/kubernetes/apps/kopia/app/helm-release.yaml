@@ -46,7 +46,7 @@ spec:
         ingress:
             enabled: true
             annotations:
-                traefik.ingress.kubernetes.io/service.serverstransport.insecureSkipVerify: 'true'
+                traefik.ingress.kubernetes.io/service.serverstransport.kopia.insecureSkipVerify: 'true'
             main:
                 enabled: true
                 hosts:
