@@ -61,19 +61,19 @@ spec:
                         group: Utilities
                         widget:
                             enabled: false
-                    certManager:
-                      enabled: true
-                      certificateIssuer: domain-1-le-prod
                     # certManager:
-                        # enabled: false
-                        # certificateIssuer: ""
+                    #   enabled: true
+                    #   certificateIssuer: domain-1-le-prod
+                    certManager:
+                        enabled: false
+                        certificateIssuer: ""
                     traefik:
                         enabled: true
                         entrypoints:
                             - websecure
-                        # middlewares:
-                        #     - name: ${TRAEFIK_MIDDLEWARE}
-                        #       namespace: traefik
+                        middlewares:
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
         nextcloud:
           # Initial Credentials
           credentials:
