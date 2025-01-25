@@ -45,7 +45,7 @@ spec:
                 url: ${S3_URL}
         ingress:
             annotations:
-                traefik.ingress.kubernetes.io/service.serverstransport.kopia.insecureSkipVerify: 'true'
+                traefik.ingress.kubernetes.io/service.serverstransport.insecureSkipVerify: 'true'
             main:
                 enabled: true
                 hosts:
