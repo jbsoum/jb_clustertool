@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - adguard-gui/ks.yaml
   - authelia/ks.yaml
-  - backuppc/ks.yaml
+  # - backuppc/ks.yaml
   - beets/ks.yaml
   - cloudflareddns/ks.yaml
   - code-server/ks.yaml
