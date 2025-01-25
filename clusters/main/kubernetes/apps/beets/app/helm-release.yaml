@@ -30,7 +30,6 @@ spec:
                 url: ${S3_URL}
         ingress:
             main:
-                enabled: false
                 hosts:
                     - host: ${DOMAIN_BEETS}
                       paths:
@@ -62,17 +61,17 @@ spec:
             main:
                 enabled: true
                 type: ClusterIP
-        securityContext:
-            container:
-                UMASK: "0022"
-                allowPrivilegeEscalation: true
-                readOnlyRootFilesystem: false
-                runAsGroup: 0
-                runAsNonRoot: false
-                runAsUser: 0
-            pod:
-                fsGroup: 0
-                fsGroupChangePolicy: OnRootMismatch
+        # securityContext:
+        #     container:
+        #         UMASK: "0022"
+        #         allowPrivilegeEscalation: true
+        #         readOnlyRootFilesystem: false
+        #         runAsGroup: 0
+        #         runAsNonRoot: false
+        #         runAsUser: 0
+        #     pod:
+        #         fsGroup: 0
+        #         fsGroupChangePolicy: OnRootMismatch
         persistence:
             config:
                 volsync:
@@ -89,11 +88,11 @@ spec:
                 server: ${IP_TRUENAS}
                 path: ${NFS_DATA_MEDIA}/music
                 mountPath: /music
-                mountOptions:
-                - nfsvers=4
-                - tcp
-                - intr
-                - hard
-                - noatime
-                - nodiratime
-                - nolock
+                # mountOptions:
+                # - nfsvers=4
+                # - tcp
+                # - intr
+                # - hard
+                # - noatime
+                # - nodiratime
+                # - nolock
