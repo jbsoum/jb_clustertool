@@ -18,20 +18,20 @@ spec:
         global:
             stopAll: false
         # https://github.com/DoTheEvo/selfhosted-apps-docker/tree/master/kopia_backup
-        workload:
-          main:
-            podSpec:
-              containers:
-                main:
-                  args:
-                    - server
-                    - start
-                    # - --tls-generate-cert
-                    # - --disable-csrf-token-checks
-                    - --address=http://0.0.0.0:{{ .Values.service.main.ports.main.port }}
-                    - --insecure
-                    - --server-username={{ .Values.kopia.server_username }}
-                    - --server-password={{ .Values.kopia.server_password }}
+        # workload:
+        #   main:
+        #     podSpec:
+        #       containers:
+        #         main:
+        #           args:
+        #             - server
+        #             - start
+        #             # - --tls-generate-cert
+        #             # - --disable-csrf-token-checks
+        #             - --address=http://0.0.0.0:{{ .Values.service.main.ports.main.port }}
+        #             - --insecure
+        #             - --server-username={{ .Values.kopia.server_username }}
+        #             - --server-password={{ .Values.kopia.server_password }}
         TZ: ${TIMEZONE}
         credentials:
              backblaze:
@@ -44,7 +44,7 @@ spec:
                 type: s3
                 url: ${S3_URL}
         ingress:
-            enabled: true
+            # enabled: true
             # annotations:
             #     traefik.ingress.kubernetes.io/service.serverstransport.kopia.insecureSkipVerify: 'true'
             main:
