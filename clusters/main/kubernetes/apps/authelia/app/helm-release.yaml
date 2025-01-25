@@ -97,6 +97,7 @@ spec:
                   subject: []
                 - domain:
                     - ${DOMAIN_SEARXNG}
+                    - ${DOMAIN_KOPIA}
                     - ${DOMAIN_LIBREDDIT}
                     - ${DOMAIN_VPN}
                     - ${DOMAIN_INVIDIOUS}
