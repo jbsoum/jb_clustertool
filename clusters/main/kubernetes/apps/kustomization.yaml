@@ -16,19 +16,19 @@ resources:
   - homarr/ks.yaml
   - homepage/ks.yaml
   - icloudpd/ks.yaml
-  - invidious/ks.yaml
+  # - invidious/ks.yaml
   - jellyseerr/ks.yaml
   - jellyfin/ks.yaml
   - joplin-server/ks.yaml
   - kopia/ks.yaml
   - kubernetes-dashboard/ks.yaml
-  - libreddit/ks.yaml
+  # - libreddit/ks.yaml
   - lidarr/ks.yaml
   - lldap/ks.yaml
   - navidrome/ks.yaml
   - nextcloud/ks.yaml
-  - nitter/ks.yaml
-  - odoo/ks.yaml
+  # - nitter/ks.yaml
+  # - odoo/ks.yaml
   - onlyoffice-document-server/ks.yaml
   - pgadmin/ks.yaml
   - protonmail-bridge/ks.yaml
