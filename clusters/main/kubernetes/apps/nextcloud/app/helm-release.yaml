@@ -1,0 +1,190 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: nextcloud
+    namespace: nextcloud
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: nextcloud
+            version: 32.7.0
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: nextcloud
+    values:
+        global:
+            stopAll: false
+        TZ: ${TIMEZONE}
+        credentials:
+             backblaze:
+                accessKey: ${S3_ACCESS_KEY}
+                bucket: ${S3_BUCKET}
+                encrKey: ${S3_ENCRYPTION_KEY}
+                name: ${S3_NAME}
+                path: ""
+                secretKey: ${S3_SECRET_KEY}
+                type: s3
+                url: ${S3_URL}
+        ingress:
+            main:
+                enabled: true
+                hosts:
+                    - host: ${DOMAIN_NEXTCLOUD} 
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                tls:
+                    - certificateIssuer: ""
+                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
+                      hosts:
+                        - ${DOMAIN_NEXTCLOUD}
+                      secretName: ""
+                integrations:
+                    homepage:
+                        enabled: true
+                        group: Utilities
+                        widget:
+                            enabled: false
+                    certManager:
+                        enabled: false
+                        certificateIssuer: ""
+                    traefik:
+                        enabled: true
+                        entrypoints:
+                            - websecure
+                        middlewares:
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
+        nextcloud:
+          # Initial Credentials
+          credentials:
+            initialAdminUser: ${ADMIN_USER}
+            initialAdminPassword: ${ADMIN_PASSWORD}
+          # General settings
+          general:
+            # Custom Nextcloud Scripts
+            run_optimize: true
+            default_phone_region: US
+            # IP used for exposing nextcloud,
+            # often the loadbalancer IP
+            accessIP: "${IP_TRAEFIK}"
+            # Allows Nextcloud to connect to unsecure (http) endpoints
+            force_enable_allow_local_remote_servers: true
+          # File settings
+          files:
+            shared_folder_name: Shared
+            max_chunk_size: 10485760
+          # Expiration settings
+          expirations:
+            activity_expire_days: 90
+            trash_retention_obligation: auto
+            versions_retention_obligation: auto
+          # Previews settings
+          previews:
+            enabled: true
+            # It will also deploy the container
+            imaginary: true
+            cron: true
+            schedule: "*/30 * * * *"
+            max_x: 2048
+            max_y: 2048
+            max_memory: 1024
+            max_file_size_image: 50
+            # Setting for Imaginary
+            max_allowed_resolution: 18.0
+            jpeg_quality: 60
+            square_sizes: 32 256
+            width_sizes: 256 384
+            height_sizes: 256
+            # Casings are important
+            # https://github.com/nextcloud/server/blob/master/config/config.sample.php#L1269
+            # Only the last part of the provider is needed
+            providers:
+              - PNG
+              - JPEG
+          # Logging settings
+          logging:
+            log_level: 2
+            log_file: /var/www/html/data/logs/nextcloud.log
+            log_audit_file: /var/www/html/data/logs/audit.log
+            log_date_format: d/m/Y H:i:s
+          # ClamAV settings
+          clamav:
+            # It will also deploy the container
+            # Note that this runs as root
+            enabled: true
+            stream_max_length: 26214400
+            file_max_size: -1
+            infected_action: only_log
+          # Notify Push settings
+          notify_push:
+            # It will also deploy the container
+            enabled: true
+          # Collabora settings
+          collabora:
+            # It will also deploy the container
+            enabled: true
+            # default|compact|tabbed
+            interface_mode: default
+            username: ${ADMIN_USER}
+            password: ${ADMIN_PASSWORD}
+            dictionaries:
+              - de_DE
+              - en_GB
+              - en_US
+              - el_GR
+              - es_ES
+              - fr_FR
+              - pt_BR
+              - pt_PT
+              - it
+              - nl
+              - ru
+          onlyoffice:
+            # It will not deploy the container
+            # Only add the OnlyOffice settings
+            enabled: true
+            url: "https://${DOMAIN_ONLYOFFICE_DOCUMENT_SERVER}"
+            internal_url: "http://onlyoffice-document-server.onlyoffice-document-server.svc.cluster.local/"
+            verify_ssl: true
+            jwt: "${ONLYOFFICE_DOCUMENT_SERVER_SECRET}"
+            jwt_header: Authorization
+          # PHP settings
+          php:
+            memory_limit: 1G
+            upload_limit: 10G
+            pm_max_children: 180
+            pm_start_servers: 18
+            pm_min_spare_servers: 12
+            pm_max_spare_servers: 30
+          opcache:
+            interned_strings_buffer: 32
+            max_accelerated_files: 10000
+            memory_consumption: 128
+            revalidate_freq: 60
+            jit_buffer_size: 128
+        persistence:
+          data:
+            enabled: true
+            type: nfs
+            path: ${NFS_DATA_NEXTCLOUD}
+            server: ${IP_TRUENAS}
+            targetSelector:
+              main:
+                main:
+                  mountPath: /var/www/html/data
+                init-perms:
+                  mountPath: /var/www/html/data
+              nextcloud-cron:
+                nextcloud-cron:
+                  mountPath: /var/www/html/data
+              preview-cron:
+                preview-cron:
+                  mountPath: /var/www/html/data
+              nginx:
+                nginx:
+                  mountPath: /var/www/html/data
+                  readOnly: true
