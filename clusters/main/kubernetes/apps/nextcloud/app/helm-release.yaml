@@ -138,7 +138,7 @@ spec:
           # Collabora settings
           collabora:
             # It will also deploy the container
-            enabled: true
+            enabled: false
             # default|compact|tabbed
             interface_mode: default
             username: ${ADMIN_USER}
