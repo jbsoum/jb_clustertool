@@ -44,10 +44,12 @@ spec:
                 type: s3
                 url: ${S3_URL}
         ingress:
+            annotations:
+                traefik.ingress.kubernetes.io/service.serverstransport.kopia.insecureSkipVerify: 'true'
             main:
                 enabled: true
                 hosts:
-                    - host: ${DOMAIN_KOPIA}
+                    - host: ${DOMAIN_KOPIA} 
                       paths:
                         - path: /
                           pathType: Prefix
@@ -79,11 +81,11 @@ spec:
                             middlewares:
                               - name: ${TRAEFIK_MIDDLEWARE}
                                 namespace: traefik
-                            services:
-                              - name: kopia
-                                # port: 443 
-                                scheme: https
-                                serversTransport: insecure-skip-verify
+                            # services:
+                            #   - name: kopia
+                            #     # port: 443 
+                            #     scheme: https
+                            #     serversTransport: insecure-skip-verify
         kopia:
             user: ${ADMIN_USER}
             password: ${KOPIA_SECRET}
