@@ -44,6 +44,7 @@ spec:
                 type: s3
                 url: ${S3_URL}
         ingress:
+            enabled: true
             annotations:
                 traefik.ingress.kubernetes.io/service.serverstransport.insecureSkipVerify: 'true'
             main:
