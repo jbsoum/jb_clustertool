@@ -73,7 +73,7 @@ spec:
             main:
                 enabled: true
                 type: ClusterIP
-        # persistence:
+        persistence:
             # config:
             #     volsync:
             #         - credentials: ${S3_NAME}
@@ -101,15 +101,15 @@ spec:
             #           src:
             #             enabled: true
             #           type: restic
-            # data:
-            #     volsync:
-            #         - credentials: ${S3_NAME}
-            #           dest:
-            #             enabled: true
-            #           name: data
-            #           src:
-            #             enabled: true
-            #           type: restic
+            data:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: data
+                      src:
+                        enabled: true
+                      type: restic
             # data:
             #     enabled: true
             #     type: nfs
