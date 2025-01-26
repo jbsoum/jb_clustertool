@@ -111,8 +111,8 @@ spec:
             #             enabled: true
             #           type: restic
             data:
-                enabled: true
-                type: emptyDir
+                enabled: false
+                # type: emptyDir
             datamount:
                 enabled: true
                 type: nfs
