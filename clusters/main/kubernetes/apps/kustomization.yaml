@@ -33,6 +33,7 @@ resources:
   - pgadmin/ks.yaml
   - protonmail-bridge/ks.yaml
   - prowlarr/ks.yaml
+  - proxmox-backup-server/ks.yaml
   - qbittorrent/ks.yaml
   - radarr/ks.yaml
   - readarr/ks.yaml
@@ -45,3 +46,4 @@ resources:
   - vocechat-server/ks.yaml
   # - watchyourlan/ks.yaml
   # # - whoogle/ks.yaml
+  - proxmox-backup-server/ks.yaml

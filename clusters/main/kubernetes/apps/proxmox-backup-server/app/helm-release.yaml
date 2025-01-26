@@ -1,0 +1,94 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: proxmox-backup-server
+    namespace: proxmox-backup-server
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: proxmox-backup-server
+            version: 5.6.0
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: proxmox-backup-server
+    values:
+        global:
+            stopAll: false
+        TZ: ${TIMEZONE}
+        credentials:
+             backblaze:
+                accessKey: ${S3_ACCESS_KEY}
+                bucket: ${S3_BUCKET}
+                encrKey: ${S3_ENCRYPTION_KEY}
+                name: ${S3_NAME}
+                path: ""
+                secretKey: ${S3_SECRET_KEY}
+                type: s3
+                url: ${S3_URL}
+        ingress:
+            main:
+                enabled: true
+                hosts:
+                    - host: ${DOMAIN_PROXMOX_BACKUP_SERVER} 
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                tls:
+                    - certificateIssuer: ""
+                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
+                      hosts:
+                        - ${DOMAIN_PROXMOX_BACKUP_SERVER}
+                      secretName: ""
+                integrations:
+                    homepage:
+                        enabled: true
+                        group: Utilities
+                        widget:
+                            enabled: false
+                    certManager:
+                        enabled: false
+                        certificateIssuer: ""
+                    traefik:
+                        enabled: true
+                        forceTLS: true
+                        entrypoints:
+                            - websecure
+                        middlewares:
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
+        persistence:
+            # config:
+            #     volsync:
+            #         - credentials: ${S3_NAME}
+            #           dest:
+            #             enabled: true
+            #           name: config
+            #           src:
+            #             enabled: true
+            #           type: restic
+            # log:
+            #     volsync:
+            #         - credentials: ${S3_NAME}
+            #           dest:
+            #             enabled: true
+            #           name: log
+            #           src:
+            #             enabled: true
+            #           type: restic
+            data:
+                enabled: true
+                type: nfs
+                server: ${IP_TRUENAS}
+                path: ${NFS_DATA_PROXMOX_BACKUP_SERVER}
+                mountPath: /data
+                # mountOptions:
+                # - nfsvers=4
+                # - tcp
+                # - intr
+                # - hard
+                # - noatime
+                # - nodiratime
+                # - nolock
