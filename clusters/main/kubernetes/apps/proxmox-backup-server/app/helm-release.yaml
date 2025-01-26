@@ -16,7 +16,7 @@ spec:
     releaseName: proxmox-backup-server
     values:
         global:
-            stopAll: true
+            stopAll: false
         TZ: ${TIMEZONE}
         credentials:
              backblaze:
