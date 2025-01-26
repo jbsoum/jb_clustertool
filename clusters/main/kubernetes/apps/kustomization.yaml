@@ -3,8 +3,8 @@ kind: Kustomization
 resources:
   - adguard-gui/ks.yaml
   - authelia/ks.yaml
-  - backuppc/ks.yaml
-  - beets/ks.yaml
+  # - backuppc/ks.yaml
+  # - beets/ks.yaml
   - cloudflareddns/ks.yaml
   - code-server/ks.yaml
   # - dashy/ks.yaml
@@ -33,7 +33,7 @@ resources:
   - pgadmin/ks.yaml
   - protonmail-bridge/ks.yaml
   - prowlarr/ks.yaml
-  - proxmox-backup-server/ks.yaml
+  # - proxmox-backup-server/ks.yaml
   - qbittorrent/ks.yaml
   - radarr/ks.yaml
   - readarr/ks.yaml
