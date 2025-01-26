@@ -121,7 +121,7 @@ spec:
                 enabled: false
                 # type: emptyDir
             datamount:
-                # enabled: true
+                enabled: true
                 type: nfs
                 server: ${IP_TRUENAS}
                 path: ${NFS_DATA_BACKUPPC}
