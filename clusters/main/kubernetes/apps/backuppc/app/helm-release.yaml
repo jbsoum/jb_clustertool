@@ -74,33 +74,33 @@ spec:
                 enabled: true
                 type: ClusterIP
         persistence:
-            config:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: config
-                      src:
-                        enabled: true
-                      type: restic
-            ssh:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: ssh
-                      src:
-                        enabled: true
-                      type: restic
-            logs:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: logs
-                      src:
-                        enabled: true
-                      type: restic
+            # config:
+            #     volsync:
+            #         - credentials: ${S3_NAME}
+            #           dest:
+            #             enabled: true
+            #           name: config
+            #           src:
+            #             enabled: true
+            #           type: restic
+            # ssh:
+            #     volsync:
+            #         - credentials: ${S3_NAME}
+            #           dest:
+            #             enabled: true
+            #           name: ssh
+            #           src:
+            #             enabled: true
+            #           type: restic
+            # logs:
+            #     volsync:
+            #         - credentials: ${S3_NAME}
+            #           dest:
+            #             enabled: true
+            #           name: logs
+            #           src:
+            #             enabled: true
+            #           type: restic
             # data:
             #     volsync:
             #         - credentials: ${S3_NAME}
@@ -111,7 +111,7 @@ spec:
             #             enabled: true
             #           type: restic
             data:
-                # enabled: false
+                enabled: true
                 type: nfs
                 server: ${IP_TRUENAS}
                 path: ${NFS_DATA_BACKUPPC}
