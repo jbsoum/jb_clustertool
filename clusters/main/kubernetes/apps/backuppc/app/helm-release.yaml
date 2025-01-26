@@ -110,15 +110,15 @@ spec:
             #           src:
             #             enabled: true
             #           type: restic
-            data:
-                enabled: false
+            # data:
+            #     enabled: false
                 # type: emptyDir
-            datamount:
-                enabled: true
+            data:
+                # enabled: true
                 type: nfs
                 server: ${IP_TRUENAS}
                 path: ${NFS_DATA_BACKUPPC}
-                mountPath: /data
+                # mountPath: /data
                 # mountOptions:
                 # - nfsvers=4
                 # - tcp
