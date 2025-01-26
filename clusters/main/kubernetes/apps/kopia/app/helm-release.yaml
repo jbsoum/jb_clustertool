@@ -26,8 +26,8 @@ spec:
                   args:
                     - server
                     - start
-                    - --tls-generate-cert
-                    # - --insecure
+                    # - --tls-generate-cert
+                    - --insecure
                     - --disable-csrf-token-checks
                     - --address=http://0.0.0.0:{{ .Values.service.main.ports.main.port }}
                     - --server-username={{ .Values.kopia.server_username }}
