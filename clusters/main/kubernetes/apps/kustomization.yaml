@@ -46,4 +46,4 @@ resources:
   - vocechat-server/ks.yaml
   # - watchyourlan/ks.yaml
   # # - whoogle/ks.yaml
-  - proxmox-backup-server/ks.yaml
+  # - proxmox-backup-server/ks.yaml
