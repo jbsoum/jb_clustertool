@@ -46,8 +46,9 @@ spec:
         ingress:
             enabled: true
             annotations:
-                traefik.ingress.kubernetes.io/service.kopia-kopia-10238@kubernetes.loadbalancer.serverstransport: 'kopia-isv'
-                traefik.ingress.kubernetes.io/service.serverstransport.kopia-isv.insecureSkipVerify: 'true'
+                traefik.ingress.kubernetes.io/service.serverstransport: kopia-kopia-10238@kubernetes
+                # traefik.ingress.kubernetes.io/service.kopia-kopia-10238@kubernetes.loadbalancer.serverstransport: 'kopia-isv'
+                traefik.ingress.kubernetes.io/service.serverstransport.insecureSkipVerify: 'true'
             main:
                 enabled: true
                 hosts:
