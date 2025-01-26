@@ -46,9 +46,9 @@ spec:
         ingress:
             enabled: true
             annotations:
-                traefik.ingress.kubernetes.io/service.serverstransport: kopia-kopia-10238@kubernetes
+                # traefik.ingress.kubernetes.io/service.serverstransport: kopia-kopia-10238@kubernetes
                 # traefik.ingress.kubernetes.io/service.kopia-kopia-10238@kubernetes.loadbalancer.serverstransport: 'kopia-isv'
-                traefik.ingress.kubernetes.io/service.serverstransport.insecureSkipVerify: 'true'
+                # traefik.ingress.kubernetes.io/service.serverstransport.insecureSkipVerify: 'true'
             main:
                 enabled: true
                 hosts:
@@ -73,17 +73,18 @@ spec:
                         certificateIssuer: ""
                     traefik:
                         enabled: true
+                        allowCors: true
                         entrypoints:
                             - websecure
                         middlewares:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
-                        routes:
-                          - match: Host(`${DOMAIN_KOPIA}`)
-                            kind: Rule
-                            middlewares:
-                              - name: ${TRAEFIK_MIDDLEWARE}
-                                namespace: traefik
+                        # routes:
+                        #   - match: Host(`${DOMAIN_KOPIA}`)
+                        #     kind: Rule
+                        #     middlewares:
+                        #       - name: ${TRAEFIK_MIDDLEWARE}
+                        #         namespace: traefik
                             # services:
                             #   - name: kopia
                             #     # port: 443 
