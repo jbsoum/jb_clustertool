@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - adguard-gui/ks.yaml
   - authelia/ks.yaml
-  # - backuppc/ks.yaml
+  - backuppc/ks.yaml
   - beets/ks.yaml
   - cloudflareddns/ks.yaml
   - code-server/ks.yaml
@@ -20,7 +20,7 @@ resources:
   - jellyseerr/ks.yaml
   - jellyfin/ks.yaml
   - joplin-server/ks.yaml
-  - kopia/ks.yaml
+  # - kopia/ks.yaml
   - kubernetes-dashboard/ks.yaml
   # - libreddit/ks.yaml
   - lidarr/ks.yaml
