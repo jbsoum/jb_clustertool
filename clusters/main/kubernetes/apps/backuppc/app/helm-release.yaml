@@ -56,6 +56,13 @@ spec:
                         middlewares:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
+        workload:
+            main:
+              podSpec:
+                containers:
+                  main:
+                    env:
+                      DATA_PATH: "{{ .Values.persistence.datamount.mountPath }}"
         backuppc:
             smtp:
                 auto_from: false
@@ -110,15 +117,15 @@ spec:
             #           src:
             #             enabled: true
             #           type: restic
-            # data:
-            #     enabled: false
-                # type: emptyDir
             data:
+                enabled: false
+                # type: emptyDir
+            datamount:
                 # enabled: true
                 type: nfs
                 server: ${IP_TRUENAS}
                 path: ${NFS_DATA_BACKUPPC}
-                # mountPath: /data
+                mountPath: /data
                 # mountOptions:
                 # - nfsvers=4
                 # - tcp
