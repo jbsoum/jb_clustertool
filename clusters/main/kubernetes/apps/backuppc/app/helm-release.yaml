@@ -110,8 +110,8 @@ spec:
             #           src:
             #             enabled: true
             #           type: restic
-            # data:
-            #     enabled: false
+            data:
+                enabled: false
                 # type: emptyDir
             datamount:
                 enabled: true
