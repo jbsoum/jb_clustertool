@@ -102,7 +102,7 @@ spec:
           onlyoffice:
             # It will not deploy the container
             # Only add the OnlyOffice settings
-            enabled: true
+            enabled: false
             url: "https://${DOMAIN_ONLYOFFICE_DOCUMENT_SERVER}"
             internal_url: "http://onlyoffice-document-server.onlyoffice-document-server.svc.cluster.local/"
             verify_ssl: true
@@ -110,7 +110,7 @@ spec:
             jwt_header: Authorization
         persistence:
           data:
-            enabled: true
+            enabled: false
             type: nfs
             path: ${NFS_DATA_NEXTCLOUD}
             server: ${IP_TRUENAS}
