@@ -28,18 +28,18 @@ spec:
                 secretKey: ${S3_SECRET_KEY}
                 type: s3
                 url: ${S3_URL}
-        # cnpg:
-        #     main:
-        #         mode: recovery
-        #         backups:
-        #             credentials: ${S3_NAME}
-        #             enabled: true
-        #             revision: "${CNPG_BACKUP_REVISION}"
-        #         recovery:
-        #             method: object_store
-        #             credentials: ${S3_NAME}
-        #             enabled: true
-        #             revision: "${CNPG_RECOVERY_REVISION}"
+        cnpg:
+            main:
+                mode: recovery
+                backups:
+                    credentials: ${S3_NAME}
+                    enabled: true
+                    revision: "${CNPG_BACKUP_REVISION}"
+                recovery:
+                    method: object_store
+                    credentials: ${S3_NAME}
+                    enabled: true
+                    revision: "${CNPG_RECOVERY_REVISION}"
         ingress:
             main:
                 enabled: true
@@ -102,7 +102,7 @@ spec:
           onlyoffice:
             # It will not deploy the container
             # Only add the OnlyOffice settings
-            enabled: false
+            enabled: true
             url: "https://${DOMAIN_ONLYOFFICE_DOCUMENT_SERVER}"
             internal_url: "http://onlyoffice-document-server.onlyoffice-document-server.svc.cluster.local:10043"
             verify_ssl: true
@@ -114,29 +114,29 @@ spec:
             type: nfs
             path: ${NFS_DATA_NEXTCLOUD}
             server: ${IP_TRUENAS}
-          # config:
-          #   volsync:
-          #   - name: config
-          #     type: restic
-          #     cleanupTempPVC: true
-          #     cleanupCachePVC: true
-          #     credentials: ${S3_NAME}
-          #     dest:
-          #       enabled: true
-          #     src:
-          #       enabled: true
-          #       trigger:
-          #         schedule: 10 1 * * *
-          # html:
-          #   volsync:
-          #   - name: html
-          #     type: restic
-          #     cleanupTempPVC: true
-          #     cleanupCachePVC: true
-          #     credentials: ${S3_NAME}
-          #     dest:
-          #       enabled: true
-          #     src:
-          #       enabled: true
-          #       trigger:
-          #         schedule: 20 1 * * *
+          config:
+            volsync:
+            - name: config
+              type: restic
+              cleanupTempPVC: true
+              cleanupCachePVC: true
+              credentials: ${S3_NAME}
+              dest:
+                enabled: true
+              src:
+                enabled: true
+                trigger:
+                  schedule: 10 1 * * *
+          html:
+            volsync:
+            - name: html
+              type: restic
+              cleanupTempPVC: true
+              cleanupCachePVC: true
+              credentials: ${S3_NAME}
+              dest:
+                enabled: true
+              src:
+                enabled: true
+                trigger:
+                  schedule: 20 1 * * *
