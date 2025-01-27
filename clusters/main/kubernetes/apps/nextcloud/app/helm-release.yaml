@@ -16,7 +16,7 @@ spec:
     releaseName: nextcloud
     values:
         global:
-            stopAll: false
+            stopAll: true
         TZ: ${TIMEZONE}
         credentials:
              backblaze:
