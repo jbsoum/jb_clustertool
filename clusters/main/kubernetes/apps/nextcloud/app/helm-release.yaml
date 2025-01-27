@@ -102,7 +102,7 @@ spec:
           onlyoffice:
             # It will not deploy the container
             # Only add the OnlyOffice settings
-            enabled: true
+            enabled: false
             url: "https://${DOMAIN_ONLYOFFICE_DOCUMENT_SERVER}"
             internal_url: "http://onlyoffice-document-server.onlyoffice-document-server.svc.cluster.local:10043"
             verify_ssl: true
