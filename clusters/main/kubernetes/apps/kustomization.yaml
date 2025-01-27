@@ -27,7 +27,7 @@ resources:
   - lidarr/ks.yaml
   - lldap/ks.yaml
   - navidrome/ks.yaml
-  # - nextcloud/ks.yaml
+  - nextcloud/ks.yaml
   # - nitter/ks.yaml
   # - odoo/ks.yaml
   - onlyoffice-document-server/ks.yaml
