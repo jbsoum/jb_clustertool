@@ -22,13 +22,18 @@ spec:
             repository: docker.io/warfront1cz/clonezilla
             tag: 3.2.0-5-amd64@sha256:24ed602a810577365742b34213f4c1223948fcd35e1fd9ba377e75dd15d1cf31
             pullPolicy: IfNotPresent
-        securityContext:
-        container:
-            runAsNonRoot: false
-            readOnlyRootFilesystem: false
-            runAsUser: 0
-            runAsGroup: 0
-            
+        workload:
+            main:
+                podSpec:
+                    containers:
+                        main:
+                            securityContext:
+                            container:
+                                runAsNonRoot: false
+                                readOnlyRootFilesystem: false
+                                runAsUser: 0
+                                runAsGroup: 0
+
         ## User defined values
         TZ: ${TIMEZONE}
         credentials:
