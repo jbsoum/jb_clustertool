@@ -70,6 +70,7 @@ spec:
                     - ^/api([/?].*)?$
                     - ^/share.*$
                     - ^/rest.*$
+                    - ^/editors/onlyoffice.*$
                     - ^/identity.*$
                     - ^/triggers.*$
                     - ^/meshagents.*$
