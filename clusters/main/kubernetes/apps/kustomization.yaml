@@ -6,6 +6,7 @@ resources:
   - authelia/ks.yaml
   # - backuppc/ks.yaml
   # - beets/ks.yaml
+  - clonezilla/ks.yaml
   - cloudflareddns/ks.yaml
   - code-server/ks.yaml
   # - dashy/ks.yaml
