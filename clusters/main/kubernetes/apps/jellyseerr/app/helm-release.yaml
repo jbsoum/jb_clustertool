@@ -60,14 +60,14 @@ spec:
                               namespace: traefik
         persistence:
             config:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: config
-                      src:
-                        enabled: true
-                      type: restic
+                # volsync:
+                #     - credentials: ${S3_NAME}
+                #       dest:
+                #         enabled: true
+                #       name: config
+                #       src:
+                #         enabled: true
+                #       type: restic
         service:
             main:
                 enabled: true
