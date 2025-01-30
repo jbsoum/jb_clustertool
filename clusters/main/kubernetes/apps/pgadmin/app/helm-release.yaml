@@ -16,7 +16,7 @@ spec:
     releaseName: pgadmin
     values:
         global:
-            stopAll: true
+            stopAll: false
         TZ: ${TIMEZONE}
         credentials:
             backblaze:

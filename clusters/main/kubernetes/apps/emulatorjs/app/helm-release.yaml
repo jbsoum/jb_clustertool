@@ -16,7 +16,7 @@ spec:
     releaseName: emulatorjs
     values:
         global:
-            stopAll: true
+            stopAll: false
         TZ: ${TIMEZONE}
         addons:
             codeserver:

@@ -16,7 +16,7 @@ spec:
     releaseName: homepage
     values:
         global:
-            stopAll: true
+            stopAll: false
         TZ: ${TIMEZONE}
         addons:
             codeserver:
