@@ -16,7 +16,7 @@ spec:
     releaseName: jellyseerr
     values:
         global:
-            stopAll: false
+            stopAll: true
         securityContext:
             container:
                 runAsNonRoot: false
@@ -89,4 +89,4 @@ spec:
                         main:
                             env:
                                 JELLYFIN_TYPE: emby
-                                LOG_LEVEL: info
+                                LOG_LEVEL: debug
