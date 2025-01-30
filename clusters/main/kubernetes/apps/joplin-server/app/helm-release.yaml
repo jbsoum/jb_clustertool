@@ -15,6 +15,8 @@ spec:
                 namespace: flux-system
     releaseName: joplin-server
     values:
+        global:
+            stopAll: true
         TZ: ${TIMEZONE}
         cnpg:
             main:

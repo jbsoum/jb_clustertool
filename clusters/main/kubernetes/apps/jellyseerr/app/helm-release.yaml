@@ -16,7 +16,7 @@ spec:
     releaseName: jellyseerr
     values:
         global:
-            stopAll: false
+            stopAll: true
         TZ: ${TIMEZONE}
         credentials:
              backblaze:
