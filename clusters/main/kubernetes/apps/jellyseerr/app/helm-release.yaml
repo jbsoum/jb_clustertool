@@ -17,14 +17,14 @@ spec:
     values:
         global:
             stopAll: false
-        securityContext:
-            container:
-                runAsNonRoot: false
-                readOnlyRootFilesystem: false
-                runAsUser: 0
-                runAsGroup: 0
-                fsGroup: 0
-                UMASK: "0022"
+        # securityContext:
+        #     container:
+        #         runAsNonRoot: false
+        #         readOnlyRootFilesystem: false
+        #         runAsUser: 0
+        #         runAsGroup: 0
+        #         fsGroup: 0
+        #         UMASK: "0022"
             pod:
                 fsGroupChangePolicy: OnRootMismatch
         TZ: ${TIMEZONE}
