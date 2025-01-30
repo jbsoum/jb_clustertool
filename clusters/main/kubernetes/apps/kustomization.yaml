@@ -49,4 +49,4 @@ resources:
   # - watchyourlan/ks.yaml
   # # - whoogle/ks.yaml
   # - proxmox-backup-server/ks.yaml
-  - voiceai-gui/ks.yaml
+  - voice-ai-gui/ks.yaml
