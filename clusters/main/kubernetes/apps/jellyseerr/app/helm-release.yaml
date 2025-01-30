@@ -59,7 +59,7 @@ spec:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
         persistence:
-            config:
+            # config:
                 # volsync:
                 #     - credentials: ${S3_NAME}
                 #       dest:
