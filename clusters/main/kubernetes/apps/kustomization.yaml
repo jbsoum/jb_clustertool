@@ -45,7 +45,7 @@ resources:
   - sonarr/ks.yaml
   - truenas-gui/ks.yaml
   - vaultwarden/ks.yaml
-  # - vocechat-server/ks.yaml
+  - vocechat-server/ks.yaml
   # - watchyourlan/ks.yaml
   # # - whoogle/ks.yaml
   # - proxmox-backup-server/ks.yaml
