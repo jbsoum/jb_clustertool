@@ -21,7 +21,7 @@ spec:
             upgrade:
                 crds: CreateReplace
                 remediation:
-            retries: 3
+                    retries: 3
     values:
         TZ: ${TIMEZONE}
         credentials:
@@ -94,7 +94,6 @@ spec:
             main:
                 enabled: true
                 type: ClusterIP
-        updated: true
         workload:
             main:
                 podSpec:
