@@ -9,9 +9,9 @@ resources:
   - cloudflareddns/ks.yaml
   - code-server/ks.yaml
   # - dashy/ks.yaml
-  # - deluge/ks.yaml
+  - deluge/ks.yaml
   - emby/ks.yaml
-  # - emulatorjs/ks.yaml
+  - emulatorjs/ks.yaml
   - firefox-syncserver/ks.yaml
   - gitea/ks.yaml
   - homarr/ks.yaml
