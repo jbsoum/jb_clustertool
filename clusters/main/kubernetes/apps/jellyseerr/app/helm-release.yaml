@@ -68,16 +68,16 @@ spec:
                         middlewares:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
-        persistence:
-            config:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: config
-                      src:
-                        enabled: true
-                      type: restic
+        # persistence:
+        #     config:
+        #         volsync:
+        #             - credentials: ${S3_NAME}
+        #               dest:
+        #                 enabled: true
+        #               name: config
+        #               src:
+        #                 enabled: true
+        #               type: restic
         service:
             main:
                 enabled: true
