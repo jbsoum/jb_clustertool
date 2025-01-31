@@ -82,11 +82,11 @@ spec:
             main:
                 enabled: true
                 type: ClusterIP
-        workload:
-            main:
-                podSpec:
-                    containers:
-                        main:
-                            env:
-                                JELLYFIN_TYPE: emby
-                                LOG_LEVEL: debug
+        # workload:
+        #     main:
+        #         podSpec:
+        #             containers:
+        #                 main:
+        #                     env:
+        #                         JELLYFIN_TYPE: emby
+        #                         LOG_LEVEL: debug
