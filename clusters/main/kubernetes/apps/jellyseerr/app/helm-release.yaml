@@ -17,14 +17,6 @@ spec:
     values:
         global:
             stopAll: false
-        # securityContext:
-        #     container:
-        #         runAsNonRoot: false
-        #         readOnlyRootFilesystem: false
-        #         runAsUser: 0
-        #         runAsGroup: 0
-        #         fsGroup: 0
-        #         UMASK: "0022"
             pod:
                 fsGroupChangePolicy: OnRootMismatch
         TZ: ${TIMEZONE}
@@ -68,16 +60,16 @@ spec:
                         middlewares:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
-        # persistence:
-        #     config:
-        #         volsync:
-        #             - credentials: ${S3_NAME}
-        #               dest:
-        #                 enabled: true
-        #               name: config
-        #               src:
-        #                 enabled: true
-        #               type: restic
+        persistence:
+            config:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: config
+                      src:
+                        enabled: true
+                      type: restic
         service:
             main:
                 enabled: true
