@@ -4,4 +4,4 @@ metadata:
     name: spegel
     labels:
         pod-security.kubernetes.io/enforce: privileged
-        topolvm.io/webhook: ignore
+        # topolvm.io/webhook: ignore
