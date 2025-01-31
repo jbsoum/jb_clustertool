@@ -69,7 +69,11 @@ spec:
                       name: config
                       src:
                         enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
                       type: restic
+                      cleanupTempPVC: true
+                      cleanupCachePVC: true
             cache:
                 volsync:
                     - credentials: ${S3_NAME}
@@ -78,7 +82,11 @@ spec:
                       name: cache
                       src:
                         enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
                       type: restic
+                      cleanupTempPVC: true
+                      cleanupCachePVC: true
             transcode:
                 volsync:
                     - credentials: ${S3_NAME}
@@ -87,7 +95,11 @@ spec:
                       name: transcode
                       src:
                         enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
                       type: restic
+                      cleanupTempPVC: true
+                      cleanupCachePVC: true
             media:
                 enabled: true
                 type: nfs

@@ -65,22 +65,21 @@ spec:
                       name: config
                       src:
                         enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
                       type: restic
+                      cleanupTempPVC: true
+                      cleanupCachePVC: true
             backup:
                 enabled: true
                 type: nfs
                 server: ${IP_TRUENAS}
                 path: "${NFS_DATA_BACKUP}"
                 mountPath: "/backup"
-        release_name: prowlarr
         service:
             main:
                 enabled: true
-                loadBalancerIP: ""
-                ports:
-                    main:
-                        port: ${PORT_PROWLARR}
-                type: LoadBalancer
+                type: ClusterIP
         updated: true
         workload:
             main:

@@ -73,7 +73,11 @@ spec:
                       name: config
                       src:
                         enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
                       type: restic
+                      cleanupTempPVC: true
+                      cleanupCachePVC: true
         service:
             ldap:
                 enabled: true

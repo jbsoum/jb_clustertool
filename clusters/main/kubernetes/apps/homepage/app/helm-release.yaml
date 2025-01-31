@@ -97,8 +97,11 @@ spec:
                       name: config
                       src:
                         enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
                       type: restic
-        release_name: homepage
+                      cleanupTempPVC: true
+                      cleanupCachePVC: true
         service:
             main:
                 enabled: true

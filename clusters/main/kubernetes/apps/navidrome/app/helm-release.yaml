@@ -84,7 +84,11 @@ spec:
                       name: data
                       src:
                         enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
                       type: restic
+                      cleanupTempPVC: true
+                      cleanupCachePVC: true
             music:
                 enabled: true
                 type: nfs

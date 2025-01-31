@@ -90,8 +90,11 @@ spec:
                       name: data
                       src:
                         enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
                       type: restic
-        release_name: gitea
+                      cleanupTempPVC: true
+                      cleanupCachePVC: true
         service:
             main:
                 enabled: true

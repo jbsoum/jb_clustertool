@@ -75,14 +75,14 @@ spec:
                       name: config
                       src:
                         enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
                       type: restic
-        release_name: firefox-syncserver
+                      cleanupTempPVC: true
+                      cleanupCachePVC: true
         service:
             main:
                 enabled: true
-                ports:
-                    main:
-                        port: ${PORT_FIREFOX_SYNC_SERVER}
                 type: ClusterIP
         workload:
             main:

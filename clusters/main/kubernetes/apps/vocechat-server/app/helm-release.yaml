@@ -63,8 +63,11 @@ spec:
                       name: data
                       src:
                         enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
                       type: restic
-        release_name: vocechat-server
+                      cleanupTempPVC: true
+                      cleanupCachePVC: true
         service:
             main:
                 enabled: true

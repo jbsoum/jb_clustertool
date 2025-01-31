@@ -65,7 +65,11 @@ spec:
                       name: config
                       src:
                         enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
                       type: restic
+                      cleanupTempPVC: true
+                      cleanupCachePVC: true
             media:
                 enabled: true
                 type: nfs
@@ -78,15 +82,10 @@ spec:
                 server: ${IP_TRUENAS}
                 path: "${NFS_DATA_BACKUP}"
                 mountPath: "/backup"
-        release_name: readarr
         service:
             main:
                 enabled: true
-                loadBalancerIP: ""
-                ports:
-                    main:
-                        port: ${PORT_READARR}
-                type: LoadBalancer
+                type: ClusterIP
         updated: true
         workload:
             main:

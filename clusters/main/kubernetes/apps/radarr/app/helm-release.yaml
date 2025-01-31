@@ -4,7 +4,7 @@ metadata:
     name: radarr
     namespace: radarr
 spec:
-    interval: 15m
+    interval: 5m
     chart:
         spec:
             chart: radarr
@@ -13,7 +13,15 @@ spec:
                 kind: HelmRepository
                 name: truecharts
                 namespace: flux-system
-    releaseName: radarr
+            install:
+                createNamespace: true
+                crds: CreateReplace
+                remediation:
+                    retries: 3
+            upgrade:
+                crds: CreateReplace
+                remediation:
+            retries: 3
     values:
         TZ: ${TIMEZONE}
         credentials:
@@ -65,7 +73,11 @@ spec:
                       name: config
                       src:
                         enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
                       type: restic
+                      cleanupTempPVC: true
+                      cleanupCachePVC: true
             media:
                 enabled: true
                 type: nfs
@@ -78,23 +90,15 @@ spec:
                 server: ${IP_TRUENAS}
                 path: "${NFS_DATA_BACKUP}"
                 mountPath: "/backup"
-        release_name: radarr
         service:
             main:
                 enabled: true
-                loadBalancerIP: ""
-                ports:
-                    main:
-                        port: ${PORT_RADARR}
-                type: LoadBalancer
+                type: ClusterIP
         updated: true
         workload:
-            exportarr:
-                enabled: true
             main:
                 podSpec:
                     containers:
                         main:
                             env:
                                 RADARR__AUTHENTICATION_METHOD: External
-                                RADARR__PORT: '{{ .Values.service.main.ports.main.port }}'
