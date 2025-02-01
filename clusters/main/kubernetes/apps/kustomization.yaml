@@ -32,7 +32,7 @@ resources:
   # - nitter/ks.yaml
   # - odoo/ks.yaml
   - onlyoffice-document-server/ks.yaml
-  # - pgadmin/ks.yaml
+  - pgadmin/ks.yaml
   - protonmail-bridge/ks.yaml
   - prowlarr/ks.yaml
   # - proxmox-backup-server/ks.yaml
