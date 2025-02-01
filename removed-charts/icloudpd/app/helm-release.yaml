@@ -53,32 +53,32 @@ spec:
             synchronisation_interval: 86400
             until_found: 0
         persistence:
-            config:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: config
-                      src:
-                        enabled: true
-                        trigger:
-                            schedule: 40 0 * * *
-                      type: restic
-                      cleanupTempPVC: true
-                      cleanupCachePVC: true
-            data:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: data
-                      src:
-                        enabled: true
-                        trigger:
-                            schedule: 40 0 * * *
-                      type: restic
-                      cleanupTempPVC: true
-                      cleanupCachePVC: true
+            # config:
+            #     volsync:
+            #         - credentials: ${S3_NAME}
+            #           dest:
+            #             enabled: true
+            #           name: config
+            #           src:
+            #             enabled: true
+            #             trigger:
+            #                 schedule: 40 0 * * *
+            #           type: restic
+            #           cleanupTempPVC: true
+            #           cleanupCachePVC: true
+            # data:
+            #     volsync:
+            #         - credentials: ${S3_NAME}
+            #           dest:
+            #             enabled: true
+            #           name: data
+            #           src:
+            #             enabled: true
+            #             trigger:
+            #                 schedule: 40 0 * * *
+            #           type: restic
+            #           cleanupTempPVC: true
+            #           cleanupCachePVC: true
             backup:
                 enabled: true
                 type: nfs
