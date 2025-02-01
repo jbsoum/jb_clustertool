@@ -104,4 +104,4 @@ spec:
                     main:
                         port: ${PORT_CODE_SERVER}
                         protocol: http
-                type: ClusterIP
+                type: ClusterIP 
