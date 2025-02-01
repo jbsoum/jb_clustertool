@@ -23,13 +23,13 @@ spec:
                 backups:
                     credentials: ${S3_NAME}
                     enabled: true
-                    revision: ${CNPG_BACKUP_REVISION}
+                    revision: v2
                 mode: recovery
                 recovery:
                     method: object_store
                     credentials: ${S3_NAME}
                     enabled: true
-                    revision: ${CNPG_RECOVERY_REVISION}
+                    revision: v1
         credentials:
              backblaze:
                 accessKey: ${S3_ACCESS_KEY}
