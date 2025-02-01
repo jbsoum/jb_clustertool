@@ -16,7 +16,7 @@ spec:
     releaseName: firefox-syncserver
     values:
         global:
-            stopAll: true
+            stopAll: false
         TZ: ${TIMEZONE}
         cnpg:
             main:
