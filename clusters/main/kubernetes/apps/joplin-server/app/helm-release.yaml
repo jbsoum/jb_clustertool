@@ -23,13 +23,13 @@ spec:
                 backups:
                     credentials: ${S3_NAME}
                     enabled: true
-                    revision: "2"
+                    revision: v2
                 mode: recovery
                 recovery:
                     method: object_store
                     credentials: ${S3_NAME}
                     enabled: true
-                    revision: "1"
+                    revision: v1
                 user: joplin
         credentials:
             backblaze:
