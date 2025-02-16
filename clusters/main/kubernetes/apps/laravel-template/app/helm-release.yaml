@@ -41,6 +41,7 @@ spec:
                 podSpec:
                     initContainers:
                         main:
+                            enabled: true
                             command: >-
                                 /bin/bash -c
                                 curl -s "https://laravel.build/example-app" | bash
