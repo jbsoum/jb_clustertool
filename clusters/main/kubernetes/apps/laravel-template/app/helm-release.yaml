@@ -36,16 +36,14 @@ spec:
             pod:
                 fsGroupChangePolicy: OnRootMismatch
 
-        # workload:
-        #     main:
-        #         podSpec:
-        #             containers:
-        #                 main:
-        #                     command:
-        #                         - /bin/bash
-        #                     args:
-        #                         - -c
-        #                         - curl -s "https://laravel.build/example-app" | bash
+        workload:
+            main:
+                podSpec:
+                    initContainers:
+                        main:
+                            command: >-
+                                /bin/bash -c
+                                curl -s "https://laravel.build/example-app" | bash
 
         global:
             stopAll: false
