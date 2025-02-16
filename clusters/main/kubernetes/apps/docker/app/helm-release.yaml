@@ -63,13 +63,12 @@ spec:
                 enabled: true
                 type: ClusterIP
         persistence:
-            config:
-                enabled: true
+            docker-certs-ca:
                 volsync:
                     - credentials: ${S3_NAME}
                       dest:
                         enabled: true
-                      name: config
+                      name: docker-certs-ca
                       src:
                         enabled: true
                         trigger:
