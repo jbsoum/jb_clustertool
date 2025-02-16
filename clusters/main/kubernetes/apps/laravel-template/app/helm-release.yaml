@@ -21,9 +21,9 @@ spec:
                 enabled: true
 
         image:
-            repository: docker.io/laravelsail/php84-composer
+            repository: docker.io/curlimages/curl
             pullPolicy: IfNotPresent
-            tag: latest@sha256:a2716e93e577c80bca7551126056446c1e06cb141af652ee6932537158108400
+            tag: latest@sha256:94e9e444bcba979c2ea12e27ae39bee4cd10bc7041a472c4727a558e213744e6
 
         securityContext:
             container:
@@ -36,18 +36,18 @@ spec:
             pod:
                 fsGroupChangePolicy: OnRootMismatch
 
-        # workload:
-        #     main:
-        #         podSpec:
-        #             containers:
-        #                 main:
-        #                     enabled: true
-        #                     # type: install
-        #                     command:
-        #                         - /bin/bash
-        #                         - -c
-        #                     args:
-        #                         - curl -s "https://laravel.build/example-app"
+        workload:
+            main:
+                podSpec:
+                    containers:
+                        main:
+                            enabled: true
+                            # type: install
+                            command:
+                                - /bin/bash
+                                - -c
+                            args:
+                                - curl -s "https://laravel.build/example-app" | bash
 
         global:
             stopAll: false
