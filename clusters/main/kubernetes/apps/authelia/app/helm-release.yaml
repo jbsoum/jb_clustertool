@@ -104,6 +104,7 @@ spec:
                     - ${DOMAIN_INVIDIOUS}
                     - ${DOMAIN_EMBY}
                     - ${DOMAIN_JELLYFIN}
+                    - ${DOMAIN_DOCKER}
                   domain_regex: []
                   networks: []
                   policy: bypass
