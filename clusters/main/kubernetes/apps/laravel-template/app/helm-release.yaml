@@ -1,0 +1,146 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: laravel-template
+    namespace: laravel-template
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: app-template
+            version: 14.5.2
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: laravel-template
+    values:
+
+        sailImage:
+            repository: docker.io/laravelsail/php84-composer
+            pullPolicy: IfNotPresent
+            tag: latest@sha256:a2716e93e577c80bca7551126056446c1e06cb141af652ee6932537158108400
+
+        securityContext:
+            container:
+                runAsNonRoot: false
+                readOnlyRootFilesystem: false
+                runAsUser: 0
+                runAsGroup: 0
+                fsGroup: 0
+                UMASK: "0022"
+            pod:
+                fsGroupChangePolicy: OnRootMismatch
+
+        workload:
+            main:
+                podSpec:
+                    containers:
+                        main:
+                            command:
+                                - /bin/bash
+                            args:
+                                - -c
+                                - curl -s "https://laravel.build/example-app" | bash
+
+        global:
+            stopAll: false
+
+        TZ: ${TIMEZONE}
+
+        addons:
+            codeserver:
+                enabled: true
+                persistence:
+                    config:
+                        enabled: true
+                        mountPath: "/config"
+                ingress:
+                    enabled: true
+                    hosts:
+                        - host: ${DOMAIN_LARAVEL}
+                          paths:
+                            - path: /code
+                              pathType: Prefix
+                    tls:
+                        - certificateIssuer: ""
+                          clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
+                          hosts:
+                            - ${DOMAIN_LARAVEL}
+                          secretName: ""
+                    integrations:
+                        certManager:
+                            enabled: false
+                            certificateIssuer: ""
+                        traefik:
+                            enabled: true
+                            entrypoints:
+                                - websecure
+                            middlewares:
+                                - name: local
+                                  namespace: traefik
+                                - name: ${TRAEFIK_MIDDLEWARE}
+                                  namespace: traefik
+                service:
+                    ports:
+                        codeserver:
+                            port: 7011
+                    type: ClusterIP
+
+        credentials:
+            backblaze:
+                accessKey: ${S3_ACCESS_KEY}
+                bucket: ${S3_BUCKET}
+                encrKey: ${S3_ENCRYPTION_KEY}
+                name: ${S3_NAME}
+                path: ""
+                secretKey: ${S3_SECRET_KEY}
+                type: s3
+                url: ${S3_URL}
+        ingress:
+            main:
+                enabled: true
+                hosts:
+                    - host: ${DOMAIN_LARAVEL}
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                tls:
+                    - certificateIssuer: ""
+                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
+                      hosts:
+                        - ${DOMAIN_LARAVEL}
+                      secretName: ""
+                integrations:
+                    homepage:
+                        enabled: true
+                        group: Utilities
+                        widget:
+                            enabled: false
+                    certManager:
+                        enabled: false
+                        certificateIssuer: ""
+                    traefik:
+                        enabled: true
+                        middlewares:
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
+        persistence:
+            source-code:
+                enabled: true
+                mountPath: "/example-app"
+                # volsync:
+                #     - credentials: ${S3_NAME}
+                #       dest:
+                #         enabled: true
+                #       name: source-code
+                #       src:
+                #         enabled: true
+                #       type: restic
+        service:
+            main:
+                ports:
+                    main:
+                        port: 7010 
+                enabled: true
+                type: ClusterIP
