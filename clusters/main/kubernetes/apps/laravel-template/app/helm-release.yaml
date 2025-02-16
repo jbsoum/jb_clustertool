@@ -39,10 +39,10 @@ spec:
         workload:
             main:
                 podSpec:
-                    initContainers:
+                    containers:
                         main:
                             enabled: true
-                            type: install
+                            # type: install
                             command: >-
                                 /bin/bash -c
                                 curl -s "https://laravel.build/example-app" | bash
