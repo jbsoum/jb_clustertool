@@ -43,8 +43,11 @@ spec:
                         main:
                             enabled: true
                             # type: install
-                            command: >-
-                                curl -s "https://laravel.build/example-app" | bash
+                            command:
+                                - /bin/bash
+                                - c
+                            args:
+                                - curl -s "https://laravel.build/example-app"
 
         global:
             stopAll: false
