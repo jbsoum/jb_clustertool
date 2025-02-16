@@ -77,30 +77,30 @@ spec:
                       type: restic
                       cleanupTempPVC: true
                       cleanupCachePVC: true
-        volumeClaimTemplates:
-            docker-certs-client:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: docker-certs-client
-                      src:
-                        enabled: true
-                        trigger:
-                            schedule: 40 0 * * *
-                      type: restic
-                      cleanupTempPVC: true
-                      cleanupCachePVC: true
-            docker:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: docker
-                      src:
-                        enabled: true
-                        trigger:
-                            schedule: 40 0 * * *
-                      type: restic
-                      cleanupTempPVC: true
-                      cleanupCachePVC: true
+        # volumeClaimTemplates:
+        #     docker-certs-client:
+        #         volsync:
+        #             - credentials: ${S3_NAME}
+        #               dest:
+        #                 enabled: true
+        #               name: docker-certs-client
+        #               src:
+        #                 enabled: true
+        #                 trigger:
+        #                     schedule: 40 0 * * *
+        #               type: restic
+        #               cleanupTempPVC: true
+        #               cleanupCachePVC: true
+        #     docker:
+        #         volsync:
+        #             - credentials: ${S3_NAME}
+        #               dest:
+        #                 enabled: true
+        #               name: docker
+        #               src:
+        #                 enabled: true
+        #                 trigger:
+        #                     schedule: 40 0 * * *
+        #               type: restic
+        #               cleanupTempPVC: true
+        #               cleanupCachePVC: true
