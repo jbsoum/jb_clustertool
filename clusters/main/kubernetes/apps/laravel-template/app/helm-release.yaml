@@ -16,6 +16,10 @@ spec:
     releaseName: laravel-template
     values:
 
+        portal:
+            open:
+                enabled: true
+
         image:
             repository: docker.io/laravelsail/php84-composer
             pullPolicy: IfNotPresent
@@ -125,10 +129,10 @@ spec:
                         middlewares:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
-        persistence:
-            source-code:
-                enabled: true
-                mountPath: "/example-app"
+        # persistence:
+        #     source-code:
+        #         enabled: true
+        #         mountPath: "/example-app"
                 # volsync:
                 #     - credentials: ${S3_NAME}
                 #       dest:
