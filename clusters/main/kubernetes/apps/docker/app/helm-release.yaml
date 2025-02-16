@@ -28,36 +28,36 @@ spec:
                 secretKey: ${S3_SECRET_KEY}
                 type: s3
                 url: ${S3_URL}
-        ingress:
-            main:
-                enabled: true
-                hosts:
-                    - host: ${DOMAIN_DOCKER}
-                      paths:
-                        - path: /
-                          pathType: Prefix
-                tls:
-                    - certificateIssuer: ""
-                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_DOCKER}
-                      secretName: ""
-                integrations:
-                    homepage:
-                        enabled: true
-                        group: Media
-                        widget:
-                            enabled: false
-                    certManager:
-                        enabled: false
-                        certificateIssuer: ""
-                    traefik:
-                        enabled: true
-                        entrypoints:
-                            - websecure
-                        middlewares:
-                            - name: ${TRAEFIK_MIDDLEWARE}
-                              namespace: traefik
+        # ingress:
+        #     main:
+        #         enabled: true
+        #         hosts:
+        #             - host: ${DOMAIN_DOCKER}
+        #               paths:
+        #                 - path: /
+        #                   pathType: Prefix
+        #         tls:
+        #             - certificateIssuer: ""
+        #               clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
+        #               hosts:
+        #                 - ${DOMAIN_DOCKER}
+        #               secretName: ""
+        #         integrations:
+        #             homepage:
+        #                 enabled: true
+        #                 group: Media
+        #                 widget:
+        #                     enabled: false
+        #             certManager:
+        #                 enabled: false
+        #                 certificateIssuer: ""
+        #             traefik:
+        #                 enabled: true
+        #                 entrypoints:
+        #                     - websecure
+        #                 middlewares:
+        #                     - name: ${TRAEFIK_MIDDLEWARE}
+        #                       namespace: traefik
         service:
             main:
                 enabled: true
