@@ -61,7 +61,8 @@ spec:
         service:
             main:
                 enabled: true
-                type: ClusterIP
+                type: LoadBalancer
+                loadBalancerIP: ${IP_DOCKER}
         persistence:
             docker-certs-ca:
                 volsync:
