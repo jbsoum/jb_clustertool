@@ -10,7 +10,7 @@ resources:
   - code-server/ks.yaml
   # - dashy/ks.yaml
   - deluge/ks.yaml
-  - docker/ks.yaml
+  # - docker/ks.yaml
   - emby/ks.yaml
   - emulatorjs/ks.yaml
   - firefox-syncserver/ks.yaml
