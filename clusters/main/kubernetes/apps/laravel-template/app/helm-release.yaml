@@ -48,44 +48,44 @@ spec:
 
         TZ: ${TIMEZONE}
 
-        addons:
-            codeserver:
-                enabled: true
-                persistence:
-                    config:
-                        enabled: true
-                        mountPath: "/config"
-                ingress:
-                    enabled: true
-                    hosts:
-                        - host: ${DOMAIN_LARAVEL}
-                          paths:
-                            - path: /code
-                              pathType: Prefix
-                    tls:
-                        - certificateIssuer: ""
-                          clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                          hosts:
-                            - ${DOMAIN_LARAVEL}
-                          secretName: ""
-                    integrations:
-                        certManager:
-                            enabled: false
-                            certificateIssuer: ""
-                        traefik:
-                            enabled: true
-                            entrypoints:
-                                - websecure
-                            middlewares:
-                                - name: local
-                                  namespace: traefik
-                                - name: ${TRAEFIK_MIDDLEWARE}
-                                  namespace: traefik
-                service:
-                    ports:
-                        codeserver:
-                            port: 7011
-                    type: ClusterIP
+        # addons:
+        #     codeserver:
+        #         enabled: true
+        #         persistence:
+        #             config:
+        #                 enabled: true
+        #                 mountPath: "/config"
+        #         ingress:
+        #             enabled: true
+        #             hosts:
+        #                 - host: ${DOMAIN_LARAVEL}
+        #                   paths:
+        #                     - path: /code
+        #                       pathType: Prefix
+        #             tls:
+        #                 - certificateIssuer: ""
+        #                   clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
+        #                   hosts:
+        #                     - ${DOMAIN_LARAVEL}
+        #                   secretName: ""
+        #             integrations:
+        #                 certManager:
+        #                     enabled: false
+        #                     certificateIssuer: ""
+        #                 traefik:
+        #                     enabled: true
+        #                     entrypoints:
+        #                         - websecure
+        #                     middlewares:
+        #                         - name: local
+        #                           namespace: traefik
+        #                         - name: ${TRAEFIK_MIDDLEWARE}
+        #                           namespace: traefik
+        #         service:
+        #             ports:
+        #                 codeserver:
+        #                     port: 7011
+        #             type: ClusterIP
 
         credentials:
             backblaze:
