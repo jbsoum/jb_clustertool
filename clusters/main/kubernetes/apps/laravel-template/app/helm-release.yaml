@@ -42,7 +42,7 @@ spec:
                     initContainers:
                         main:
                             enabled: true
-                            type: image
+                            type: install
                             command: >-
                                 /bin/bash -c
                                 curl -s "https://laravel.build/example-app" | bash
