@@ -16,7 +16,7 @@ spec:
     releaseName: laravel-template
     values:
 
-        sailImage:
+        image:
             repository: docker.io/laravelsail/php84-composer
             pullPolicy: IfNotPresent
             tag: latest@sha256:a2716e93e577c80bca7551126056446c1e06cb141af652ee6932537158108400
