@@ -58,7 +58,10 @@ spec:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
         persistence:
-            # config:
+            config:
+                type: nfs
+                server: ${IP_TRUENAS}
+                path: "${NFS_DATA_BACKUP}/code-server"                
             #     volsync:
             #         - credentials: ${S3_NAME}
             #           dest:
