@@ -64,6 +64,7 @@ spec:
                 type: ClusterIP
         persistence:
             config:
+                enabled: true
                 volsync:
                     - credentials: ${S3_NAME}
                       dest:
