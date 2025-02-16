@@ -62,17 +62,17 @@ spec:
             main:
                 enabled: true
                 type: ClusterIP
-        persistence:
-            docker-certs-ca:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: docker-certs-ca
-                      src:
-                        enabled: true
-                        trigger:
-                            schedule: 40 0 * * *
-                      type: restic
-                      cleanupTempPVC: true
-                      cleanupCachePVC: true
+        # persistence:
+        #     docker-certs-ca:
+        #         volsync:
+        #             - credentials: ${S3_NAME}
+        #               dest:
+        #                 enabled: true
+        #               name: docker-certs-ca
+        #               src:
+        #                 enabled: true
+        #                 trigger:
+        #                     schedule: 40 0 * * *
+        #               type: restic
+        #               cleanupTempPVC: true
+        #               cleanupCachePVC: true
