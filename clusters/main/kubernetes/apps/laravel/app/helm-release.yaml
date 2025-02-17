@@ -179,6 +179,7 @@ spec:
                                 ALLOW_EMPTY_PASSWORD: yes
                                 MARIADB_USER: laravel
                                 MARIADB_DATABASE: laravel
+                                MARIADB_MASTER_HOST: http://laravel-mariadb.laravel.svc.cluster.local:3306
                             probes:
                                 liveness:
                                     enabled: true
