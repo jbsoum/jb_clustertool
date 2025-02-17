@@ -149,10 +149,10 @@ spec:
                             env:
                                 DB_HOST: mariadb
                                 DB_PORT: 3306
-                                DB_USERNAME: {{ Values.workload.main.podSpec.containers.mariaDB.env.MARIADB_USER }}
-                                DB_DATABASE: {{ Values.workload.main.podSpec.containers.mariaDB.env.MARIADB_DATABASE }}
-                                LARAVEL_PORT_NUMBER: {{ Values.service.main.ports.main.port }}
-                                LARAVEL_BASE_DIR: {{ Values.persistence.source-code.mountPath }}
+                                DB_USERNAME: {{ .Values.workload.main.podSpec.containers.mariaDB.env.MARIADB_USER }}
+                                DB_DATABASE: {{ .Values.workload.main.podSpec.containers.mariaDB.env.MARIADB_DATABASE }}
+                                LARAVEL_PORT_NUMBER: {{ .Values.service.main.ports.main.port }}
+                                LARAVEL_BASE_DIR: {{ .Values.persistence.source-code.mountPath }}
                         mariaDB:
                             enabled: true
                             primary: true
