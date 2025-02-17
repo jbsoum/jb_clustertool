@@ -137,7 +137,7 @@ spec:
             main:
                 ports:
                     main:
-                        port: 8000 
+                        port: 8010
                 enabled: true
                 type: ClusterIP
             mariadb:
@@ -162,7 +162,7 @@ spec:
                                 DB_PORT: 3306
                                 DB_USERNAME: laravel
                                 DB_DATABASE: laravel
-                                LARAVEL_PORT_NUMBER: 8000
+                                LARAVEL_PORT_NUMBER: 8010
                                 LARAVEL_BASE_DIR: /source-code
             mariadb:
                 enabled: true
