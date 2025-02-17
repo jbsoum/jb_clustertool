@@ -25,7 +25,7 @@ spec:
             pullPolicy: IfNotPresent
             tag: latest@sha256:e013bfa39a44857bc09bf45a76ee9cd412dbba28ad87540504ad62a0a222f89a
 
-        imageMariaDB:
+        imageMariaDb:
             repository: docker.io/bitnami/mariadb
             pullPolicy: IfNotPresent
             tag: latestsha256:f3727b7bf6d558c24e72702970cc54cde07568264d155123917b277abf348f4f@
@@ -173,7 +173,7 @@ spec:
                         mariadb:
                             enabled: true
                             primary: true
-                            imageSelector: imageMariaDB
+                            imageSelector: imageMariaDb
                             # type: install
                             env:
                                 ALLOW_EMPTY_PASSWORD: yes
