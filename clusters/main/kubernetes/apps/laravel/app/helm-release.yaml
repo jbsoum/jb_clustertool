@@ -140,14 +140,14 @@ spec:
                         port: 8000 
                 enabled: true
                 type: ClusterIP
-            mariaDB:
+            mariadb:
                 enabled: true
                 targetSelector: mariaDB
                 ports:
-                    mariaDB:
+                    mariadb:
                         enabled: true    
                         port: 3306
-                        targetPort: "{{ .Values.service.mariaDB.ports.mariaDB.port }}"
+                        targetPort: "{{ .Values.service.mariadb.ports.mariadb.port }}"
                         targetSelector: mariaDB
                 type: ClusterIP
 
@@ -162,12 +162,12 @@ spec:
                             # type: install
                             env:
                                 DB_HOST: mariadb
-                                DB_PORT: "{{ .Values.service.mariaDB.ports.mariaDB.port }}"
-                                DB_USERNAME: "{{ .Values.workload.main.podSpec.containers.mariaDB.env.MARIADB_USER }}"
-                                DB_DATABASE: "{{ .Values.workload.main.podSpec.containers.mariaDB.env.MARIADB_DATABASE }}"
+                                DB_PORT: "{{ .Values.service.mariadb.ports.mariadb.port }}"
+                                DB_USERNAME: "{{ .Values.workload.main.podSpec.containers.mariadb.env.MARIADB_USER }}"
+                                DB_DATABASE: "{{ .Values.workload.main.podSpec.containers.mariadb.env.MARIADB_DATABASE }}"
                                 LARAVEL_PORT_NUMBER: "{{ .Values.service.main.ports.main.port }}"
                                 LARAVEL_BASE_DIR: /source-code
-                        mariaDB:
+                        mariadb:
                             enabled: true
                             # primary: true
                             imageSelector: imageMariaDB
@@ -180,12 +180,12 @@ spec:
                                 liveness:
                                     enabled: true
                                     type: http
-                                    port: "{{ .Values.service.mariaDB.ports.mariaDB.targetPort }}"
+                                    port: "{{ .Values.service.mariadb.ports.mariadb.targetPort }}"
                                 readiness:
                                     enabled: true
                                     type: http
-                                    port: "{{ .Values.service.mariaDB.ports.mariaDB.targetPort }}"
+                                    port: "{{ .Values.service.mariadb.ports.mariadb.targetPort }}"
                                 startup:
                                     enabled: true
                                     type: tcp
-                                    port: "{{ .Values.service.mariaDB.ports.mariaDB.targetPort }}"
+                                    port: "{{ .Values.service.mariadb.ports.mariadb.targetPort }}"
