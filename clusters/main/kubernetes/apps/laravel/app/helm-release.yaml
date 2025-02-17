@@ -129,7 +129,8 @@ spec:
             source-code:
                 enabled: true
                 type: pvc
-                targetSelector: main
+                targetSelector: 
+                    - main
                 mountPath: /example-app
 
         service:
@@ -146,6 +147,7 @@ spec:
                     mariaDB:
                         enabled: true    
                         port: 3306
+                        targetPort: "{{ .Values.service.mariaDB.ports.mariaDB.port }}"
                         targetSelector: mariaDB
                 type: ClusterIP
 
