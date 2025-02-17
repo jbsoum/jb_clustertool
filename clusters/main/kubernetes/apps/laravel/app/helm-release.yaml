@@ -142,13 +142,13 @@ spec:
                 type: ClusterIP
             mariadb:
                 enabled: true
-                targetSelector: mariaDB
+                targetSelector: mariadb
                 ports:
                     mariadb:
                         enabled: true    
                         port: 3306
                         targetPort: "{{ .Values.service.mariadb.ports.mariadb.port }}"
-                        targetSelector: mariaDB
+                        targetSelector: mariadb
                 type: ClusterIP
 
         workload:
