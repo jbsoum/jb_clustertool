@@ -167,12 +167,12 @@ spec:
         mariadb:
             enabled: true
             includeCommon: true
-            user: laravel
-            database: laravel
             # password: "PLACEHOLDERPASSWORD"
             # rootPassword: "PLACEHOLDERROOTPASSWORD"
             # -- can be used to make an easy accessable note which URLS to use to access the DB.
-            creds: {}
+            creds:
+                user: laravel
+                database: laravel
             # mariadb:
             #     enabled: true
             #     type: Deployment
