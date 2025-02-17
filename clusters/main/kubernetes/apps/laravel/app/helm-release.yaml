@@ -25,10 +25,10 @@ spec:
             pullPolicy: IfNotPresent
             tag: latest@sha256:e013bfa39a44857bc09bf45a76ee9cd412dbba28ad87540504ad62a0a222f89a
 
-        imageMariaDb:
-            repository: docker.io/bitnami/mariadb
-            pullPolicy: IfNotPresent
-            tag: latest@sha256:f3727b7bf6d558c24e72702970cc54cde07568264d155123917b277abf348f4f
+        # imageMariaDb:
+        #     repository: docker.io/bitnami/mariadb
+        #     pullPolicy: IfNotPresent
+        #     tag: latest@sha256:f3727b7bf6d558c24e72702970cc54cde07568264d155123917b277abf348f4f
 
 
         securityContext:
@@ -140,16 +140,16 @@ spec:
                         port: 8010
                 enabled: true
                 type: ClusterIP
-            mariadb:
-                enabled: true
-                targetSelector: mariadb
-                ports:
-                    mariadb:
-                        enabled: true    
-                        port: 3306
-                        targetPort: 3306
-                        targetSelector: mariadb
-                type: ClusterIP
+            # mariadb:
+            #     enabled: true
+            #     targetSelector: mariadb
+            #     ports:
+            #         mariadb:
+            #             enabled: true    
+            #             port: 3306
+            #             targetPort: 3306
+            #             targetSelector: mariadb
+            #     type: ClusterIP
 
         workload:
             main:
@@ -164,32 +164,41 @@ spec:
                                 DB_DATABASE: laravel
                                 LARAVEL_PORT_NUMBER: 8010
                                 LARAVEL_BASE_DIR: /source-code
-            mariadb:
-                enabled: true
-                type: Deployment
-                replicas: 1
-                podSpec:
-                    containers:
-                        mariadb:
-                            enabled: true
-                            primary: true
-                            imageSelector: imageMariaDb
-                            # type: install
-                            env:
-                                ALLOW_EMPTY_PASSWORD: yes
-                                MARIADB_USER: laravel
-                                MARIADB_DATABASE: laravel
-                                MARIADB_MASTER_HOST: http://laravel-app-template-mariadb.laravel.svc.cluster.local
-                            probes:
-                                liveness:
-                                    enabled: true
-                                    type: http
-                                    port: 3306
-                                readiness:
-                                    enabled: true
-                                    type: http
-                                    port: 3306
-                                startup:
-                                    enabled: true
-                                    type: tcp
-                                    port: 3306
+        mariadb:
+            enabled: true
+            includeCommon: true
+            user: laravel
+            database: laravel
+            # password: "PLACEHOLDERPASSWORD"
+            # rootPassword: "PLACEHOLDERROOTPASSWORD"
+            # -- can be used to make an easy accessable note which URLS to use to access the DB.
+            creds: {}
+            # mariadb:
+            #     enabled: true
+            #     type: Deployment
+            #     replicas: 1
+            #     podSpec:
+            #         containers:
+            #             mariadb:
+            #                 enabled: true
+            #                 primary: true
+            #                 imageSelector: imageMariaDb
+            #                 # type: install
+            #                 env:
+            #                     ALLOW_EMPTY_PASSWORD: yes
+            #                     MARIADB_USER: laravel
+            #                     MARIADB_DATABASE: laravel
+            #                     MARIADB_MASTER_HOST: http://laravel-app-template-mariadb.laravel.svc.cluster.local
+            #                 probes:
+            #                     liveness:
+            #                         enabled: true
+            #                         type: http
+            #                         port: 3306
+            #                     readiness:
+            #                         enabled: true
+            #                         type: http
+            #                         port: 3306
+            #                     startup:
+            #                         enabled: true
+            #                         type: tcp
+            #                         port: 3306
