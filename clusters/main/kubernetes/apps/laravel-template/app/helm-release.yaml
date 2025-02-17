@@ -137,6 +137,15 @@ spec:
                         port: 8000 
                 enabled: true
                 type: ClusterIP
+            mariaDB:
+                enabled: true
+                targetSelector: mariaDB
+                ports:
+                    mariaDB:
+                        enabled: true    
+                        port: 3306
+                        targetSelector: mariaDB
+                type: ClusterIP
 
         workload:
             main:
@@ -149,7 +158,7 @@ spec:
                             # type: install
                             env:
                                 DB_HOST: mariadb
-                                DB_PORT: 3306
+                                DB_PORT: "{{ .Values.service.mariaDB.ports.mariaDB.port }}"
                                 DB_USERNAME: "{{ .Values.workload.main.podSpec.containers.mariaDB.env.MARIADB_USER }}"
                                 DB_DATABASE: "{{ .Values.workload.main.podSpec.containers.mariaDB.env.MARIADB_DATABASE }}"
                                 LARAVEL_PORT_NUMBER: "{{ .Values.service.main.ports.main.port }}"
@@ -163,3 +172,16 @@ spec:
                                 ALLOW_EMPTY_PASSWORD: yes
                                 MARIADB_USER: laravel
                                 MARIADB_DATABASE: laravel
+                            probes:
+                                liveness:
+                                    enabled: true
+                                    type: http
+                                    port: "{{ .Values.service.mariaDB.ports.mariaDB.targetPort }}"
+                                readiness:
+                                    enabled: true
+                                    type: http
+                                    port: "{{ .Values.service.mariaDB.ports.mariaDB.targetPort }}"
+                                startup:
+                                    enabled: true
+                                    type: tcp
+                                    port: "{{ .Values.service.mariaDB.ports.mariaDB.targetPort }}"
