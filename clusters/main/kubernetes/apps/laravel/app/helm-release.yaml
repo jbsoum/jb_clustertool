@@ -128,8 +128,10 @@ spec:
         persistence:
             source-code:
                 enabled: true
-                type: pvc
-                mountPath: /example-app
+                targetSelector:
+                    main:
+                        main:
+                            mountPath: "{{ .Values.workload.main.podSpec.containers.main.env.LARAVEL_BASE_DIR }}"
 
         service:
             main:
