@@ -156,7 +156,7 @@ spec:
                                 LARAVEL_BASE_DIR: "{{ .Values.persistence.source-code.mountPath }}"
                         mariaDB:
                             enabled: true
-                            primary: true
+                            # primary: true
                             imageSelector: imageMariaDB
                             # type: install
                             env:
