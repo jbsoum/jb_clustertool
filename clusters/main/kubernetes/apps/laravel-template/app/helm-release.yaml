@@ -21,33 +21,27 @@ spec:
                 enabled: true
 
         image:
-            repository: docker.io/curlimages/curl
+            repository: docker.io/bitnami/laravel
             pullPolicy: IfNotPresent
             tag: latest@sha256:94e9e444bcba979c2ea12e27ae39bee4cd10bc7041a472c4727a558e213744e6
 
-        securityContext:
-            container:
-                runAsNonRoot: false
-                readOnlyRootFilesystem: false
-                runAsUser: 0
-                runAsGroup: 0
-                fsGroup: 0
-                UMASK: "0022"
-            pod:
-                fsGroupChangePolicy: OnRootMismatch
+        imageMariaDB:
+            repository: docker.io/bitnami/mariadb
+            pullPolicy: IfNotPresent
+            tag: latestsha256:f3727b7bf6d558c24e72702970cc54cde07568264d155123917b277abf348f4f@
 
-        workload:
-            main:
-                podSpec:
-                    containers:
-                        main:
-                            enabled: true
-                            # type: install
-                            command:
-                                - /bin/bash
-                                - -c
-                            args:
-                                - curl -s "https://laravel.build/example-app" | bash
+
+        # securityContext:
+        #     container:
+        #         runAsNonRoot: false
+        #         readOnlyRootFilesystem: false
+        #         runAsUser: 0
+        #         runAsGroup: 0
+        #         fsGroup: 0
+        #         UMASK: "0022"
+        #     pod:
+        #         fsGroupChangePolicy: OnRootMismatch
+
 
         global:
             stopAll: false
@@ -131,22 +125,40 @@ spec:
                         middlewares:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
-        # persistence:
-        #     source-code:
-        #         enabled: true
-        #         mountPath: "/example-app"
-                # volsync:
-                #     - credentials: ${S3_NAME}
-                #       dest:
-                #         enabled: true
-                #       name: source-code
-                #       src:
-                #         enabled: true
-                #       type: restic
+        persistence:
+            source-code:
+                enabled: true
+                mountPath: "/example-app"
+
         service:
             main:
                 ports:
                     main:
-                        port: 7010 
+                        port: 8000 
                 enabled: true
                 type: ClusterIP
+
+        workload:
+            main:
+                podSpec:
+                    containers:
+                        main:
+                            enabled: true
+                            primary: true
+                            # type: install
+                            env:
+                                DB_HOST: mariadb
+                                DB_PORT: 3306
+                                DB_USERNAME: {{ Values.workload.main.podSpec.containers.mariaDB.env.MARIADB_USER }}
+                                DB_DATABASE: {{ Values.workload.main.podSpec.containers.mariaDB.env.MARIADB_DATABASE }}
+                                LARAVEL_PORT_NUMBER: {{ Values.service.main.ports.main.port }}
+                                LARAVEL_BASE_DIR: {{ Values.persistence.source-code.mountPath }}
+                        mariaDB:
+                            enabled: true
+                            primary: true
+                            imageSelector: imageMariaDB
+                            # type: install
+                            env:
+                                ALLOW_EMPTY_PASSWORD: yes
+                                MARIADB_USER: laravel
+                                MARIADB_DATABASE: laravel
