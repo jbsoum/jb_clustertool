@@ -126,7 +126,7 @@ spec:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
         persistence:
-            source-code:
+            source_code:
                 enabled: true
                 mountPath: "/example-app"
 
@@ -162,7 +162,7 @@ spec:
                                 DB_USERNAME: "{{ .Values.workload.main.podSpec.containers.mariaDB.env.MARIADB_USER }}"
                                 DB_DATABASE: "{{ .Values.workload.main.podSpec.containers.mariaDB.env.MARIADB_DATABASE }}"
                                 LARAVEL_PORT_NUMBER: "{{ .Values.service.main.ports.main.port }}"
-                                LARAVEL_BASE_DIR: "{{ .Values.persistence.source-code.mountPath }}"
+                                LARAVEL_BASE_DIR: "{{ .Values.persistence.source_code.mountPath }}"
                         mariaDB:
                             enabled: true
                             # primary: true
