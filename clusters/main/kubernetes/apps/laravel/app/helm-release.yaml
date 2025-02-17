@@ -170,6 +170,7 @@ spec:
                                 LARAVEL_PORT_NUMBER: 8000
                                 LARAVEL_BASE_DIR: /source-code
             mariadb:
+                enabled: true
                 podSpec:
                     containers:
                         mariadb:
