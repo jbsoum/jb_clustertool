@@ -147,7 +147,7 @@ spec:
                     mariadb:
                         enabled: true    
                         port: 3306
-                        targetPort: "{{ .Values.service.mariadb.ports.mariadb.port }}"
+                        targetPort: 3306
                         targetSelector: mariadb
                 type: ClusterIP
 
@@ -162,10 +162,10 @@ spec:
                             # type: install
                             env:
                                 DB_HOST: mariadb
-                                DB_PORT: "{{ .Values.service.mariadb.ports.mariadb.port }}"
-                                DB_USERNAME: "{{ .Values.workload.main.podSpec.containers.mariadb.env.MARIADB_USER }}"
-                                DB_DATABASE: "{{ .Values.workload.main.podSpec.containers.mariadb.env.MARIADB_DATABASE }}"
-                                LARAVEL_PORT_NUMBER: "{{ .Values.service.main.ports.main.port }}"
+                                DB_PORT: 3306
+                                DB_USERNAME: laravel
+                                DB_DATABASE: laravel
+                                LARAVEL_PORT_NUMBER: 8000
                                 LARAVEL_BASE_DIR: /source-code
                         mariadb:
                             enabled: true
@@ -180,12 +180,12 @@ spec:
                                 liveness:
                                     enabled: true
                                     type: http
-                                    port: "{{ .Values.service.mariadb.ports.mariadb.targetPort }}"
+                                    port: 3306
                                 readiness:
                                     enabled: true
                                     type: http
-                                    port: "{{ .Values.service.mariadb.ports.mariadb.targetPort }}"
+                                    port: 3306
                                 startup:
                                     enabled: true
                                     type: tcp
-                                    port: "{{ .Values.service.mariadb.ports.mariadb.targetPort }}"
+                                    port: 3306
