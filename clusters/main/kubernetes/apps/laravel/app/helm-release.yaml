@@ -157,11 +157,6 @@ spec:
                     containers:
                         main:
                             enabled: true
-                            type: Deployment
-                            replicas: 1
-                            primary: true
-                            
-                            # type: install
                             env:
                                 DB_HOST: mariadb
                                 DB_PORT: 3306
@@ -171,12 +166,12 @@ spec:
                                 LARAVEL_BASE_DIR: /source-code
             mariadb:
                 enabled: true
+                type: Deployment
+                replicas: 1
                 podSpec:
                     containers:
                         mariadb:
                             enabled: true
-                            type: Deployment
-                            replicas: 1
                             primary: true
                             imageSelector: imageMariaDB
                             # type: install
