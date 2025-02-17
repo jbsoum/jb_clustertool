@@ -129,8 +129,6 @@ spec:
             source-code:
                 enabled: true
                 type: pvc
-                targetSelector: 
-                    - main
                 mountPath: /example-app
 
         service:
