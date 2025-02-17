@@ -158,7 +158,7 @@ spec:
                         main:
                             enabled: true
                             env:
-                                DB_HOST: http://laravel-app-template-mariadb.laravel.svc.cluster.local
+                                DB_HOST: laravel-mariadb.laravel.svc.cluster.local
                                 DB_PORT: 3306
                                 DB_USERNAME: laravel
                                 DB_DATABASE: laravel
