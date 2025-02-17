@@ -157,6 +157,8 @@ spec:
                     containers:
                         main:
                             enabled: true
+                            type: Deployment
+                            replicas: 1
                             primary: true
                             
                             # type: install
@@ -167,9 +169,14 @@ spec:
                                 DB_DATABASE: laravel
                                 LARAVEL_PORT_NUMBER: 8000
                                 LARAVEL_BASE_DIR: /source-code
+            mariadb:
+                podSpec:
+                    containers:
                         mariadb:
                             enabled: true
-                            # primary: true
+                            type: Deployment
+                            replicas: 1
+                            primary: true
                             imageSelector: imageMariaDB
                             # type: install
                             env:
