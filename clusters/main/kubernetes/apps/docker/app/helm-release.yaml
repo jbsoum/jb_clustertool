@@ -49,8 +49,8 @@ spec:
                         widget:
                             enabled: false
                     certManager:
-                        enabled: false
-                        certificateIssuer: ""
+                        enabled: true
+                        certificateIssuer: docker-ca-issuer
                     traefik:
                         enabled: true
                         entrypoints:
