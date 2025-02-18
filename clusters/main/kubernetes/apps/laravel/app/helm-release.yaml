@@ -159,7 +159,7 @@ spec:
                         main:
                             enabled: true
                             env:
-                                DB_HOST: laravel-app-template-mariadb
+                                DB_HOST: http://laravel-app-template-mariadb.laravel.svc.cluster.local:3306
                                 DB_PORT: 3306
                                 DB_USERNAME: laravel
                                 DB_DATABASE: laravel
@@ -189,8 +189,8 @@ spec:
                                 ALLOW_EMPTY_PASSWORD: yes
                                 MARIADB_USER: laravel
                                 MARIADB_DATABASE: laravel
-                                MARIADB_MASTER_HOST: laravel-app-template-mariadb
-                                MARIADB_MASTER_PORT_NUMBER: 3306
+                                # MARIADB_MASTER_HOST: laravel-app-template-mariadb
+                                # MARIADB_MASTER_PORT_NUMBER: 3306
                             probes:
                                 liveness:
                                     enabled: true
