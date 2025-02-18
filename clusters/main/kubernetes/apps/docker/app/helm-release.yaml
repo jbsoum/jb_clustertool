@@ -35,7 +35,7 @@ spec:
                     name: "selfsigned"
         certificate:
           main:
-            enabled: false
+            enabled: true
             certificateIssuer: docker-ca-issuer
             hosts:
               - ${DOMAIN_DOCKER}
@@ -48,7 +48,7 @@ spec:
                         - path: /
                           pathType: Prefix
                 tls:
-                    - certificateIssuer: ""
+                    - certificateIssuer: docker-ca-issuer
                     #   clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
                       hosts:
                         - ${DOMAIN_DOCKER}
