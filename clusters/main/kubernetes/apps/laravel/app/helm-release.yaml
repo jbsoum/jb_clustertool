@@ -139,9 +139,9 @@ spec:
                 enabled: true
                 type: ClusterIP
 
-        # workload:
-        #     main:
-        #         podSpec:
+        workload:
+            main:
+                podSpec:
         #             initContainers:
         #                 laravel:
         #                     enabled: true
@@ -154,15 +154,15 @@ spec:
         #                         - | 
         #                             laravel new example-app --no-interaction 
 
-        #             containers:
-        #                 main:
-        #                     lifecycle:
-        #                         postStart:
-        #                             type: exec
-        #                             command:
-        #                                 - /bin/bash
-        #                                 - -c
-        #                                 - |
-        #                                     cd example-app 
-        #                                     php ./artisan -- 'sail:install with=mysql,redis,meilisearch,mailpit,selenium' 
-        #                                     echo "sail installed with option..."
+                    containers:
+                        main:
+                            lifecycle:
+                                postStart:
+                                    type: exec
+                                    command:
+                                        - /bin/bash
+                                        - -c
+                                        - |
+                                            cd /example-app 
+                                            php ./artisan -- 'sail:install with=mysql,redis,meilisearch,mailpit,selenium' 
+                                            echo "sail installed with option..."
