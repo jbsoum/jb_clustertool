@@ -21,9 +21,15 @@ spec:
                 enabled: true
 
         image:
-            repository: docker.io/laravelsail/php84-composer
+            repository: docker.io/bitnami/laravel
             pullPolicy: IfNotPresent
-            tag: latest@sha256:a2716e93e577c80bca7551126056446c1e06cb141af652ee6932537158108400
+            tag: latest@sha256:e013bfa39a44857bc09bf45a76ee9cd412dbba28ad87540504ad62a0a222f89a
+
+        imageMariaDb:
+            repository: docker.io/bitnami/mariadb
+            pullPolicy: IfNotPresent
+            tag: latest@sha256:f3727b7bf6d558c24e72702970cc54cde07568264d155123917b277abf348f4f
+
 
         securityContext:
             container:
@@ -122,7 +128,10 @@ spec:
         persistence:
             source-code:
                 enabled: true
-                mountPath: /example-app
+                targetSelector:
+                    main:
+                        main:
+                            mountPath: /source-code
 
         service:
             main:
@@ -132,21 +141,66 @@ spec:
                         targetPort: 8000 
                 enabled: true
                 type: ClusterIP
+            # mariadb:
+            #     enabled: true
+            #     targetSelector: mariadb
+            #     ports:
+            #         mariadb:
+            #             enabled: true    
+            #             port: 3306
+            #             targetPort: 3306
+            #             targetSelector: mariadb
+            #     type: ClusterIP
 
         workload:
             main:
                 podSpec:
-                    initContainers:
+                    containers:
                         main:
                             enabled: true
-                            type: init
-                            imageSelector: "image"
-                            command:
-                                - /bin/bash
-                                - -c
-                            args:
-                                - |
-                                    laravel new example-app \
-                                    --no-interaction \
-                                    && cd example-app \
-                                    && php ./artisan sail:install --with=mysql,redis,meilisearch,mailpit,selenium
+                            env:
+                                DB_HOST: http://laravel-app-template-mariadb.laravel.svc.cluster.local
+                                DB_PORT: 3306
+                                DB_USERNAME: laravel
+                                DB_DATABASE: laravel
+                                LARAVEL_PORT_NUMBER: 8000
+                                LARAVEL_BASE_DIR: /source-code
+        # mariadb:
+        #     enabled: true
+        #     includeCommon: true
+        #     # password: "PLACEHOLDERPASSWORD"
+        #     # rootPassword: "PLACEHOLDERROOTPASSWORD"
+        #     # -- can be used to make an easy accessable note which URLS to use to access the DB.
+            # creds:
+            #     user: laravel
+            #     database: laravel
+            mariadb:
+                enabled: true
+                type: Deployment
+                replicas: 1
+                podSpec:
+                    containers:
+                        mariadb:
+                            enabled: true
+                            primary: true
+                            imageSelector: imageMariaDb
+                            # type: install
+                            env:
+                                ALLOW_EMPTY_PASSWORD: yes
+                                MARIADB_USER: laravel
+                                MARIADB_DATABASE: laravel
+                                MARIADB_MASTER_HOST: http://laravel-app-template-mariadb.laravel.svc.cluster.local
+                                MARIADB_MASTER_PORT_NUMBER: 3306
+                            probes:
+                                liveness:
+                                    enabled: true
+                                    type: http
+                                    port: 3306
+                                readiness:
+                                    enabled: true
+                                    type: http
+                                    port: 3306
+                                startup:
+                                    enabled: true
+                                    type: tcp
+                                    port: 3306
