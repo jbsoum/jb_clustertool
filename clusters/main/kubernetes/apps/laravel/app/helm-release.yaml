@@ -122,13 +122,13 @@ spec:
         persistence:
             source-code:
                 enabled: true
-                # mountPath: /example-app
-                targetSelector:
-                    main:
-                        main:
-                            mountPath: /example-app
-                        laravel:
-                            mountPath: /example-app
+                mountPath: /example-app
+                # targetSelector:
+                #     main:
+                #         main:
+                #             mountPath: /example-app
+                #         laravel:
+                #             mountPath: /example-app
 
         service:
             main:
@@ -139,30 +139,30 @@ spec:
                 enabled: true
                 type: ClusterIP
 
-        workload:
-            main:
-                podSpec:
-                    initContainers:
-                        laravel:
-                            enabled: true
-                            type: init
-                            imageSelector: "image"
-                            command:
-                                - /bin/bash
-                                - -c
-                            args:
-                                - | 
-                                    laravel new example-app --no-interaction 
+        # workload:
+        #     main:
+        #         podSpec:
+        #             initContainers:
+        #                 laravel:
+        #                     enabled: true
+        #                     type: init
+        #                     imageSelector: "image"
+        #                     command:
+        #                         - /bin/bash
+        #                         - -c
+        #                     args:
+        #                         - | 
+        #                             laravel new example-app --no-interaction 
 
-                    containers:
-                        main:
-                            lifecycle:
-                                postStart:
-                                    type: exec
-                                    command:
-                                        - /bin/bash
-                                        - -c
-                                        - |
-                                            cd example-app 
-                                            php ./artisan -- 'sail:install with=mysql,redis,meilisearch,mailpit,selenium' 
-                                            echo "sail installed with option..."
+        #             containers:
+        #                 main:
+        #                     lifecycle:
+        #                         postStart:
+        #                             type: exec
+        #                             command:
+        #                                 - /bin/bash
+        #                                 - -c
+        #                                 - |
+        #                                     cd example-app 
+        #                                     php ./artisan -- 'sail:install with=mysql,redis,meilisearch,mailpit,selenium' 
+        #                                     echo "sail installed with option..."
