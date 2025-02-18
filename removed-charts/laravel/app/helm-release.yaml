@@ -147,5 +147,7 @@ spec:
                             args:
                                 - | 
                                     laravel new example-app --no-interaction 
+                                    echo "installed new example app..."
                                     cd example-app 
                                     php ./artisan sail:install -- 'with=mysql,redis,meilisearch,mailpit,selenium' 
+                                    echo "sail installed with option..."
