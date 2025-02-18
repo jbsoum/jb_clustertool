@@ -28,6 +28,12 @@ spec:
                 secretKey: ${S3_SECRET_KEY}
                 type: s3
                 url: ${S3_URL}
+        certificate:
+          main:
+            enabled: false
+            certificateIssuer: docker-ca-issuer
+            hosts:
+              - ${DOMAIN_DOCKER}
         ingress:
             main:
                 enabled: true
@@ -50,7 +56,7 @@ spec:
                             enabled: false
                     certManager:
                         enabled: true
-                        certificateIssuer: docker-ca-issuer
+                        certificateIssuer: ""
                     traefik:
                         enabled: true
                         entrypoints:
