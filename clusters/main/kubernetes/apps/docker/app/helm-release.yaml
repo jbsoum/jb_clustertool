@@ -48,11 +48,11 @@ spec:
                         - path: /
                           pathType: Prefix
                 tls:
-                    - certificateIssuer: docker-ca-issuer
+                    - certificateIssuer: ""
                     #   clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
                       hosts:
                         - ${DOMAIN_DOCKER}
-                    #   secretName: root-secret
+                      secretName: root-secret
                 integrations:
                     homepage:
                         enabled: true
