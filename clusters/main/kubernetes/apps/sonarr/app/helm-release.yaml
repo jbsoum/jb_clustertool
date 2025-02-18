@@ -17,7 +17,7 @@ spec:
     values:
         TZ: ${TIMEZONE}
         global:
-            stopAll: true 
+            stopAll: false 
         credentials:
             backblaze:
                 accessKey: ${S3_ACCESS_KEY}
