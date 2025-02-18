@@ -138,6 +138,7 @@ spec:
                 ports:
                     main:
                         port: 8010
+                        targetPort: 8000 
                 enabled: true
                 type: ClusterIP
             # mariadb:
@@ -158,11 +159,11 @@ spec:
                         main:
                             enabled: true
                             env:
-                                DB_HOST: http://laravel-app-template-mariadb.laravel.svc.cluster.local:3306
+                                DB_HOST: laravel-app-template-mariadb
                                 DB_PORT: 3306
                                 DB_USERNAME: laravel
                                 DB_DATABASE: laravel
-                                LARAVEL_PORT_NUMBER: 8010
+                                # LARAVEL_PORT_NUMBER: 8010
                                 LARAVEL_BASE_DIR: /source-code
         # mariadb:
         #     enabled: true
@@ -188,7 +189,7 @@ spec:
                                 ALLOW_EMPTY_PASSWORD: yes
                                 MARIADB_USER: laravel
                                 MARIADB_DATABASE: laravel
-                                MARIADB_MASTER_HOST: http://laravel-app-template-mariadb.laravel.svc.cluster.local:3306
+                                MARIADB_MASTER_HOST: laravel-app-template-mariadb
                                 MARIADB_MASTER_PORT_NUMBER: 3306
                             probes:
                                 liveness:
