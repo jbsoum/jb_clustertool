@@ -124,11 +124,11 @@ spec:
                 enabled: true
                 # mountPath: /example-app
                 targetSelector:
-                main:
                     main:
-                        mountPath: /example-app
-                    laravel:
-                        mountPath: /example-app
+                        main:
+                            mountPath: /example-app
+                        laravel:
+                            mountPath: /example-app
 
         service:
             main:
