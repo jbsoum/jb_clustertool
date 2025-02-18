@@ -28,6 +28,11 @@ spec:
                 secretKey: ${S3_SECRET_KEY}
                 type: s3
                 url: ${S3_URL}
+
+        clusterIssuer:
+                selfSigned:
+                    enabled: true
+                    name: "selfsigned"
         certificate:
           main:
             enabled: false
@@ -51,7 +56,7 @@ spec:
                 integrations:
                     homepage:
                         enabled: true
-                        group: Media
+                        group: Utilities
                         widget:
                             enabled: false
                     certManager:
