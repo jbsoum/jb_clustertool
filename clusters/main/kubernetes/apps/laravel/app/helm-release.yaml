@@ -142,17 +142,17 @@ spec:
         workload:
             main:
                 podSpec:
-        #             initContainers:
-        #                 laravel:
-        #                     enabled: true
-        #                     type: init
-        #                     imageSelector: "image"
-        #                     command:
-        #                         - /bin/bash
-        #                         - -c
-        #                     args:
-        #                         - | 
-        #                             laravel new example-app --no-interaction 
+                    initContainers:
+                        laravel:
+                            enabled: true
+                            type: init
+                            imageSelector: "image"
+                            command:
+                                - /bin/bash
+                                - -c
+                            args:
+                                - | 
+                                    laravel new example-app --no-interaction 
 
                     containers:
                         main:
