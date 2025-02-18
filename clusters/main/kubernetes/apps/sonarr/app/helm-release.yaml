@@ -16,6 +16,8 @@ spec:
     releaseName: sonarr
     values:
         TZ: ${TIMEZONE}
+        global:
+            stopAll: true 
         credentials:
             backblaze:
                 accessKey: ${S3_ACCESS_KEY}
