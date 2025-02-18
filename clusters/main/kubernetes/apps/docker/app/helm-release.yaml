@@ -55,7 +55,7 @@ spec:
                         widget:
                             enabled: false
                     certManager:
-                        enabled: true
+                        enabled: false
                         certificateIssuer: ""
                     traefik:
                         enabled: true
