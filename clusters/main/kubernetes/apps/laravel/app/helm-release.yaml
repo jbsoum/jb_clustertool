@@ -142,10 +142,10 @@ spec:
                             type: init
                             imageSelector: "image"
                             command:
-                                - /bin/bash
+                                - /bin/sh
                                 - -c
                             args:
                                 - |
                                     laravel new example-app --no-interaction
                                     cd example-app
-                                    php ./artisan sail:install --with=mysql,redis,meilisearch,mailpit,selenium
+                                    php ./artisan sail:install --with="mysql,redis,meilisearch,mailpit,selenium"
