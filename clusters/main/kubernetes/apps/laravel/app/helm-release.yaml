@@ -146,7 +146,6 @@ spec:
                                 - -c
                             args:
                                 - |
-                                    laravel new example-app \
-                                    --no-interaction \
-                                    && cd example-app \
-                                    && php ./artisan sail:install --with=mysql,redis,meilisearch,mailpit,selenium
+                                    laravel new example-app --no-interaction
+                                    cd example-app
+                                    php ./artisan sail:install --with=mysql,redis,meilisearch,mailpit,selenium
