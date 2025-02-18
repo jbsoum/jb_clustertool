@@ -60,19 +60,19 @@ spec:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
         persistence:
-            config:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: config
-                      src:
-                        enabled: true
-                        trigger:
-                            schedule: 40 0 * * *
-                      type: restic
-                      cleanupTempPVC: true
-                      cleanupCachePVC: true
+            # config:
+            #     volsync:
+            #         - credentials: ${S3_NAME}
+            #           dest:
+            #             enabled: true
+            #           name: config
+            #           src:
+            #             enabled: true
+            #             trigger:
+            #                 schedule: 40 0 * * *
+            #           type: restic
+            #           cleanupTempPVC: true
+            #           cleanupCachePVC: true
             media:
                 enabled: true
                 type: nfs
