@@ -158,26 +158,28 @@ spec:
                             enabled: true
                             type: init
                             imageSelector: "image"
-                            # command:
-                            #     - /bin/bash
-                            #     - -c
-                            # args:
-                            #     - | 
-                            #         echo "hello world..."
-                            #         cd /example-app 
-                            #         laravel new example-app --no-interaction 
+                            command:
+                                - /bin/bash
+                                - -c
+                            args:
+                                - |
+                                    echo "hello world..."
+                                    laravel new example-app --no-interaction
+                                    cd /example-app 
+                                    php ./artisan -- 'sail:install with=mysql,redis,meilisearch,mailpit,selenium' 
+                                    echo "sail installed with options..."
 
-                    containers:
-                        main:
-                            lifecycle:
-                                postStart:
-                                    type: exec
-                                    command:
-                                        - /bin/bash
-                                        - -c
-                                        - |
-                                            echo "hello world..."
-                                            laravel new example-app --no-interaction
-                                            cd /example-app 
-                                            php ./artisan -- 'sail:install with=mysql,redis,meilisearch,mailpit,selenium' 
-                                            echo "sail installed with options..."
+                    # containers:
+                    #     main:
+                    #         lifecycle:
+                    #             postStart:
+                    #                 type: exec
+                    #                 command:
+                    #                     - /bin/bash
+                    #                     - -c
+                    #                     - |
+                    #                         echo "hello world..."
+                    #                         laravel new example-app --no-interaction
+                    #                         cd /example-app 
+                    #                         php ./artisan -- 'sail:install with=mysql,redis,meilisearch,mailpit,selenium' 
+                    #                         echo "sail installed with options..."
