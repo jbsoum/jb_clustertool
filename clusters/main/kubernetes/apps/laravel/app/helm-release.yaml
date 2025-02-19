@@ -166,18 +166,22 @@ spec:
                                     echo "hello world..."
 
                                     if [ -d "/source-code" ]; then
+                                        echo "directory exists..."
                                         if [ -z "$( ls -A '/source-code' )" ]; then
+                                            echo "directory is empty, running with force..."
                                             laravel new /source-code --no-interaction --force
                                         else
+                                            echo "directory is not empty, exiting..."
                                             exit 0
                                         fi
                                     else
+                                        echo "directory does not exist, creating..."
                                         laravel new /source-code --no-interaction
                                     fi
 
                                     cd /source-code 
                                     php ./artisan sail:install with=mysql,redis,meilisearch,mailpit,selenium
-                                    
+
                                     echo "sail installed with options..."
 
                     # containers:
