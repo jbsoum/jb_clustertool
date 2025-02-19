@@ -27,12 +27,12 @@ spec:
 
         securityContext:
             container:
-                # runAsNonRoot: false
+                runAsNonRoot: false
                 readOnlyRootFilesystem: false
-                # runAsUser: 0
-                # runAsGroup: 0
-                # fsGroup: 0
-                # UMASK: "0022"
+                runAsUser: 0
+                runAsGroup: 0
+                fsGroup: 0
+                UMASK: "0022"
             pod:
                 fsGroupChangePolicy: OnRootMismatch
 
@@ -165,23 +165,27 @@ spec:
                             args:
                                 - |
                                     echo "hello world..."
+                                    echo "list base dir files..."
+                                    ls -aL
 
-                                    if [ -d "/source-code" ]; then
+                                    SRC_CODE=source-code
+
+                                    if [ -d "$SRC_CODE" ]; then
                                         echo "directory exists..."
-                                        if [ -z "$( ls -A '/source-code' )" ]; then
+                                        if [ -z "$( ls -A "$SRC_CODE" )" ]; then
                                             echo "directory is empty, running with force..."
-                                            laravel new /source-code --no-interaction --force
+                                            laravel new source-code --no-interaction --force
                                         else
                                             echo "directory is not empty, exiting..."
-                                            ls -aL /source-code
+                                            ls -aL "$SRC_CODE"
                                             exit 0
                                         fi
                                     else
                                         echo "directory does not exist, creating..."
-                                        laravel new /source-code --no-interaction
+                                        laravel new "$SRC_CODE" --no-interaction
                                     fi
 
-                                    cd /source-code 
+                                    cd "$SRC_CODE" 
                                     php ./artisan sail:install with=mysql,redis,meilisearch,mailpit,selenium
 
                                     echo "sail installed with options..."
