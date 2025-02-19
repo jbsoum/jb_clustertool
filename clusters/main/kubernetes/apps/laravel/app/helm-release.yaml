@@ -122,6 +122,7 @@ spec:
         persistence:
             source-code:
                 enabled: true
+                type: emptyDir
                 # mountPath: /source-code
                 targetSelector:
                     main:
