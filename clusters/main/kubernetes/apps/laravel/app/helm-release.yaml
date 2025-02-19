@@ -27,12 +27,12 @@ spec:
 
         securityContext:
             container:
-                runAsNonRoot: false
+                # runAsNonRoot: false
                 readOnlyRootFilesystem: false
-                runAsUser: 0
-                runAsGroup: 0
-                fsGroup: 0
-                UMASK: "0022"
+                # runAsUser: 0
+                # runAsGroup: 0
+                # fsGroup: 0
+                # UMASK: "0022"
             pod:
                 fsGroupChangePolicy: OnRootMismatch
 
