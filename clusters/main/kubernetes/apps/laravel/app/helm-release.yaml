@@ -122,18 +122,18 @@ spec:
         persistence:
             source-code:
                 enabled: true
-                # mountPath: /example-app
+                # mountPath: /source-code
                 targetSelector:
                     main:
                         main:
-                            mountPath: /example-app
+                            mountPath: /source-code
                         laravel:
-                            mountPath: /example-app
+                            mountPath: /source-code
 
             config:
                 enabled: true
                 type: emptyDir
-                # mountPath: /example-app
+                # mountPath: /source-code
                 targetSelector:
                     main:
                         main:
@@ -164,8 +164,8 @@ spec:
                             args:
                                 - |
                                     echo "hello world..."
-                                    laravel new example-app --no-interaction
-                                    cd /example-app 
+                                    laravel new /source-code --no-interaction
+                                    cd /source-code 
                                     php ./artisan -- 'sail:install with=mysql,redis,meilisearch,mailpit,selenium' 
                                     echo "sail installed with options..."
 
@@ -179,7 +179,7 @@ spec:
                     #                     - -c
                     #                     - |
                     #                         echo "hello world..."
-                    #                         laravel new example-app --no-interaction
-                    #                         cd /example-app 
+                    #                         laravel new source-code --no-interaction
+                    #                         cd /source-code 
                     #                         php ./artisan -- 'sail:install with=mysql,redis,meilisearch,mailpit,selenium' 
                     #                         echo "sail installed with options..."
