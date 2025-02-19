@@ -172,6 +172,7 @@ spec:
                                             laravel new /source-code --no-interaction --force
                                         else
                                             echo "directory is not empty, exiting..."
+                                            ls -aL /source-code
                                             exit 0
                                         fi
                                     else
