@@ -164,9 +164,20 @@ spec:
                             args:
                                 - |
                                     echo "hello world..."
-                                    laravel new /source-code --no-interaction
+
+                                    if [ -d "/source-code" ]; then
+                                        if [ -z "$( ls -A '/source-code' )" ]; then
+                                            laravel new /source-code --no-interaction --force
+                                        else
+                                            exit 0
+                                        fi
+                                    else
+                                        laravel new /source-code --no-interaction
+                                    fi
+
                                     cd /source-code 
-                                    php ./artisan -- 'sail:install with=mysql,redis,meilisearch,mailpit,selenium' 
+                                    php ./artisan sail:install with=mysql,redis,meilisearch,mailpit,selenium
+                                    
                                     echo "sail installed with options..."
 
                     # containers:
