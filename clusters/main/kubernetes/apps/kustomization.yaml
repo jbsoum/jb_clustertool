@@ -1,7 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - audacity/ks.yaml
+  # - audacity/ks.yaml
   - adguard-gui/ks.yaml
   - authelia/ks.yaml
   # - backuppc/ks.yaml
@@ -10,7 +10,7 @@ resources:
   - code-server/ks.yaml
   # - dashy/ks.yaml
   - deluge/ks.yaml
-  - docker/ks.yaml
+  # - docker/ks.yaml
   - emby/ks.yaml
   - emulatorjs/ks.yaml
   - firefox-syncserver/ks.yaml
@@ -24,7 +24,7 @@ resources:
   - joplin-server/ks.yaml
   # - kopia/ks.yaml
   - kubernetes-dashboard/ks.yaml
-  - laravel/ks.yaml
+  # - laravel/ks.yaml
   # - libreddit/ks.yaml
   - lidarr/ks.yaml
   - lldap/ks.yaml
@@ -46,7 +46,7 @@ resources:
   - searxng/ks.yaml
   - sonarr/ks.yaml
   - truenas-gui/ks.yaml
-  - vaultwarden/ks.yaml
+  # - vaultwarden/ks.yaml
   - vocechat-server/ks.yaml
   # - watchyourlan/ks.yaml
   # # - whoogle/ks.yaml
