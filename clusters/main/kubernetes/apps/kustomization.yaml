@@ -10,8 +10,8 @@ resources:
   - code-server/ks.yaml
   # - dashy/ks.yaml
   - deluge/ks.yaml
-  - dev-mongodb/ks.yaml
-  - dev-postgresql/ks.yaml
+  # - dev-mongodb/ks.yaml
+  # - dev-postgresql/ks.yaml
   # - docker/ks.yaml
   - emby/ks.yaml
   - emulatorjs/ks.yaml
