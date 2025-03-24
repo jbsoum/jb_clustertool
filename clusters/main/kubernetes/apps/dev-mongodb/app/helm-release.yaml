@@ -20,7 +20,7 @@ spec:
         TZ: ${TIMEZONE}
 
         mongodbUsername: ${DEV_MONGODB_USERNAME}
-        mongodbDatabase: ${DEV_MONGODB_PASSWORD}
+        mongodbDatabase: ${DEV_MONGODB_USERNAME}
         password: ${DEV_MONGODB_PASSWORD}
         rootPassword: ${DEV_MONGODB_PASSWORD}
 
