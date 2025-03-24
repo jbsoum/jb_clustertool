@@ -16,7 +16,7 @@ spec:
     releaseName: dev-postgresql
     values:
         image:
-            repository: public.ecr.aws/bitnami/postgresql
+            repository:  docker.io/bitnami/postgresql
             pullPolicy: IfNotPresent
             tag: latest@sha256:fb3806e823c271c2b0e0e58134769368749cbcab1db4229c23c300ccdce28058
         global:
