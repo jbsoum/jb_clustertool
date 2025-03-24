@@ -1,0 +1,44 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: dev-mongodb
+    namespace: dev-mongodb
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: mongodb
+            version: 8.0.5
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: dev-mongodb
+    values:
+        global:
+            stopAll: false
+        TZ: ${TIMEZONE}
+
+        mongodbUsername: ${DEV_MONGODB_USERNAME}
+        mongodbDatabase: ${DEV_MONGODB_PASSWORD}
+        password: ${DEV_MONGODB_PASSWORD}
+        rootPassword: ${DEV_MONGODB_PASSWORD}
+
+        credentials:
+            backblaze:
+                accessKey: ${S3_ACCESS_KEY}
+                bucket: ${S3_BUCKET}
+                encrKey: ${S3_ENCRYPTION_KEY}
+                name: ${S3_NAME}
+                path: ""
+                secretKey: ${S3_SECRET_KEY}
+                type: s3
+                url: ${S3_URL}
+        service:
+            main:
+                ports:
+                    main:
+                        port: ${PORT_DEV_MONGODB}
+                enabled: true
+                type: LoadBalancer
+                loadBalancerIP: ${IP_DEV_MONGODB}
