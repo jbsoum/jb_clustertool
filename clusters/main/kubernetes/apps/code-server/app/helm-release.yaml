@@ -58,22 +58,19 @@ spec:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
         persistence:
-            config:
-                type: nfs
-                server: ${IP_TRUENAS}
-                path: "${NFS_DATA_BACKUP}/code-server"                
-            #     volsync:
-            #         - credentials: ${S3_NAME}
-            #           dest:
-            #             enabled: true
-            #           name: config
-            #           src:
-            #             enabled: true
-            #             trigger:
-            #                 schedule: 40 0 * * *
-            #           type: restic
-            #           cleanupTempPVC: true
-            #           cleanupCachePVC: true
+            config:              
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: config
+                      src:
+                        enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
+                      type: restic
+                      cleanupTempPVC: true
+                      cleanupCachePVC: true
             ssh-config:
                 enabled: true
                 type: nfs
