@@ -23,7 +23,7 @@ spec:
         image:
             repository: docker.io/bitnami/laravel
             pullPolicy: IfNotPresent
-            tag: latest@sha256:a19caa131e360235d611a7c3a8ef36472002e7aa4c256fb56786f362492ccca0
+            tag: latest@sha256:0ef79b51719d89484cbdad8294984fd6db4753eca39c0cd72e5f0742219a8da6
 
         imageMariaDb:
             repository: docker.io/bitnami/mariadb
