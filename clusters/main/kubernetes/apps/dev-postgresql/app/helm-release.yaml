@@ -51,9 +51,9 @@ spec:
                     containers:
                         main:
                             env:
-                                POSTGRESQL_USERNAME: ${POSTGRESQL_USERNAME}
-                                POSTGRESQL_PASSWORD: ${POSTGRESQL_PASSWORD}
-                                POSTGRESQL_DATABASE: ${POSTGRESQL_USERNAME}
+                                POSTGRESQL_USERNAME: ${DEV_POSTGRESQL_USERNAME}
+                                POSTGRESQL_PASSWORD: ${DEV_POSTGRESQL_PASSWORD}
+                                POSTGRESQL_DATABASE: ${DEV_POSTGRESQL_USERNAME}
                                 POSTGRESQL_MASTER_PORT_NUMBER: ${PORT_DEV_POSTGRESQL}
                                 POSTGRESQL_TIMEZONE: ${TIMEZONE}
                                 POSTGRESQL_LOG_TIMEZONE: ${TIMEZONE}
