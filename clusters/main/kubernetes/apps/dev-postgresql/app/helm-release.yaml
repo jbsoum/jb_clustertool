@@ -49,6 +49,7 @@ spec:
                 ports:
                     main:
                         port: ${PORT_DEV_POSTGRESQL}
+                        targetPort: 5432
                 enabled: true
                 type: LoadBalancer
                 loadBalancerIP: ${IP_DEV_POSTGRESQL}
