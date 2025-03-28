@@ -15,10 +15,10 @@ spec:
                 namespace: flux-system
     releaseName: dev-postgresql
     values:
-        image:
-            repository:  docker.io/bitnami/postgresql
-            pullPolicy: IfNotPresent
-            tag: latest@sha256:fb3806e823c271c2b0e0e58134769368749cbcab1db4229c23c300ccdce28058
+        # image:
+        #     repository:  docker.io/bitnami/postgresql
+        #     pullPolicy: IfNotPresent
+        #     tag: latest@sha256:fb3806e823c271c2b0e0e58134769368749cbcab1db4229c23c300ccdce28058
         global:
             stopAll: false
         TZ: ${TIMEZONE}
@@ -32,10 +32,17 @@ spec:
                 secretKey: ${S3_SECRET_KEY}
                 type: s3
                 url: ${S3_URL}
-        securityContext:
-            container:
-                runAsGroup: 0
-                readOnlyRootFilesystem: false
+
+        cnpg:
+            main:
+                enabled: true
+                user: ${DEV_POSTGRESQL_USERNAME}
+                database: ${DEV_POSTGRESQL_USERNAME}
+                password: ${DEV_POSTGRESQL_PASSWORD}
+        # securityContext:
+        #     container:
+        #         runAsGroup: 0
+        #         readOnlyRootFilesystem: false
 
         service:
             main:
@@ -45,20 +52,20 @@ spec:
                 enabled: true
                 type: LoadBalancer
                 loadBalancerIP: ${IP_DEV_POSTGRESQL}
-        persistence:
-            data:
-                enabled: true
-                type: emptyDir
-                mountPath: "/bitnami/postgresql"
-        workload:
-            main:
-                podSpec:
-                    containers:
-                        main:
-                            env:
-                                POSTGRESQL_USERNAME: ${DEV_POSTGRESQL_USERNAME}
-                                POSTGRESQL_PASSWORD: ${DEV_POSTGRESQL_PASSWORD}
-                                POSTGRESQL_DATABASE: ${DEV_POSTGRESQL_USERNAME}
-                                POSTGRESQL_MASTER_PORT_NUMBER: ${PORT_DEV_POSTGRESQL}
-                                POSTGRESQL_TIMEZONE: ${TIMEZONE}
-                                POSTGRESQL_LOG_TIMEZONE: ${TIMEZONE}
+        # persistence:
+        #     data:
+        #         enabled: true
+        #         type: emptyDir
+        #         mountPath: "/bitnami/postgresql"
+        # workload:
+        #     main:
+        #         podSpec:
+        #             containers:
+        #                 main:
+        #                     env:
+        #                         POSTGRESQL_USERNAME: ${DEV_POSTGRESQL_USERNAME}
+        #                         POSTGRESQL_PASSWORD: ${DEV_POSTGRESQL_PASSWORD}
+        #                         POSTGRESQL_DATABASE: ${DEV_POSTGRESQL_USERNAME}
+        #                         POSTGRESQL_MASTER_PORT_NUMBER: ${PORT_DEV_POSTGRESQL}
+        #                         POSTGRESQL_TIMEZONE: ${TIMEZONE}
+        #                         POSTGRESQL_LOG_TIMEZONE: ${TIMEZONE}
