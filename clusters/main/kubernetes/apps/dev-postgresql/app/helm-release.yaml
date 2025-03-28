@@ -44,14 +44,14 @@ spec:
         #         runAsGroup: 0
         #         readOnlyRootFilesystem: false
 
-        service:
-            main:
-                ports:
-                    main:
-                        port: ${PORT_DEV_POSTGRESQL}
-                enabled: true
-                type: LoadBalancer
-                loadBalancerIP: ${IP_DEV_POSTGRESQL}
+            service:
+                main:
+                    ports:
+                        main:
+                            port: ${PORT_DEV_POSTGRESQL}
+                    enabled: true
+                    type: LoadBalancer
+                    loadBalancerIP: ${IP_DEV_POSTGRESQL}
         # persistence:
         #     data:
         #         enabled: true
