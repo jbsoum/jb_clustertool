@@ -1,0 +1,107 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: code-server
+    namespace: code-server
+spec:
+    interval: 15m
+    chart:
+        spec:
+            chart: code-server
+            version: 13.13.1
+            sourceRef:
+                kind: HelmRepository
+                name: truecharts
+                namespace: flux-system
+    releaseName: code-server
+    values:
+        global:
+            stopAll: false
+        TZ: ${TIMEZONE}
+        credentials:
+            backblaze:
+                accessKey: ${S3_ACCESS_KEY}
+                bucket: ${S3_BUCKET}
+                encrKey: ${S3_ENCRYPTION_KEY}
+                name: ${S3_NAME}
+                path: ""
+                secretKey: ${S3_SECRET_KEY}
+                type: s3
+                url: ${S3_URL}
+        ingress:
+            main:
+                enabled: true
+                hosts:
+                    - host: ${DOMAIN_CODE_SERVER}
+                      paths:
+                        - path: /
+                          pathType: Prefix
+                tls:
+                    - certificateIssuer: ""
+                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
+                      hosts:
+                        - ${DOMAIN_CODE_SERVER}
+                      secretName: ""
+                integrations:
+                    homepage:
+                        enabled: true
+                        group: Utilities
+                        name: Code Server - jbsoum
+                        widget:
+                            enabled: false
+                    certManager:
+                        enabled: false
+                        certificateIssuer: ""
+                    traefik:
+                        enabled: true
+                        middlewares:
+                            - name: ${TRAEFIK_MIDDLEWARE}
+                              namespace: traefik
+        # persistence:
+        #     config:              
+        #         volsync:
+        #             - credentials: ${S3_NAME}
+        #               dest:
+        #                 enabled: true
+        #               name: config
+        #               src:
+        #                 enabled: false
+        #                 trigger:
+        #                     schedule: 40 0 * * *
+        #               type: restic
+        #               cleanupTempPVC: true
+        #               cleanupCachePVC: true
+            ssh-config:
+                enabled: true
+                type: nfs
+                server: ${IP_TRUENAS}
+                path: "${NFS_CODE_SERVER_CONFIG}"
+                mountPath: "/root/.ssh"
+                autoPermissions:
+                    enabled: true
+            code:
+                enabled: true
+                type: nfs
+                server: ${IP_TRUENAS}
+                path: "${NFS_CODE_SERVER_CODE}"
+                mountPath: "/code"
+        release_name: code-server
+        securityContext:
+            container:
+                UMASK: "0022"
+                allowPrivilegeEscalation: true
+                readOnlyRootFilesystem: false
+                runAsGroup: 0
+                runAsNonRoot: false
+                runAsUser: 0
+            pod:
+                fsGroup: 0
+                fsGroupChangePolicy: OnRootMismatch
+        service:
+            main:
+                enabled: true
+                ports:
+                    main:
+                        port: ${PORT_CODE_SERVER}
+                        protocol: http
+                type: ClusterIP 
