@@ -66,20 +66,20 @@ spec:
                         middlewares:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
-        # persistence:
-        #     data:
-        #         volsync:
-        #             - credentials: ${S3_NAME}
-        #               dest:
-        #                 enabled: true
-        #               name: config
-        #               src:
-        #                 enabled: false
-        #                 trigger:
-        #                     schedule: 40 0 * * *
-        #               type: restic
-        #               cleanupTempPVC: true
-        #               cleanupCachePVC: true
+        persistence:
+            data:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: config
+                      src:
+                        enabled: false
+                        trigger:
+                            schedule: 40 0 * * *
+                      type: restic
+                      cleanupTempPVC: true
+                      cleanupCachePVC: true
         service:
             ldap:
                 enabled: true
