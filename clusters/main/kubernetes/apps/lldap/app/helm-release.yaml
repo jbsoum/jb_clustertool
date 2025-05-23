@@ -16,7 +16,7 @@ spec:
     releaseName: lldap
     values:
         global:
-            stopAll: false
+            stopAll: true
         TZ: ${TIMEZONE}
         cnpg:
             main:
