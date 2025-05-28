@@ -98,29 +98,29 @@ spec:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
         persistence:
-            # config:
-                # volsync:
-                #     - credentials: ${S3_NAME}
-                #       dest:
-                #         enabled: true
-                #       name: config
-                #       src:
-                #         enabled: true
-                #         trigger:
-                #             schedule: 40 0 * * *
-                #       type: restic
+            config:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: config
+                      src:
+                        enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
+                      type: restic
 
-            # data:
-                # volsync:
-                #     - credentials: ${S3_NAME}
-                #       dest:
-                #         enabled: true
-                #       name: data
-                #       src:
-                #         enabled: true
-                #         trigger:
-                #             schedule: 40 0 * * *
-                #       type: restic
+            data:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: data
+                      src:
+                        enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
+                      type: restic
 
             roms:
                 enabled: true
