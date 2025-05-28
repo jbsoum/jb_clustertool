@@ -78,8 +78,8 @@ spec:
                         trigger:
                             schedule: 40 0 * * *
                       type: restic
-                      cleanupTempPVC: true
-                      cleanupCachePVC: true
+                    #   cleanupTempPVC: true
+                    #   cleanupCachePVC: true
         service:
             ldap:
                 enabled: true
