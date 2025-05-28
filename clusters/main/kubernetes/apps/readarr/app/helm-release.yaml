@@ -68,8 +68,7 @@ spec:
                         trigger:
                             schedule: 40 0 * * *
                       type: restic
-                      cleanupTempPVC: true
-                      cleanupCachePVC: true
+
             media:
                 enabled: true
                 type: nfs

@@ -72,8 +72,7 @@ spec:
                         trigger:
                             schedule: 40 0 * * *
                       type: restic
-                      cleanupTempPVC: true
-                      cleanupCachePVC: true
+
         service:
             main:
                 enabled: true

@@ -71,8 +71,7 @@ spec:
                         trigger:
                             schedule: 40 0 * * *
                       type: restic
-                      cleanupTempPVC: true
-                      cleanupCachePVC: true
+
             icons:
                 volsync:
                     - credentials: ${S3_NAME}
@@ -84,8 +83,7 @@ spec:
                         trigger:
                             schedule: 40 0 * * *
                       type: restic
-                      cleanupTempPVC: true
-                      cleanupCachePVC: true
+
             data:
                 volsync:
                     - credentials: ${S3_NAME}
@@ -97,8 +95,7 @@ spec:
                         trigger:
                             schedule: 40 0 * * *
                       type: restic
-                      cleanupTempPVC: true
-                      cleanupCachePVC: true
+
 
         homarr:
             auth:
