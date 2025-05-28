@@ -32,8 +32,6 @@ spec:
                             certificateIssuer: domain-0-le-prod
                         traefik:
                             enabled: true
-                            entrypoints:
-                                - websecure
                             middlewares:
                                 - name: ${TRAEFIK_MIDDLEWARE}
                                   namespace: traefik
@@ -71,8 +69,6 @@ spec:
                         certificateIssuer: domain-0-le-prod
                         traefik:
                             enabled: true
-                            entrypoints:
-                                - websecure
                             middlewares:
                                 - name: ${TRAEFIK_MIDDLEWARE}
                                   namespace: traefik
