@@ -60,8 +60,8 @@ spec:
               widget:
                   enabled: false
           certManager:
-              enabled: false
-              certificateIssuer: ""
+              enabled: true
+              certificateIssuer: domain-0-le-prod
           traefik:
               enabled: true
               entrypoints:
