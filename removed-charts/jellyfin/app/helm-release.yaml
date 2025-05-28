@@ -67,32 +67,28 @@ spec:
                             schedule: 40 0 * * *
                       type: restic
 
-            # cache:
-            #     volsync:
-            #         - credentials: ${S3_NAME}
-            #           dest:
-            #             enabled: true
-            #           name: cache
-            #           src:
-            #             enabled: true
-            #             trigger:
-            #                 schedule: 40 0 * * *
-            #           type: restic
-            #           cleanupTempPVC: true
-            #           cleanupCachePVC: true
-            # transcode:
-            #     volsync:
-            #         - credentials: ${S3_NAME}
-            #           dest:
-            #             enabled: true
-            #           name: transcode
-            #           src:
-            #             enabled: true
-            #             trigger:
-            #                 schedule: 40 0 * * *
-            #           type: restic
-            #           cleanupTempPVC: true
-            #           cleanupCachePVC: true
+            cache:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: cache
+                      src:
+                        enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
+                      type: restic
+            transcode:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: transcode
+                      src:
+                        enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
+                      type: restic
             media:
                 enabled: true
                 type: nfs
