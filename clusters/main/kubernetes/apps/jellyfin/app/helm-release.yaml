@@ -36,12 +36,6 @@ spec:
                       paths:
                         - path: /
                           pathType: Prefix
-                tls:
-                    - certificateIssuer: ""
-                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_JELLYFIN}
-                      secretName: ""
                 integrations:
                     homepage:
                         enabled: true
@@ -51,8 +45,8 @@ spec:
                                 key: ${API_JELLYFIN}
                             enabled: true
                     certManager:
-                        enabled: false
-                        certificateIssuer: ""
+                        enabled: true
+                        certificateIssuer: domain-0-le-prod
                     traefik:
                         enabled: true
                         entrypoints:
@@ -68,7 +62,7 @@ spec:
                         enabled: true
                       name: config
                       src:
-                        enabled: false
+                        enabled: true
                         trigger:
                             schedule: 40 0 * * *
                       type: restic

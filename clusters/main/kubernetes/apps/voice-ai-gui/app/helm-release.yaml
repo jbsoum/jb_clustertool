@@ -25,12 +25,6 @@ spec:
                       paths:
                         - path: /
                           pathType: Prefix
-                tls:
-                    - certificateIssuer: ""
-                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_VOICEAI}
-                      secretName: ""
                 integrations:
                     homepage:
                         enabled: true
@@ -38,13 +32,15 @@ spec:
                         widget:
                             enabled: false
                     certManager:
-                        enabled: false
-                        certificateIssuer: ""
-                    traefik:
                         enabled: true
-                        middlewares:
-                            - name: ${TRAEFIK_MIDDLEWARE}
-                              namespace: traefik
+                        certificateIssuer: domain-0-le-prod
+                        traefik:
+                            enabled: true
+                            entrypoints:
+                                - websecure
+                            middlewares:
+                                - name: ${TRAEFIK_MIDDLEWARE}
+                                  namespace: traefik
         service:
             main:
                 enabled: true

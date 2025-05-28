@@ -36,12 +36,6 @@ spec:
                       paths:
                         - path: /
                           pathType: Prefix
-                tls:
-                    - certificateIssuer: ""
-                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_CODE_SERVER}
-                      secretName: ""
                 integrations:
                     homepage:
                         enabled: true
@@ -50,27 +44,27 @@ spec:
                         widget:
                             enabled: false
                     certManager:
-                        enabled: false
-                        certificateIssuer: ""
+                        enabled: true
+                        certificateIssuer: domain-0-le-prod
                     traefik:
                         enabled: true
+                        entrypoints:
+                            - websecure
                         middlewares:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
-        # persistence:
-        #     config:              
-        #         volsync:
-        #             - credentials: ${S3_NAME}
-        #               dest:
-        #                 enabled: true
-        #               name: config
-        #               src:
-        #                 enabled: false
-        #                 trigger:
-        #                     schedule: 40 0 * * *
-        #               type: restic
-        #               cleanupTempPVC: true
-        #               cleanupCachePVC: true
+        persistence:
+            config:              
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: config
+                      src:
+                        enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
+                      type: restic
             ssh-config:
                 enabled: true
                 type: nfs

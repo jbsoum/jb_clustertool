@@ -49,24 +49,16 @@ spec:
                         - path: /
                           pathType: Prefix
 
-                tls:
-                    - certificateIssuer: ""
-                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_NEXTCLOUD}
-                      secretName: ""
+
                 integrations:
                     homepage:
                         enabled: true
                         group: Utilities
                         widget:
                             enabled: false
-                    # certManager:
-                    #   enabled: true
-                    #   certificateIssuer: domain-1-le-prod
                     certManager:
-                        enabled: false
-                        certificateIssuer: ""
+                        enabled: true
+                        certificateIssuer: domain-0-le-prod
                     traefik:
                         enabled: true
                         entrypoints:

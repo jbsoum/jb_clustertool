@@ -40,12 +40,6 @@ spec:
                       paths:
                         - path: /
                           pathType: Prefix
-                tls:
-                    - certificateIssuer: ""
-                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_NETBOOTXYZ}
-                      secretName: ""
                 integrations:
                     homepage:
                         enabled: true
@@ -53,10 +47,12 @@ spec:
                         widget:
                             enabled: false
                     certManager:
-                        enabled: false
-                        certificateIssuer: ""
+                        enabled: true
+                        certificateIssuer: domain-0-le-prod
                     traefik:
                         enabled: true
+                        entrypoints:
+                            - websecure
                         middlewares:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
@@ -67,12 +63,6 @@ spec:
                       paths:
                         - path: /
                           pathType: Prefix
-                tls:
-                    - certificateIssuer: ""
-                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_NETBOOTXYZ_ASSETS}
-                      secretName: ""
                 integrations:
                     homepage:
                         enabled: true
@@ -80,10 +70,12 @@ spec:
                         widget:
                             enabled: false
                     certManager:
-                        enabled: false
-                        certificateIssuer: ""
+                        enabled: true
+                        certificateIssuer: domain-0-le-prod
                     traefik:
                         enabled: true
+                        entrypoints:
+                            - websecure
                         middlewares:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
@@ -94,12 +86,6 @@ spec:
                       paths:
                         - path: /
                           pathType: Prefix
-                tls:
-                    - certificateIssuer: ""
-                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_NETBOOTXYZ_TFTP}
-                      secretName: ""
                 integrations:
                     homepage:
                         enabled: true
@@ -107,10 +93,12 @@ spec:
                         widget:
                             enabled: false
                     certManager:
-                        enabled: false
-                        certificateIssuer: ""
+                        enabled: true
+                        certificateIssuer: domain-0-le-prod
                     traefik:
                         enabled: true
+                        entrypoints:
+                            - websecure
                         middlewares:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik

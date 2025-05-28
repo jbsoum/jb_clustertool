@@ -28,24 +28,15 @@ spec:
                           paths:
                             - path: /
                               pathType: Prefix
-                    tls:
-                        - certificateIssuer: ""
-                          clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                          hosts:
-                            - ${DOMAIN_HOMEPAGE_CFG}
-                          secretName: ""
-    
                     integrations:
                         certManager:
-                            enabled: false
-                            certificateIssuer: ""
+                            enabled: true
+                            certificateIssuer: domain-0-le-prod
                         traefik:
                             enabled: true
                             entrypoints:
                                 - websecure
                             middlewares:
-                                - name: local
-                                  namespace: traefik
                                 - name: ${TRAEFIK_MIDDLEWARE}
                                   namespace: traefik
                 service:
@@ -71,18 +62,14 @@ spec:
                       paths:
                         - path: /
                           pathType: Prefix
-                tls:
-                    - certificateIssuer: ""
-                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_HOMEPAGE}
-                      secretName: ""
                 integrations:
                     certManager:
-                        enabled: false
-                        certificateIssuer: ""
+                        enabled: true
+                        certificateIssuer: domain-0-le-prod
                     traefik:
                         enabled: true
+                        entrypoints:
+                            - websecure
                         middlewares:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik

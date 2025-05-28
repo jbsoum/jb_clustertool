@@ -152,8 +152,8 @@ spec:
                         enabled: true
                         group: Admin - Cluster
                     certManager:
-                        enabled: false
-                        certificateIssuer: ""
+                        enabled: true
+                        certificateIssuer: domain-0-le-prod
                     traefik:
                         enabled: true
                 hosts:
@@ -161,12 +161,6 @@ spec:
                       paths:
                         - path: /
                           pathType: Prefix
-                tls:
-                    - certificateIssuer: ""
-                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_AUTHELIA}
-                      secretName: ""
         password_policy:
             enabled: false
             standard:

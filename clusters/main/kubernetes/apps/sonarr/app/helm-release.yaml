@@ -36,43 +36,36 @@ spec:
                       paths:
                         - path: /
                           pathType: Prefix
-                tls:
-                    - certificateIssuer: ""
-                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_SONARR}
-                      secretName: ""
                 integrations:
                     homepage:
                         enabled: true
                         group: Admin - Media
- 
                         widget:
                             custom:
                                 key: ${API_SONARR}
                             enabled: true
                     certManager:
-                        enabled: false
-                        certificateIssuer: ""
-                    traefik:
                         enabled: true
-                        middlewares:
-                            - name: ${TRAEFIK_MIDDLEWARE}
-                              namespace: traefik
+                        certificateIssuer: domain-0-le-prod
+                        traefik:
+                            enabled: true
+                            entrypoints:
+                                - websecure
+                            middlewares:
+                                - name: ${TRAEFIK_MIDDLEWARE}
+                                  namespace: traefik
         persistence:
-            # config:
-            #     volsync:
-            #         - credentials: ${S3_NAME}
-            #           dest:
-            #             enabled: true
-            #           name: config
-            #           src:
-            #             enabled: true
-            #             trigger:
-            #                 schedule: 40 0 * * *
-            #           type: restic
-            #           cleanupTempPVC: true
-            #           cleanupCachePVC: true
+            config:
+                volsync:
+                    - credentials: ${S3_NAME}
+                      dest:
+                        enabled: true
+                      name: config
+                      src:
+                        enabled: true
+                        trigger:
+                            schedule: 40 0 * * *
+                      type: restic
             media:
                 enabled: true
                 type: nfs

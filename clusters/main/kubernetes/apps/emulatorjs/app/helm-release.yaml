@@ -28,23 +28,15 @@ spec:
                           paths:
                             - path: /
                               pathType: Prefix
-                    tls:
-                        - certificateIssuer: ""
-                          clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                          hosts:
-                            - ${DOMAIN_EMULATOR_JS_CODE_SERVER}
-                          secretName: ""
                     integrations:
                         certManager:
-                            enabled: false
-                            certificateIssuer: ""
+                            enabled: true
+                            certificateIssuer: domain-0-le-prod
                         traefik:
                             enabled: true
                             entrypoints:
                                 - websecure
                             middlewares:
-                                - name: local
-                                  namespace: traefik
                                 - name: ${TRAEFIK_MIDDLEWARE}
                                   namespace: traefik
                 service:
@@ -70,12 +62,6 @@ spec:
                       paths:
                         - path: /
                           pathType: Prefix
-                tls:
-                    - certificateIssuer: ""
-                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_EMULATOR_JS}
-                      secretName: ""
                 integrations:
                     homepage:
                         enabled: true
@@ -83,10 +69,12 @@ spec:
                         widget:
                             enabled: false
                     certManager:
-                        enabled: false
-                        certificateIssuer: ""
+                        enabled: true
+                        certificateIssuer: domain-0-le-prod
                     traefik:
                         enabled: true
+                        entrypoints:
+                            - websecure
                         middlewares:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
@@ -99,12 +87,6 @@ spec:
                       paths:
                         - path: /
                           pathType: Prefix
-                tls:
-                    - certificateIssuer: ""
-                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_EMULATOR_JS_CFG}
-                      secretName: ""
                 integrations:
                     homepage:
                         enabled: true
@@ -112,10 +94,12 @@ spec:
                         widget:
                             enabled: false
                     certManager:
-                        enabled: false
-                        certificateIssuer: ""
+                        enabled: true
+                        certificateIssuer: domain-0-le-prod
                     traefik:
                         enabled: true
+                        entrypoints:
+                            - websecure
                         middlewares:
                             - name: ${TRAEFIK_MIDDLEWARE}
                               namespace: traefik
@@ -124,7 +108,7 @@ spec:
                 volsync:
                     - credentials: ${S3_NAME}
                       dest:
-                        enabled: false
+                        enabled: true
                       name: config
                       src:
                         enabled: true
@@ -136,7 +120,7 @@ spec:
                 volsync:
                     - credentials: ${S3_NAME}
                       dest:
-                        enabled: false
+                        enabled: true
                       name: data
                       src:
                         enabled: true

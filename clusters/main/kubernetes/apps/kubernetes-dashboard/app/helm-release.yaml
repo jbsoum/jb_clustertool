@@ -64,6 +64,8 @@ spec:
               certificateIssuer: ""
           traefik:
               enabled: true
+              entrypoints:
+                  - websecure
               middlewares:
                 - name: ${TRAEFIK_MIDDLEWARE}
                   namespace: traefik

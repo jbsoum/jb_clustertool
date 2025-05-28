@@ -34,12 +34,6 @@ spec:
                       paths:
                         - path: /
                           pathType: Prefix
-                tls:
-                    - certificateIssuer: ""
-                      clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-                      hosts:
-                        - ${DOMAIN_READARR}
-                      secretName: ""
                 integrations:
                     homepage:
                         enabled: true
@@ -49,13 +43,15 @@ spec:
                                 key: ${API_READARR}
                             enabled: true
                     certManager:
-                        enabled: false
-                        certificateIssuer: ""
-                    traefik:
                         enabled: true
-                        middlewares:
-                            - name: ${TRAEFIK_MIDDLEWARE}
-                              namespace: traefik
+                        certificateIssuer: domain-0-le-prod
+                        traefik:
+                            enabled: true
+                            entrypoints:
+                                - websecure
+                            middlewares:
+                                - name: ${TRAEFIK_MIDDLEWARE}
+                                  namespace: traefik
         persistence:
             config:
                 volsync:
