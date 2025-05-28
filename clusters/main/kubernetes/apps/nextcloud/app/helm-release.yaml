@@ -34,12 +34,12 @@ spec:
                 backups:
                     credentials: ${S3_NAME}
                     enabled: true
-                    revision: "${CNPG_BACKUP_REVISION}"
+                    revision: "2"
                 recovery:
                     method: object_store
                     credentials: ${S3_NAME}
                     enabled: true
-                    revision: "${CNPG_RECOVERY_REVISION}"
+                    revision: "v1"
         ingress:
             main:
                 enabled: true
