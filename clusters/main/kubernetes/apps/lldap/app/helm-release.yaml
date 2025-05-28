@@ -74,7 +74,7 @@ spec:
                         enabled: true
                       name: config
                       src:
-                        enabled: false
+                        enabled: true
                         trigger:
                             schedule: 40 0 * * *
                       type: restic
