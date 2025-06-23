@@ -77,18 +77,18 @@ spec:
                 server: ${IP_TRUENAS}
                 path: "${NFS_CODE_SERVER_CODE}"
                 mountPath: "/code"
-        release_name: code-server
-        securityContext:
-            container:
-                UMASK: "0022"
-                allowPrivilegeEscalation: true
-                readOnlyRootFilesystem: false
-                runAsGroup: 0
-                runAsNonRoot: false
-                runAsUser: 0
-            # pod:
-            #     fsGroup: 0
-            #     fsGroupChangePolicy: OnRootMismatch
+        # release_name: code-server
+        # securityContext:
+        #     container:
+        #         UMASK: "0022"
+        #         allowPrivilegeEscalation: true
+        #         readOnlyRootFilesystem: false
+        #         runAsGroup: 0
+        #         runAsNonRoot: false
+        #         runAsUser: 0
+        #     # pod:
+        #     #     fsGroup: 0
+        #     #     fsGroupChangePolicy: OnRootMismatch
         service:
             main:
                 enabled: true
