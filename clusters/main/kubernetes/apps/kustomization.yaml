@@ -12,6 +12,7 @@ resources:
   - deluge/ks.yaml
   - dev-mongodb/ks.yaml
   - dev-postgresql/ks.yaml
+  - dev-jbsoum-org/ks.yaml
   # - docker/ks.yaml
   - emby/ks.yaml
   - emulatorjs/ks.yaml
@@ -55,3 +56,4 @@ resources:
   # # - whoogle/ks.yaml
   # - proxmox-backup-server/ks.yaml
   - voice-ai-gui/ks.yaml
+  - dev-jbsoum-org/ks.yaml
