@@ -62,3 +62,8 @@ spec:
                           trigger:
                               schedule: 40 0 * * *
                       type: restic
+            downloads:
+                enabled: true
+                type: nfs
+                server: ${IP_TRUENAS}
+                path: "${NFS_DATA_MEDIA}/metube"
