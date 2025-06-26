@@ -16,7 +16,7 @@ spec:
     releaseName: metube
     values:
         global:
-            stopAll: false
+            stopAll: true
         TZ: ${TIMEZONE}
         credentials:
             backblaze:
