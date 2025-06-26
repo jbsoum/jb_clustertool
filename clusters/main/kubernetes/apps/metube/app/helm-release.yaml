@@ -66,5 +66,4 @@ spec:
                 enabled: true
                 type: nfs
                 server: ${IP_TRUENAS}
-                path: "${NFS_DATA_MEDIA}/metube"
-                mountPath: "/downloads"
+                path: "${NFS_DATA_MEDIA}"
