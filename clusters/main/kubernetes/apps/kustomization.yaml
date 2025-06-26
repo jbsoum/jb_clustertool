@@ -54,3 +54,4 @@ resources:
   # # - whoogle/ks.yaml
   # - proxmox-backup-server/ks.yaml
   - voice-ai-gui/ks.yaml
+  - metube/ks.yaml
