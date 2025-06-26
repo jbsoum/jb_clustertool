@@ -30,6 +30,7 @@ resources:
   # - libreddit/ks.yaml
   - lidarr/ks.yaml
   - lldap/ks.yaml
+  - metube/ks.yaml
   - navidrome/ks.yaml
   - netbootxyz/ks.yaml
   - nextcloud/ks.yaml
