@@ -17,48 +17,45 @@ spec:
   values:
     TZ: ${TIMEZONE}
     authelia:
-      domain: ${DOMAIN_0}
-      default_redirection_url: https://${DOMAIN_AUTHELIA}
+      session:
+        cookies:
+          - domain: ${DOMAIN_0}
+            authelia_url: https://${DOMAIN_AUTHELIA}
       authentication_backend:
-        file:
-          enabled: false
         ldap:
-          enabled: true
-          implementation: custom
-          url: ldap://lldap-ldap.lldap.svc.cluster.local:3890
-          base_dn: dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
-          username_attribute: uid
-          additional_users_dn: ou=people
-          users_filter: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
-          additional_groups_dn: ou=groups
-          groups_filter: (member={dn})
-          group_name_attribute: cn
-          mail_attribute: mail
-          display_name_attribute: displayName
-          user: CN=${AUTHELIA_LLDAP_GROUP_NAME},ou=people,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}
-          plain_password: ${AUTHELIA_LLDAP_PASSWORD}
-      notifier:
-        disable_startup_check: true
-        filesystem:
-          enabled: false
-        smtp:
-          enabled: true
-          disable_html_emails: false
-          disable_require_tls: true
-          enabledSecret: false
-          host: ${IP_PROTONMAIL}
-          identifier: 127.0.0.1
-          port: ${PROTONMAIL_PORT_SMTP}
-          startup_check_address: ${PROTONMAIL_USER}
-          subject: "[Authelia] {title}"
+          address: ldap://lldap-ldap.lldap.svc.cluster.local:3890
+          implementation: "custom"
           timeout: 5s
           tls:
             minimum_version: TLS1.2
             server_name: ""
             skip_verify: true
+          user: CN=${AUTHELIA_LLDAP_GROUP_NAME},ou=people,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}
+          password: ${AUTHELIA_LLDAP_PASSWORD}
+          base_dn: dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
+          additional_users_dn: ou=people
+          users_filter: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
+          additional_groups_dn: ou=groups
+          groups_filter: (member={dn})
+          attributes:
+            username: uid
+            display_name_attribute: displayName
+            mail: mail
+            group_name: cn
+      notifier:
+        disable_startup_check: true
+        smtp:
+          address: "http://${IP_PROTONMAIL}:${PROTONMAIL_PORT_SMTP}"
+          timeout: 5s
           username: ${PROTONMAIL_USER}
-          plain_password: ${PROTONMAIL_PASSWORD}
-          sender: ${PROTONMAIL_USER}
+          password: ${PROTONMAIL_PASSWORD}
+          sender: "MS-Authelia <${PROTONMAIL_USER}>"
+          identifier: 127.0.0.1
+          subject: "[Authelia] {title}"
+          startup_check_address: ${PROTONMAIL_USER}
+          disable_require_tls: true
+          disable_start_tls: true
+          disable_html_emails: false
       access_control:
         default_policy: deny
         rules:
@@ -187,4 +184,3 @@ spec:
       issuer: ""
       period: 30
       skew: 1
-
