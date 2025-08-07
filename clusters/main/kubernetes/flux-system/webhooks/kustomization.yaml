@@ -1,6 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - capacitor
-  - flux
-  - webhooks
+  - receiver.yaml
+  - webhook.secret.yaml
+  - ingress.yaml
