@@ -39,13 +39,13 @@ spec:
           groups_filter: (member={dn})
           attributes:
             username: uid
-            display_name_attribute: displayName
+            display_name: displayName
             mail: mail
             group_name: cn
       notifier:
         disable_startup_check: true
         smtp:
-          address: "http://${IP_PROTONMAIL}:${PROTONMAIL_PORT_SMTP}"
+          address: "smtp://${IP_PROTONMAIL}:${PROTONMAIL_PORT_SMTP}"
           timeout: 5s
           username: ${PROTONMAIL_USER}
           password: ${PROTONMAIL_PASSWORD}
@@ -54,7 +54,7 @@ spec:
           subject: "[Authelia] {title}"
           startup_check_address: ${PROTONMAIL_USER}
           disable_require_tls: true
-          disable_start_tls: true
+          disable_starttls: true
           disable_html_emails: false
       access_control:
         default_policy: deny
