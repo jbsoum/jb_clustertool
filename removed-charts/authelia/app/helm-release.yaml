@@ -1,0 +1,90 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: authelia
+  namespace: authelia
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: authelia
+      version: 29.4.1
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  #timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    TZ: ${TIMEZONE}
+
+    credentials:
+      backblaze:
+        accessKey: ${S3_ACCESS_KEY}
+        bucket: ${S3_BUCKET}
+        encrKey: ${S3_ENCRYPTION_KEY}
+        name: ${S3_NAME}
+        path: ""
+        secretKey: ${S3_SECRET_KEY}
+        type: s3
+        url: ${S3_URL}
+
+    persistence:
+      # config:
+      #   volsync:
+      #     - name: config
+      #       type: restic
+      #       credentials: backblaze
+      #       dest: #VolSync Destination (Restore)
+      #         enabled: true
+      #       src: #VolSync Source (Backup)
+      #         enabled: true
+      configfile:
+        enabled: true
+        type: configmap
+        objectName: authelia-configfile
+        expandObjectName: false
+        mountPath: /configuration.yaml
+        subPath: configuration.yaml
+        readOnly: true
+
+    ingress:
+      main:
+        enabled: true
+        integrations:
+          homepage:
+            enabled: true
+            group: Admin - Cluster
+          certManager:
+            enabled: true
+            certificateIssuer: domain-0-le-prod
+          traefik:
+            enabled: true
+        hosts:
+          - host: ${DOMAIN_AUTHELIA}
+            paths:
+              - path: /
+                pathType: Prefix
+    workload:
+      main:
+        # replicas: 1
+        podSpec:
+          containers:
+            main:
+              env:
+                AUTHELIA_SESSION_SECRET: ${AUTHELIA_SESSION_KEY}
+                AUTHELIA_STORAGE_ENCRYPTION_KEY: ${AUTHELIA_STORAGE_ENCRYPTION_KEY}
+                X_AUTHELIA_CONFIG_FILTERS: template

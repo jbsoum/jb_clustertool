@@ -1,23 +1,16 @@
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: authelia
+  name: authelia-configfile
   namespace: authelia
-spec:
-  interval: 15m
-  chart:
-    spec:
-      chart: authelia
-      version: 29.4.1
-      sourceRef:
-        kind: HelmRepository
-        name: truecharts
-        namespace: flux-system
-  releaseName: authelia
-  values:
-    TZ: ${TIMEZONE}
-    authelia:
+data:
+  configuration.yaml: |
       session:
+        expiration: 1h
+        inactivity: 5m
+        name: authelia_session
+        remember_me_duration: 5M
+        same_site: lax
         cookies:
           - domain: ${DOMAIN_0}
             authelia_url: https://${DOMAIN_AUTHELIA}
@@ -56,6 +49,24 @@ spec:
           disable_require_tls: true
           disable_starttls: true
           disable_html_emails: false
+      password_policy:
+        standard:
+          enabled: false
+          max_length: 0
+          min_length: 8
+          require_lowercase: false
+          require_number: false
+          require_special: false
+          require_uppercase: false
+      regulation:
+        ban_time: 5m
+        find_time: 2m
+        max_retries: 3
+      theme: dark
+      totp:
+        issuer: ""
+        period: 30
+        skew: 1
       access_control:
         default_policy: deny
         rules:
@@ -132,55 +143,4 @@ spec:
             resources: []
             subject:
               - "group:${LLDAP_ADMIN_GROUP}"
-    credentials:
-      backblaze:
-        accessKey: ${S3_ACCESS_KEY}
-        bucket: ${S3_BUCKET}
-        encrKey: ${S3_ENCRYPTION_KEY}
-        name: ${S3_NAME}
-        path: ""
-        secretKey: ${S3_SECRET_KEY}
-        type: s3
-        url: ${S3_URL}
-    ingress:
-      main:
-        enabled: true
-        integrations:
-          homepage:
-            enabled: true
-            group: Admin - Cluster
-          certManager:
-            enabled: true
-            certificateIssuer: domain-0-le-prod
-          traefik:
-            enabled: true
-        hosts:
-          - host: ${DOMAIN_AUTHELIA}
-            paths:
-              - path: /
-                pathType: Prefix
-    password_policy:
-      enabled: false
-      standard:
-        enabled: false
-        max_length: 0
-        min_length: 8
-        require_lowercase: false
-        require_number: false
-        require_special: false
-        require_uppercase: false
-    regulation:
-      ban_time: 5m
-      find_time: 2m
-      max_retries: 3
-    session:
-      expiration: 1h
-      inactivity: 5m
-      name: authelia_session
-      remember_me_duration: 5M
-      same_site: lax
-    theme: dark
-    totp:
-      issuer: ""
-      period: 30
-      skew: 1
+ 
