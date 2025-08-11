@@ -1,9 +1,11 @@
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
+
 metadata:
   name: kubernetes-dashboard
   namespace: kubernetes-dashboard
+
 spec:
   interval: 15m
   chart:
@@ -29,9 +31,11 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+
   values:
     global:
       stopAll: false
+
     service:
       main:
         type: LoadBalancer
@@ -39,33 +43,19 @@ spec:
         ports:
           main:
             port: 80
+
     ingress:
       main:
         enabled: true
-        hosts:
-          - host: ${DOMAIN_KUBEDASH}
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - certificateIssuer: ""
-            clusterCertificate: ${DNS_CLUSTER_CERT_NAME}
-            hosts:
-              - ${DOMAIN_KUBEDASH}
-            secretName: ""
+        ingressClassName: external
         integrations:
           homepage:
-              enabled: true
-              group: Admin - Cluster
-              widget:
-                  enabled: false
+            enabled: true
+            group: Admin - Cluster
+            widget:
+              enabled: false
           certManager:
-              enabled: true
-              certificateIssuer: domain-0-le-prod
-          traefik:
-              enabled: true
-              entrypoints:
-                  - websecure
-              middlewares:
-                - name: ${TRAEFIK_MIDDLEWARE}
-                  namespace: traefik
+            enabled: true
+            certificateIssuer: ${DNS_NAME}
+        hosts:
+          - host: ${SUBDOMAIN_KUBEDASH}.${DOMAIN_0}

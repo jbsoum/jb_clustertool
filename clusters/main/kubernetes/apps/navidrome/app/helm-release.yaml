@@ -1,96 +1,91 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
-metadata:
-    name: navidrome
-    namespace: navidrome
-spec:
-    interval: 15m
-    chart:
-        spec:
-            chart: navidrome
-            version: 22.3.0
-            sourceRef:
-                kind: HelmRepository
-                name: truecharts
-                namespace: flux-system
-    releaseName: navidrome
-    values:
-        global:
-            stopAll: false
-        TZ: ${TIMEZONE}
-        credentials:
-             backblaze:
-                accessKey: ${S3_ACCESS_KEY}
-                bucket: ${S3_BUCKET}
-                encrKey: ${S3_ENCRYPTION_KEY}
-                name: ${S3_NAME}
-                path: ""
-                secretKey: ${S3_SECRET_KEY}
-                type: s3
-                url: ${S3_URL}
-        ingress:
-            main:
-                enabled: true
-                hosts:
-                    - host: ${DOMAIN_NAVIDROME}
-                      paths:
-                        - path: /
-                          pathType: Prefix
-                integrations:
-                    homepage:
-                        enabled: true
-                        group: Media
-                        widget:
-                            enabled: false
-                    certManager:
-                        enabled: true
-                        certificateIssuer: domain-0-le-prod
-                    traefik:
-                        enabled: true
-                        middlewares:
-                            - name: ${TRAEFIK_MIDDLEWARE}
-                              namespace: traefik
-        workload:
-          main:
-            podSpec:
-              containers:
-                main:
-                  env:
-                    ND_MUSICFOLDER: /media/music
-                    ND_SCANSCHEDULE: "@every 15m"
-                    ND_LOGLEVEL: info
-                    ND_SESSIONTIMEOUT: 24h
-                    ND_ENABLETRANSCODINGCONFIG: false
-                    ND_ENABLEUSEREDITING: false
-                    ND_REVERSEPROXYWHITELIST: ${IP_TRAEFIK}/0
-        service:
-            main:
-                enabled: true
-                type: ClusterIP
-        persistence:
-            data:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: data
-                      src:
-                        enabled: true
-                        trigger:
-                            schedule: 40 0 * * *
-                      type: restic
 
-            music:
-                enabled: true
-                type: nfs
-                server: ${IP_TRUENAS}
-                path: ${NFS_DATA_MEDIA}
-                mountPath: /media
-                # mountOptions:
-                # - nfsvers=4
-                # - tcp
-                # - intr
-                # - hard
-                # - noatime
-                # - nodiratime
-                # - nolock
+metadata:
+  name: navidrome
+  namespace: navidrome
+
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: navidrome
+      version: 22.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  #timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    global:
+      stopAll: false
+
+    TZ: ${TIMEZONE}
+
+    credentials:
+      backblaze:
+        accessKey: ${S3_ACCESS_KEY}
+        bucket: ${S3_BUCKET}
+        encrKey: ${S3_ENCRYPTION_KEY}
+        name: ${S3_NAME}
+        path: ""
+        secretKey: ${S3_SECRET_KEY}
+        type: s3
+        url: ${S3_URL}
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        integrations:
+          homepage:
+            enabled: true
+            group: Media
+            widget:
+              enabled: false
+          certManager:
+            enabled: true
+            certificateIssuer: ${DNS_NAME}
+        hosts:
+          - host: ${SUBDOMAIN_NAVIDROME}.${DOMAIN_0}
+
+    persistence:
+      data:
+        volsync:
+          - name: data
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *
+      music:
+        enabled: true
+        type: nfs
+        server: ${IP_TRUENAS}
+        path: ${NFS_DATA_MEDIA}
+        mountPath: /media
+        # mountOptions:
+        # - nfsvers=4
+        # - tcp
+        # - intr
+        # - hard
+        # - noatime
+        # - nodiratime
+        # - nolock

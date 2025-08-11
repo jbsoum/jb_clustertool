@@ -1,122 +1,121 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
-metadata:
-    name: netbootxyz
-    namespace: netbootxyz
-spec:
-    interval: 15m
-    chart:
-        spec:
-            chart: netbootxyz
-            version: 7.2.2
-            sourceRef:
-                kind: HelmRepository
-                name: truecharts
-                namespace: flux-system
-    releaseName: netbootxyz
-    values:
-        global:
-            stopAll: false
-        TZ: ${TIMEZONE}
-        credentials:
-            backblaze:
-                accessKey: ${S3_ACCESS_KEY}
-                bucket: ${S3_BUCKET}
-                encrKey: ${S3_ENCRYPTION_KEY}
-                name: ${S3_NAME}
-                path: ""
-                secretKey: ${S3_SECRET_KEY}
-                type: s3
-                url: ${S3_URL}
-        service:
-            tftp:
-                type: LoadBalancer
-                loadBalancerIP: ${IP_NETBOOTXYZ}
-        ingress:
-            main:
-                enabled: true
-                hosts:
-                    - host: ${DOMAIN_NETBOOTXYZ}
-                      paths:
-                        - path: /
-                          pathType: Prefix
-                integrations:
-                    homepage:
-                        enabled: true
-                        group: Utilities
-                        widget:
-                            enabled: false
-                    certManager:
-                        enabled: true
-                        certificateIssuer: domain-0-le-prod
-                    traefik:
-                        enabled: true
-                        middlewares:
-                            - name: ${TRAEFIK_MIDDLEWARE}
-                              namespace: traefik
-            assets:
-                enabled: true
-                hosts:
-                    - host: ${DOMAIN_NETBOOTXYZ_ASSETS}
-                      paths:
-                        - path: /
-                          pathType: Prefix
-                integrations:
-                    homepage:
-                        enabled: true
-                        group: Utilities
-                        widget:
-                            enabled: false
-                    certManager:
-                        enabled: true
-                        certificateIssuer: domain-0-le-prod
-                    traefik:
-                        enabled: true
-                        middlewares:
-                            - name: ${TRAEFIK_MIDDLEWARE}
-                              namespace: traefik
-            tftp:
-                enabled: true
-                hosts:
-                    - host: ${DOMAIN_NETBOOTXYZ_TFTP}
-                      paths:
-                        - path: /
-                          pathType: Prefix
-                integrations:
-                    homepage:
-                        enabled: true
-                        group: Utilities
-                        widget:
-                            enabled: false
-                    certManager:
-                        enabled: true
-                        certificateIssuer: domain-0-le-prod
-                    traefik:
-                        enabled: true
-                        middlewares:
-                            - name: ${TRAEFIK_MIDDLEWARE}
-                              namespace: traefik
-        persistence:
-            config:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: config
-                      src:
-                        enabled: true
-                        trigger:
-                            schedule: 40 0 * * *
-                      type: restic
 
-            assets:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: assets
-                      src:
-                        enabled: true
-                        trigger:
-                            schedule: 40 0 * * *
-                      type: restic
+metadata:
+  name: netbootxyz
+  namespace: netbootxyz
+
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: netbootxyz
+      version: 7.2.2
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  #timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    global:
+      stopAll: false
+
+    TZ: ${TIMEZONE}
+
+    credentials:
+      backblaze:
+        accessKey: ${S3_ACCESS_KEY}
+        bucket: ${S3_BUCKET}
+        encrKey: ${S3_ENCRYPTION_KEY}
+        name: ${S3_NAME}
+        path: ""
+        secretKey: ${S3_SECRET_KEY}
+        type: s3
+        url: ${S3_URL}
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        integrations:
+          homepage:
+            enabled: true
+            group: Utilities
+            widget:
+              enabled: false
+          certManager:
+            enabled: true
+            certificateIssuer: ${DNS_NAME}
+        hosts:
+          - host: ${SUBDOMAIN_NETBOOTXYZ}.${DOMAIN_0}
+      assets:
+        enabled: true
+        ingressClassName: external
+        integrations:
+          homepage:
+            enabled: true
+            group: Utilities
+            widget:
+              enabled: false
+          certManager:
+            enabled: true
+            certificateIssuer: ${DNS_NAME}
+        hosts:
+          - host: ${SUBDOMAIN_NETBOOTXYZ_ASSETS}.${DOMAIN_0}
+      tftp:
+        enabled: true
+        ingressClassName: external
+        integrations:
+          homepage:
+            enabled: true
+            group: Utilities
+            widget:
+              enabled: false
+          certManager:
+            enabled: true
+            certificateIssuer: ${DNS_NAME}
+        hosts:
+          - host: ${SUBDOMAIN_NETBOOTXYZ_TFTP}.${DOMAIN_0}
+
+    persistence:
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *
+      assets:
+        volsync:
+          - name: assets
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *
+
+    service:
+      tftp:
+        type: LoadBalancer
+        loadBalancerIP: ${IP_NETBOOTXYZ}

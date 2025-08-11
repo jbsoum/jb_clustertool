@@ -1,130 +1,136 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
+
 metadata:
-    name: homarr
-    namespace: homarr
+  name: homarr
+  namespace: homarr
+
 spec:
-    interval: 15m
-    chart:
-        spec:
-            chart: homarr
-            version: 13.3.0
-            sourceRef:
-                kind: HelmRepository
-                name: truecharts
-                namespace: flux-system
-    releaseName: homarr
-    values:
-        global:
-            stopAll: false
-        TZ: ${TIMEZONE}
-        credentials:
-             backblaze:
-                accessKey: ${S3_ACCESS_KEY}
-                bucket: ${S3_BUCKET}
-                encrKey: ${S3_ENCRYPTION_KEY}
-                name: ${S3_NAME}
-                path: ""
-                secretKey: ${S3_SECRET_KEY}
-                type: s3
-                url: ${S3_URL}
-        ingress:
+  interval: 15m
+  chart:
+    spec:
+      chart: homarr
+      version: 13.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  #timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    global:
+      stopAll: false
+    TZ: ${TIMEZONE}
+
+    credentials:
+      backblaze:
+        accessKey: ${S3_ACCESS_KEY}
+        bucket: ${S3_BUCKET}
+        encrKey: ${S3_ENCRYPTION_KEY}
+        name: ${S3_NAME}
+        path: ""
+        secretKey: ${S3_SECRET_KEY}
+        type: s3
+        url: ${S3_URL}
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        integrations:
+          homepage:
+            enabled: true
+            group: Utilities
+            widget:
+              enabled: false
+          certManager:
+            enabled: true
+            certificateIssuer: ${DNS_NAME}
+        hosts:
+          - host: ${DOMAIN_0}
+
+    persistence:
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *
+      icons:
+        volsync:
+          - name: icons
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *
+      data:
+        volsync:
+          - name: data
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *
+
+    homarr:
+      auth:
+        provider: ldap
+        ldap:
+          URI: ldap://lldap-ldap.lldap.svc.cluster.local:3890
+          base: dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
+          bindDN: CN=${AUTHELIA_LLDAP_GROUP_NAME},ou=people,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}
+          bindPassword: ${AUTHELIA_LLDAP_PASSWORD}
+          userNameAttribute: uid
+          userMailAttribute: mail
+          groupClass: groupOfUniqueNames
+          groupMemberAttribute: member
+          groupMemberUserAttribute: dn
+          adminGroup: ${LLDAP_ADMIN_GROUP}
+          searchScope: base
+          userNameFilterExtraArg: (&(objectclass=person)(memberof=cn=${LLDAP_USER_GROUP},ou=groups,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}))
+
+    workload:
+      main:
+        podSpec:
+          containers:
             main:
-                enabled: true
-                hosts:
-                    - host: ${DOMAIN_0}
-                      paths:
-                        - path: /
-                          pathType: Prefix
-                integrations:
-                    homepage:
-                        enabled: true
-                        group: Utilities
-                        widget:
-                            enabled: false
-                    certManager:
-                        enabled: true
-                        certificateIssuer: domain-0-le-prod
-                    traefik:
-                        enabled: true
-                        middlewares:
-                            - name: ${TRAEFIK_MIDDLEWARE}
-                              namespace: traefik
-        service:
-            main:
-                enabled: true
-        persistence:
-            config:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: config
-                      src:
-                        enabled: true
-                        trigger:
-                            schedule: 40 0 * * *
-                      type: restic
-
-            icons:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: icons
-                      src:
-                        enabled: true
-                        trigger:
-                            schedule: 40 0 * * *
-                      type: restic
-
-            data:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: data
-                      src:
-                        enabled: true
-                        trigger:
-                            schedule: 40 0 * * *
-                      type: restic
-
-
-        homarr:
-            auth:
-                provider: ldap
-                ldap:
-                  URI: ldap://lldap-ldap.lldap.svc.cluster.local:3890
-                  base: dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
-                  bindDN: CN=${AUTHELIA_LLDAP_GROUP_NAME},ou=people,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}
-                  bindPassword: ${AUTHELIA_LLDAP_PASSWORD}
-                  userNameAttribute: uid
-                  userMailAttribute: mail
-                  groupClass: groupOfUniqueNames
-                  groupMemberAttribute: member
-                  groupMemberUserAttribute: dn
-                  adminGroup: ${LLDAP_ADMIN_GROUP}
-                  searchScope: base
-                  userNameFilterExtraArg: (&(objectclass=person)(memberof=cn=${LLDAP_USER_GROUP},ou=groups,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}))
-
-        workload:
-            main:
-                podSpec:
-                    containers:
-                        main:
-                            env:
-                                AUTH_PROVIDER: '{{ .Values.homarr.auth.provider | default "credentials" }}'
-                                AUTH_LDAP_URI: "{{ .Values.homarr.auth.ldap.URI }}"
-                                AUTH_LDAP_BASE: "{{ .Values.homarr.auth.ldap.base }}"
-                                AUTH_LDAP_BIND_DN: "{{ .Values.homarr.auth.ldap.bindDN }}"
-                                AUTH_LDAP_BIND_PASSWORD: "{{ .Values.homarr.auth.ldap.bindPassword }}"
-                                AUTH_LDAP_USERNAME_ATTRIBUTE: "{{ .Values.homarr.auth.ldap.userNameAttribute }}"
-                                AUTH_LDAP_USER_MAIL_ATTRIBUTE: "{{ .Values.homarr.auth.ldap.userMailAttribute }}"
-                                AUTH_LDAP_GROUP_CLASS: "{{ .Values.homarr.auth.ldap.groupClass }}"
-                                AUTH_LDAP_GROUP_MEMBER_ATTRIBUTE: "{{ .Values.homarr.auth.ldap.groupMemberAttribute }}"
-                                AUTH_LDAP_GROUP_MEMBER_USER_ATTRIBUTE: "{{ .Values.homarr.auth.ldap.groupMemberUserAttribute }}"
-                                AUTH_LDAP_ADMIN_GROUP: "{{ .Values.homarr.auth.ldap.adminGroup }}"
-                                AUTH_LDAP_OWNER_GROUP: "{{ .Values.homarr.auth.ldap.adminGroup }}"
-                                AUTH_LDAP_SEARCH_SCOPE: "{{ .Values.homarr.auth.ldap.searchScope }}"
-                                AUTH_LDAP_USERNAME_FILTER_EXTRA_ARG: "{{ .Values.homarr.auth.ldap.userNameFilterExtraArg }}"
+              env:
+                AUTH_PROVIDER: '{{ .Values.homarr.auth.provider | default "credentials" }}'
+                AUTH_LDAP_URI: "{{ .Values.homarr.auth.ldap.URI }}"
+                AUTH_LDAP_BASE: "{{ .Values.homarr.auth.ldap.base }}"
+                AUTH_LDAP_BIND_DN: "{{ .Values.homarr.auth.ldap.bindDN }}"
+                AUTH_LDAP_BIND_PASSWORD: "{{ .Values.homarr.auth.ldap.bindPassword }}"
+                AUTH_LDAP_USERNAME_ATTRIBUTE: "{{ .Values.homarr.auth.ldap.userNameAttribute }}"
+                AUTH_LDAP_USER_MAIL_ATTRIBUTE: "{{ .Values.homarr.auth.ldap.userMailAttribute }}"
+                AUTH_LDAP_GROUP_CLASS: "{{ .Values.homarr.auth.ldap.groupClass }}"
+                AUTH_LDAP_GROUP_MEMBER_ATTRIBUTE: "{{ .Values.homarr.auth.ldap.groupMemberAttribute }}"
+                AUTH_LDAP_GROUP_MEMBER_USER_ATTRIBUTE: "{{ .Values.homarr.auth.ldap.groupMemberUserAttribute }}"
+                AUTH_LDAP_ADMIN_GROUP: "{{ .Values.homarr.auth.ldap.adminGroup }}"
+                AUTH_LDAP_OWNER_GROUP: "{{ .Values.homarr.auth.ldap.adminGroup }}"
+                AUTH_LDAP_SEARCH_SCOPE: "{{ .Values.homarr.auth.ldap.searchScope }}"
+                AUTH_LDAP_USERNAME_FILTER_EXTRA_ARG: "{{ .Values.homarr.auth.ldap.userNameFilterExtraArg }}"

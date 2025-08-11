@@ -1,72 +1,86 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
+
 metadata:
-    name: dev-jbsoum-org
-    namespace: dev-jbsoum-org
+  name: dev-jbsoum-org
+  namespace: dev-jbsoum-org
+
 spec:
-    interval: 15m
-    chart:
-        spec:
-            chart: app-template
-            version: 15.3.6
-            sourceRef:
-                kind: HelmRepository
-                name: truecharts
-                namespace: flux-system
-    releaseName: dev-jbsoum-org
-    values:
-        image:
-            repository: docker.io/bitnami/postgresql
-            pullPolicy: IfNotPresent
-            tag: latest@sha256:42a8200d35971f931b869ef5252d996e137c6beb4b8f1b6d2181dc7d1b6f62e0
-        global:
-            stopAll: false
-        TZ: ${TIMEZONE}
-        credentials:
-            backblaze:
-                accessKey: ${S3_ACCESS_KEY}
-                bucket: ${S3_BUCKET}
-                encrKey: ${S3_ENCRYPTION_KEY}
-                name: ${S3_NAME}
-                path: ""
-                secretKey: ${S3_SECRET_KEY}
-                type: s3
-                url: ${S3_URL}
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 15.3.4
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  #timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
 
-        # cnpg:
-        #     main:
-        #         enabled: true
-        #         user: ${DEV_JBSOUM_ORG_USERNAME}
-        #         database: ${DEV_JBSOUM_ORG_USERNAME}
-        #         password: ${DEV_JBSOUM_ORG_PASSWORD}
-        securityContext:
-            container:
-                runAsGroup: 0
-                readOnlyRootFilesystem: false
+  values:
+    global:
+      stopAll: false
 
-        service:
+    image:
+      repository: docker.io/bitnami/postgresql
+      pullPolicy: IfNotPresent
+      tag: latest@sha256:42a8200d35971f931b869ef5252d996e137c6beb4b8f1b6d2181dc7d1b6f62e0
+
+    TZ: ${TIMEZONE}
+    credentials:
+      backblaze:
+        accessKey: ${S3_ACCESS_KEY}
+        bucket: ${S3_BUCKET}
+        encrKey: ${S3_ENCRYPTION_KEY}
+        name: ${S3_NAME}
+        path: ""
+        secretKey: ${S3_SECRET_KEY}
+        type: s3
+        url: ${S3_URL}
+
+    securityContext:
+      container:
+        runAsGroup: 0
+        readOnlyRootFilesystem: false
+
+    service:
+      main:
+        ports:
+          main:
+            port: ${PORT_DEV_JBSOUM_ORG}
+            targetPort: 5432
+        enabled: true
+        type: LoadBalancer
+        loadBalancerIP: ${IP_DEV_JBSOUM_ORG}
+
+    persistence:
+      data:
+        enabled: true
+        type: emptyDir
+        mountPath: "/bitnami/postgresql"
+
+    workload:
+      main:
+        podSpec:
+          containers:
             main:
-                ports:
-                    main:
-                        port: ${PORT_DEV_JBSOUM_ORG}
-                        targetPort: 5432
-                enabled: true
-                type: LoadBalancer
-                loadBalancerIP: ${IP_DEV_JBSOUM_ORG}
-        persistence:
-            data:
-                enabled: true
-                type: emptyDir
-                mountPath: "/bitnami/postgresql"
-        workload:
-            main:
-                podSpec:
-                    containers:
-                        main:
-                            env:
-                                POSTGRESQL_USERNAME: ${DEV_JBSOUM_ORG_USERNAME}
-                                POSTGRESQL_PASSWORD: ${DEV_JBSOUM_ORG_PASSWORD}
-                                POSTGRESQL_DATABASE: ${DEV_JBSOUM_ORG_USERNAME}
-                                POSTGRESQL_MASTER_PORT_NUMBER: ${PORT_DEV_JBSOUM_ORG}
-                                POSTGRESQL_TIMEZONE: ${TIMEZONE}
-                                POSTGRESQL_LOG_TIMEZONE: ${TIMEZONE}
+              env:
+                POSTGRESQL_USERNAME: ${DEV_JBSOUM_ORG_USERNAME}
+                POSTGRESQL_PASSWORD: ${DEV_JBSOUM_ORG_PASSWORD}
+                POSTGRESQL_DATABASE: ${DEV_JBSOUM_ORG_USERNAME}
+                POSTGRESQL_MASTER_PORT_NUMBER: ${PORT_DEV_JBSOUM_ORG}
+                POSTGRESQL_TIMEZONE: ${TIMEZONE}
+                POSTGRESQL_LOG_TIMEZONE: ${TIMEZONE}

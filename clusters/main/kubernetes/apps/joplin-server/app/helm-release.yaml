@@ -1,97 +1,107 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
-metadata:
-    name: joplin-server
-    namespace: joplin-server
-spec:
-    interval: 15m
-    chart:
-        spec:
-            chart: joplin-server
-            version: 21.3.1
-            sourceRef:
-                kind: HelmRepository
-                name: truecharts
-                namespace: flux-system
-    releaseName: joplin-server
-    values:
-        global:
-            stopAll: false
-        TZ: ${TIMEZONE}
-        cnpg:
-            main:
-                backups:
-                    credentials: ${S3_NAME}
-                    enabled: true
-                    revision: v2
-                mode: recovery
-                recovery:
-                    method: object_store
-                    credentials: ${S3_NAME}
-                    enabled: true
-                    revision: v1
-                user: joplin
-        credentials:
-            backblaze:
-                accessKey: ${S3_ACCESS_KEY}
-                bucket: ${S3_BUCKET}
-                encrKey: ${S3_ENCRYPTION_KEY}
-                name: ${S3_NAME}
-                path: ""
-                secretKey: ${S3_SECRET_KEY}
-                type: s3
-                url: ${S3_URL}
-        ingress:
-            main:
-                enabled: true
-                hosts:
-                    - host: ${DOMAIN_JOPLIN_SERVER}
-                      paths:
-                        - path: /
-                          pathType: Prefix
-                integrations:
-                    homepage:
-                        enabled: true
-                        group: Utilities
-                        widget:
-                            enabled: false
-                    certManager:
-                        enabled: true
-                        certificateIssuer: domain-0-le-prod
-                    traefik:
-                        enabled: true
-                        middlewares:
-                            - name: ${TRAEFIK_MIDDLEWARE}
-                              namespace: traefik
-        persistence:
-            config:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: config
-                      src:
-                        enabled: true
-                        trigger:
-                            schedule: 40 0 * * *
-                      type: restic
 
-        service:
+metadata:
+  name: joplin-server
+  namespace: joplin-server
+
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: joplin-server
+      version: 21.3.1
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  #timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    global:
+      stopAll: false
+
+    TZ: ${TIMEZONE}
+
+    credentials:
+      backblaze:
+        accessKey: ${S3_ACCESS_KEY}
+        bucket: ${S3_BUCKET}
+        encrKey: ${S3_ENCRYPTION_KEY}
+        name: ${S3_NAME}
+        path: ""
+        secretKey: ${S3_SECRET_KEY}
+        type: s3
+        url: ${S3_URL}
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        integrations:
+          homepage:
+            enabled: true
+            group: Utilities
+            widget:
+              enabled: false
+          certManager:
+            enabled: true
+            certificateIssuer: ${DNS_NAME}
+        hosts:
+          - host: ${SUBDOMAIN_JOPLIN_SERVER}.${DOMAIN_0}
+
+    persistence:
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *
+
+    cnpg:
+      main:
+        cluster:
+          singleNode: true
+        mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
+        backups:
+          enabled: true
+          credentials: backblaze
+          retentionPolicy: "45d"
+          # revision: "2"
+        recovery:
+          credentials: backblaze
+          # revision: "1"
+
+    workload:
+      main:
+        podSpec:
+          containers:
             main:
-                enabled: true
-                type: ClusterIP
-        workload:
-            main:
-                podSpec:
-                    containers:
-                        main:
-                            env:
-                                APP_BASE_URL: https://${DOMAIN_JOPLIN_SERVER}
-                                MAILER_AUTH_PASSWORD: ${PROTONMAIL_PASSWORD}
-                                MAILER_AUTH_USER: ${PROTONMAIL_USER}
-                                MAILER_ENABLED: 1
-                                MAILER_HOST: protonmail-bridge.protonmail-bridge.svc.cluster.local
-                                MAILER_NOREPLY_EMAIL: ${JOPLIN_NOREPLY_EMAIL}
-                                MAILER_NOREPLY_NAME: ${JOPLIN_NOREPLY_NAME}
-                                MAILER_PORT: ${PROTONMAIL_PORT_SMTP}
-                                MAILER_SECURITY: starttls
+              env:
+                APP_BASE_URL: https://${DOMAIN_JOPLIN_SERVER}
+                MAILER_AUTH_PASSWORD: ${PROTONMAIL_PASSWORD}
+                MAILER_AUTH_USER: ${PROTONMAIL_USER}
+                MAILER_ENABLED: 1
+                MAILER_HOST: protonmail-bridge.protonmail-bridge.svc.cluster.local
+                MAILER_NOREPLY_EMAIL: ${JOPLIN_NOREPLY_EMAIL}
+                MAILER_NOREPLY_NAME: ${JOPLIN_NOREPLY_NAME}
+                MAILER_PORT: ${PROTONMAIL_PORT_SMTP}
+                MAILER_SECURITY: starttls

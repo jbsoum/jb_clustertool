@@ -1,50 +1,60 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
+
 metadata:
-    name: adguard-gui
-    namespace: adguard-gui
+  name: adguard-gui
+  namespace: adguard-gui
+
 spec:
-    interval: 15m
-    chart:
-        spec:
-            chart: external-service
-            version: 16.2.1
-            sourceRef:
-                kind: HelmRepository
-                name: truecharts
-                namespace: flux-system
-    releaseName: adguard-gui
-    values:
-        global:
-            stopAll: false
-        ingress:
-            main:
-                enabled: true
-                hosts:
-                    - host: ${DOMAIN_ADGUARD}
-                      paths:
-                        - path: /
-                          pathType: Prefix
-                integrations:
-                    homepage:
-                        enabled: true
-                        group: Admin - Cluster
-                        widget:
-                            enabled: false
-                    certManager:
-                        enabled: true
-                        certificateIssuer: domain-0-le-prod
-                    traefik:
-                        enabled: true
-                        middlewares:
-                            - name: ${TRAEFIK_MIDDLEWARE}
-                              namespace: traefik
-        service:
-            main:
-                type: ExternalIP
-                externalIP: ${IP_ADGUARD}
-                ports:
-                    main:
-                        enabled: true
-                        protocol: http
-                        port: ${PORT_ADGUARD}
+  interval: 15m
+  chart:
+    spec:
+      chart: external-service
+      version: 16.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    global:
+      stopAll: false
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        hosts:
+          - host: ${SUBDOMAIN_ADGUARD}.${DOMAIN_0}
+        integrations:
+          homepage:
+            enabled: true
+            group: Admin - Cluster
+            widget:
+              enabled: false
+          certManager:
+            enabled: true
+            certificateIssuer: ${DNS_NAME}
+    service:
+      main:
+        type: ExternalIP
+        externalIP: ${IP_ADGUARD}
+        ports:
+          main:
+            enabled: true
+            protocol: http
+            port: ${PORT_ADGUARD}

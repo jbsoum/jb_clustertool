@@ -1,107 +1,134 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
+
 metadata:
-    name: gitea
-    namespace: gitea
+  name: gitea
+  namespace: gitea
+
 spec:
-    interval: 15m
-    chart:
-        spec:
-            chart: gitea
-            version: 22.4.4
-            sourceRef:
-                kind: HelmRepository
-                name: truecharts
-                namespace: flux-system
-    releaseName: gitea
-    values:
-        TZ: ${TIMEZONE}
-        admin:
-            email: ${ADMIN_EMAIL}
-            password: ${ADMIN_PASSWORD}
-            username: ${ADMIN_USER}
-        cnpg:
-            main:
-                backups:
-                    credentials: ${S3_NAME}
-                    enabled: true
-                    revision: ${CNPG_BACKUP_REVISION}
-                mode: recovery
-                recovery:
-                    method: object_store
-                    credentials: ${S3_NAME}
-                    enabled: true
-                    revision: ${CNPG_RECOVERY_REVISION}
-        config:
-            ALLOWED_HOST_LIST: 127.0.0.1
-            APP_NAME: Gitea
-            RUN_MODE: prod
-            nodeIP: ${IP_GITEA}
-        credentials:
-             backblaze:
-                accessKey: ${S3_ACCESS_KEY}
-                bucket: ${S3_BUCKET}
-                encrKey: ${S3_ENCRYPTION_KEY}
-                name: ${S3_NAME}
-                path: ""
-                secretKey: ${S3_SECRET_KEY}
-                type: s3
-                url: ${S3_URL}
-        ingress:
-            main:
-                enabled: true
-                hosts:
-                    - host: ${DOMAIN_GITEA}
-                      paths:
-                        - path: /
-                          pathType: Prefix
-                integrations:
-                    homepage:
-                        enabled: true
-                        group: Utilities
-                        widget:
-                            enabled: false
-                    certManager:
-                        enabled: true
-                        certificateIssuer: domain-0-le-prod
-                    traefik:
-                        enabled: true
-                        middlewares:
-                            - name: ${TRAEFIK_MIDDLEWARE}
-                              namespace: traefik
-        ldap:
-            enabled: false
-        memcached:
+  interval: 15m
+  chart:
+    spec:
+      chart: gitea
+      version: 22.4.4
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  #timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    global:
+      stopAll: false
+
+    TZ: ${TIMEZONE}
+
+    cnpg:
+      main:
+        backups:
+          credentials: ${S3_NAME}
+          enabled: true
+          # revision: "1"
+        mode: recovery
+        recovery:
+          credentials: ${S3_NAME}
+          # revision: "1"
+
+    credentials:
+      backblaze:
+        accessKey: ${S3_ACCESS_KEY}
+        bucket: ${S3_BUCKET}
+        encrKey: ${S3_ENCRYPTION_KEY}
+        name: ${S3_NAME}
+        path: ""
+        secretKey: ${S3_SECRET_KEY}
+        type: s3
+        url: ${S3_URL}
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        integrations:
+          homepage:
             enabled: true
-        oauth:
-            enabled: false
-        persistence:
-            data:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: data
-                      src:
-                        enabled: true
-                        trigger:
-                            schedule: 40 0 * * *
-                      type: restic
+            group: Utilities
+            widget:
+              enabled: false
+          certManager:
+            enabled: true
+            certificateIssuer: ${DNS_NAME}
+        hosts:
+          - host: ${SUBDOMAIN_GITEA}.${DOMAIN_0}
 
-        service:
-            main:
-                enabled: true
-                loadBalancerIP: ${IP_GITEA}
-                ports:
-                    main:
-                        port: ${PORT_GITEA_MAIN}
-                type: LoadBalancer
-            ssh:
-                enabled: true
-                loadBalancerIP: ${IP_GITEA}
-                ports:
-                    ssh:
-                        enabled: true
-                        port: ${PORT_GITEA_SSH}
-                type: LoadBalancer
+    persistence:
+      data:
+        volsync:
+          - name: data
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *
 
+    service:
+      main:
+        enabled: true
+        loadBalancerIP: ${IP_GITEA}
+        ports:
+          main:
+            port: ${PORT_GITEA_MAIN}
+        type: LoadBalancer
+      ssh:
+        enabled: true
+        loadBalancerIP: ${IP_GITEA}
+        ports:
+          ssh:
+            enabled: true
+            port: ${PORT_GITEA_SSH}
+        type: LoadBalancer
+
+    # Gitea-speciic config
+    admin:
+      email: ${ADMIN_EMAIL}
+      password: ${ADMIN_PASSWORD}
+      username: ${ADMIN_USER}
+    config:
+      ALLOWED_HOST_LIST: 127.0.0.1
+      APP_NAME: Gitea
+      RUN_MODE: prod
+      nodeIP: ${IP_GITEA}
+    ldap:
+      enabled: true
+      name: lldap
+      securityProtocol: unencrypted
+      host: lldap-ldap.lldap.svc.cluster.local
+      port: 3890
+      userSearchBase: ou=people,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
+      userFilter: (&(memberof=cn=ms_gitea,ou=groups,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN})(|(uid=%[1]s)(mail=%[1]s)))
+      adminFilter: (memberof=cn=lldap_admin,ou=groups,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN})
+      emailAttribute: mail
+      bindDn: uid=admin,ou=people,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
+      bindPassword: ${AUTHELIA_LLDAP_PASSWORD}
+      usernameAttribute: uid
+      # sshPublicKeyAttribute:
+    memcached:
+      enabled: true
+    oauth:
+      enabled: false

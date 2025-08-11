@@ -1,86 +1,97 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: deluge
-    namespace: deluge
+  name: deluge
+  namespace: deluge
 spec:
-    interval: 15m
-    chart:
-        spec:
-            chart: deluge
-            version: 21.2.3
-            sourceRef:
-                kind: HelmRepository
-                name: truecharts
-                namespace: flux-system
-    releaseName: deluge
-    values:
-        TZ: ${TIMEZONE}
-        credentials:
-            backblaze:
-                accessKey: ${S3_ACCESS_KEY}
-                bucket: ${S3_BUCKET}
-                encrKey: ${S3_ENCRYPTION_KEY}
-                name: ${S3_NAME}
-                path: ""
-                secretKey: ${S3_SECRET_KEY}
-                type: s3
-                url: ${S3_URL}
-        ingress:
-            main:
-                enabled: true
-                hosts:
-                    - host: ${DOMAIN_DELUGE}
-                      paths:
-                        - path: /
-                          pathType: Prefix
-                integrations:
-                    homepage:
-                        enabled: true
-                        group: Admin - Media
-                        widget:
-                            enabled: false
-                    certManager:
-                        enabled: true
-                        certificateIssuer: domain-0-le-prod
-                    traefik:
-                        enabled: true
-                        middlewares:
-                            - name: ${TRAEFIK_MIDDLEWARE}
-                              namespace: traefik
-        persistence:
-            config:
-                volsync:
-                    - credentials: ${S3_NAME}
-                      dest:
-                        enabled: true
-                      name: config
-                      src:
-                        enabled: true
-                        trigger:
-                            schedule: 40 0 * * *
-                      type: restic
+  interval: 15m
+  chart:
+    spec:
+      chart: deluge
+      version: 21.2.3
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  #timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
 
-            media:
-                enabled: true
-                type: nfs
-                server: ${IP_TRUENAS}
-                path: "${NFS_DATA_MEDIA}"
-                mountPath: "/media"
-        service:
-            main:
-                enabled: true
-                loadBalancerIP: ${IP_DELUGE}
-                type: LoadBalancer
-            rpc:
-                enabled: true
-                loadBalancerIP: ${IP_DELUGE}
-                type: LoadBalancer
-            torrent:
-                enabled: true
-                loadBalancerIP: ${IP_DELUGE}
-                ports:
-                    tcp:
-                        enabled: true
-                        port: ${PORT_DELUGE_TORRENT}
-                type: LoadBalancer
+  values:
+    global:
+      stopAll: false
+
+    TZ: ${TIMEZONE}
+
+    credentials:
+      backblaze:
+        accessKey: ${S3_ACCESS_KEY}
+        bucket: ${S3_BUCKET}
+        encrKey: ${S3_ENCRYPTION_KEY}
+        name: ${S3_NAME}
+        path: ""
+        secretKey: ${S3_SECRET_KEY}
+        type: s3
+        url: ${S3_URL}
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        integrations:
+          homepage:
+            enabled: true
+            group: Admin - Media
+            widget:
+              enabled: false
+          certManager:
+            enabled: true
+            certificateIssuer: ${DNS_NAME}
+        hosts:
+          - host: ${SUBDOMAIN_DELUGE}.${DOMAIN_0}
+
+    persistence:
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+      media:
+        enabled: true
+        type: nfs
+        server: ${IP_TRUENAS}
+        path: "${NFS_DATA_MEDIA}"
+        mountPath: "/media"
+
+    service:
+      main:
+        enabled: true
+        loadBalancerIP: ${IP_DELUGE}
+        type: LoadBalancer
+      rpc:
+        enabled: true
+        loadBalancerIP: ${IP_DELUGE}
+        type: LoadBalancer
+      torrent:
+        enabled: true
+        loadBalancerIP: ${IP_DELUGE}
+        ports:
+          tcp:
+            enabled: true
+            port: ${PORT_DELUGE_TORRENT}
+        type: LoadBalancer
