@@ -13,7 +13,7 @@ data:
       same_site: lax
       cookies:
         - domain: ${DOMAIN_0}
-          authelia_url: https://${SUBDOMAIN_AUTHELIA}.$(DOMAIN_0}
+          authelia_url: https://${SUBDOMAIN_AUTHELIA}.${DOMAIN_0}
     authentication_backend:
       ldap:
         address: ldap://lldap-ldap.lldap.svc.cluster.local:3890
