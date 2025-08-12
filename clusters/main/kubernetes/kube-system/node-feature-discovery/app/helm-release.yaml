@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: node-feature-discovery
-      version: 0.17.3
+      version: 0.17.2
       sourceRef:
         kind: HelmRepository
         name: home-ops-mirror
@@ -31,4 +31,4 @@ spec:
         core:
           sources: ["pci", "system", "usb"]
     prometheus:
-      enable: false
+      enable: true
