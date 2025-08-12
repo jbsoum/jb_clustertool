@@ -105,7 +105,7 @@ spec:
             main:
               env:
                 LLDAP_HTTP_PORT: "{{ .Values.service.main.ports.main.port }}"
-                LLDAP_HTTP_URL: https://${DOMAIN_LLDAP}
+                LLDAP_HTTP_URL: https://${SUBDOMAIN_LLDAP}.${DOMAIN_0}
                 LLDAP_LDAP_BASE_DN: dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
                 LLDAP_LDAP_PORT: "{{ .Values.service.ldap.ports.ldap.port }}"
                 LLDAP_LDAP_USER_DN: ${ADMIN_USER}
