@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   # - audacity/ks.yaml
   - adguard-gui/ks.yaml
-  # - authelia/ks.yaml
+  - authelia/ks.yaml
   # - backuppc/ks.yaml
   # - beets/ks.yaml
   - cloudflareddns/ks.yaml
@@ -29,7 +29,7 @@ resources:
   - kubernetes-dashboard/ks.yaml
   # - laravel/ks.yaml
   # - libreddit/ks.yaml
-  # - lidarr/ks.yaml
+  - lidarr/ks.yaml
   - lldap/ks.yaml
   - metube/ks.yaml
   - navidrome/ks.yaml
