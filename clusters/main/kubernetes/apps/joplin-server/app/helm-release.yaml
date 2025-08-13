@@ -98,6 +98,10 @@ spec:
           credentials: backblaze
           # revision: "1"
 
+    service:
+      main:
+        enabled: true
+
     workload:
       main:
         podSpec:
