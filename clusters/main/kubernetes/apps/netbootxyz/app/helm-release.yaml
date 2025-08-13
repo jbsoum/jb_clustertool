@@ -118,4 +118,8 @@ spec:
     service:
       tftp:
         type: LoadBalancer
+        integrations:
+          metallb:
+            enabled: true
+
         loadBalancerIP: ${IP_NETBOOTXYZ}

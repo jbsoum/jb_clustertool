@@ -59,5 +59,9 @@ spec:
             port: ${PORT_DEV_MONGODB}
         enabled: true
         type: LoadBalancer
+        integrations:
+          metallb:
+            enabled: true
+
         loadBalancerIP: ${IP_DEV_MONGODB}
 

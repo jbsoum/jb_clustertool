@@ -97,6 +97,9 @@ spec:
       main:
         enabled: true
         type: LoadBalancer
+        integrations:
+          metallb:
+            enabled: true
         loadBalancerIP: 10.11.10.197
 
     workload:

@@ -39,6 +39,10 @@ spec:
     service:
       main:
         type: LoadBalancer
+        integrations:
+          metallb:
+            enabled: true
+
         loadBalancerIP: ${DASHBOARD_IP}
         ports:
           main:

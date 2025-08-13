@@ -98,3 +98,7 @@ spec:
           main:
             port: ${PORT_EMBY}
         type: LoadBalancer
+        integrations:
+          metallb:
+            enabled: true
+

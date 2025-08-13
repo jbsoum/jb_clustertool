@@ -95,6 +95,10 @@ spec:
           main:
             port: ${PORT_GITEA_MAIN}
         type: LoadBalancer
+        integrations:
+          metallb:
+            enabled: true
+
       ssh:
         enabled: true
         loadBalancerIP: ${IP_GITEA}
@@ -103,6 +107,10 @@ spec:
             enabled: true
             port: ${PORT_GITEA_SSH}
         type: LoadBalancer
+        integrations:
+          metallb:
+            enabled: true
+
 
     # Gitea-speciic config
     admin:

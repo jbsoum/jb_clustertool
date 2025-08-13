@@ -64,6 +64,10 @@ spec:
             targetPort: 5432
         enabled: true
         type: LoadBalancer
+        integrations:
+          metallb:
+            enabled: true
+
         loadBalancerIP: ${IP_DEV_JBSOUM_ORG}
 
     persistence:
