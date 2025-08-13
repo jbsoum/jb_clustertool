@@ -97,7 +97,7 @@ spec:
       main:
         enabled: true
         type: LoadBalancer
-        loadBalanacerIP: 10.11.10.197
+        loadBalancerIP: 10.11.10.197
 
     workload:
       main:
