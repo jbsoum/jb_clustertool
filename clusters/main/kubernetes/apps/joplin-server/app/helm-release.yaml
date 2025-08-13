@@ -104,7 +104,7 @@ spec:
           containers:
             main:
               env:
-                APP_BASE_URL: https://${DOMAIN_JOPLIN_SERVER}
+                APP_BASE_URL: https://${SUBDOMAIN_JOPLIN_SERVER}.${DOMAIN_0}
                 MAILER_AUTH_PASSWORD: ${PROTONMAIL_PASSWORD}
                 MAILER_AUTH_USER: ${PROTONMAIL_USER}
                 MAILER_ENABLED: 1
