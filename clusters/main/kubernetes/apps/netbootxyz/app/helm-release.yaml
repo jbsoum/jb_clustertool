@@ -60,6 +60,14 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: ${DNS_NAME}
+          nginx:
+            enabled: true
+            auth:
+              type: "authelia"
+              internalHost: "authelia.authelia.svc.cluster.local:9091"
+              externalHost: "${SUBDOMAIN_AUTHELIA}.${DOMAIN_0}"
+              # Can be left default in most cases
+              responseHeaders: []
         hosts:
           - host: ${SUBDOMAIN_NETBOOTXYZ}.${DOMAIN_0}
       assets:
@@ -74,6 +82,14 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: ${DNS_NAME}
+          nginx:
+            enabled: true
+            auth:
+              type: "authelia"
+              internalHost: "authelia.authelia.svc.cluster.local:9091"
+              externalHost: "${SUBDOMAIN_AUTHELIA}.${DOMAIN_0}"
+              # Can be left default in most cases
+              responseHeaders: []
         hosts:
           - host: ${SUBDOMAIN_NETBOOTXYZ_ASSETS}.${DOMAIN_0}
       tftp:
@@ -88,6 +104,14 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: ${DNS_NAME}
+          nginx:
+            enabled: true
+            auth:
+              type: "authelia"
+              internalHost: "authelia.authelia.svc.cluster.local:9091"
+              externalHost: "${SUBDOMAIN_AUTHELIA}.${DOMAIN_0}"
+              # Can be left default in most cases
+              responseHeaders: []
         hosts:
           - host: ${SUBDOMAIN_NETBOOTXYZ_TFTP}.${DOMAIN_0}
 
