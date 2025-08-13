@@ -68,7 +68,7 @@ data:
             - ^/emby.*$
           subject: []
         - domain:
-            - ${DOMAIN_VAULTWARDEN}
+            - ${SUBDOMAIN_VAULTWARDEN}.${DOMAIN_0}
           domain_regex: []
           networks: []
           policy: one_factor
@@ -76,33 +76,33 @@ data:
             - ^*/admin.*$
           subject: []
         - domain:
-            - ${DOMAIN_VAULTWARDEN}
+            - ${SUBDOMAIN_VAULTWARDEN}.${DOMAIN_0}
           domain_regex: []
           networks: []
           policy: bypass
           resources: []
           subject: []
         - domain:
-            - ${DOMAIN_SEARXNG}
-            - ${DOMAIN_KOPIA}
-            - ${DOMAIN_LIBREDDIT}
-            - ${DOMAIN_VPN}
-            - ${DOMAIN_INVIDIOUS}
-            - ${DOMAIN_EMBY}
-            - ${DOMAIN_JELLYFIN}
-            - ${DOMAIN_DOCKER}
+            - ${SUBDOMAIN_SEARXNG}.${DOMAIN_0}
+            - ${SUBDOMAIN_KOPIA}.${DOMAIN_0}
+            - ${SUBDOMAIN_LIBREDDIT}.${DOMAIN_0}
+            - ${SUBDOMAIN_VPN}.${DOMAIN_0}
+            - ${SUBDOMAIN_INVIDIOUS}.${DOMAIN_0}
+            - ${SUBDOMAIN_EMBY}.${DOMAIN_0}
+            - ${SUBDOMAIN_JELLYFIN}.${DOMAIN_0}
+            - ${SUBDOMAIN_DOCKER}.${DOMAIN_0}
           domain_regex: []
           networks: []
           policy: bypass
           resources: []
           subject: []
         - domain:
-            - ${DOMAIN_OMBI}
-            - ${DOMAIN_LLDAP}
-            - ${DOMAIN_EMULATOR_JS}
-            - ${DOMAIN_GITEA}
-            - ${DOMAIN_VOCECHAT_SERVER}
-            - ${DOMAIN_JELLYSEERR}
+            - ${SUBDOMAIN_OMBI}.${DOMAIN_0}
+            - ${SUBDOMAIN_LLDAP}.${DOMAIN_0}
+            - ${SUBDOMAIN_EMULATOR_JS}.${DOMAIN_0}
+            - ${SUBDOMAIN_GITEA}.${DOMAIN_0}
+            - ${SUBDOMAIN_VOCECHAT_SERVER}.${DOMAIN_0}
+            - ${SUBDOMAIN_JELLYSEERR}.${DOMAIN_0}
             - ${DOMAIN_0}
           domain_regex: []
           networks: []
