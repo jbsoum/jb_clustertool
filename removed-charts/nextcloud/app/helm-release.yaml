@@ -1,0 +1,150 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: nextcloud
+      version: 36.5.2
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  #timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    global:
+      stopAll: false
+
+    TZ: ${TIMEZONE}
+
+    credentials:
+      backblaze:
+        accessKey: ${S3_ACCESS_KEY}
+        bucket: ${S3_BUCKET}
+        encrKey: ${S3_ENCRYPTION_KEY}
+        name: ${S3_NAME}
+        path: ""
+        secretKey: ${S3_SECRET_KEY}
+        type: s3
+        url: ${S3_URL}
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        integrations:
+          homepage:
+            enabled: true
+            group: Utilities
+            widget:
+              enabled: false
+          certManager:
+            enabled: true
+            certificateIssuer: ${DNS_NAME}
+          nginx:
+            enabled: true
+            auth:
+              type: "authelia"
+              internalHost: "authelia.authelia.svc.cluster.local:9091"
+              externalHost: "${SUBDOMAIN_AUTHELIA}.${DOMAIN_0}"
+              # Can be left default in most cases
+              responseHeaders: []
+        hosts:
+          - host: ${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}
+
+    persistence:
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *
+      html:
+        volsync:
+          - name: html
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *
+      data:
+        enabled: true
+        type: nfs
+        path: ${NFS_DATA_NEXTCLOUD}
+        server: ${IP_TRUENAS}
+
+    cnpg:
+      main:
+        cluster:
+          singleNode: true
+        mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
+        backups:
+          enabled: true
+          credentials: ${S3_NAME}
+          retentionPolicy: "45d"
+          # revision: "2"
+        recovery:
+          credentials: ${S3_NAME}
+          # revision: "1"
+
+    nextcloud:
+      # Initial Credentials
+      credentials:
+        initialAdminUser: "${ADMIN_USER}"
+        initialAdminPassword: "${ADMIN_PASSWORD}"
+      # General settings
+      general:
+        # Custom Nextcloud Scripts
+        default_phone_region: US
+        # IP used for exposing nextcloud,
+        # often the loadbalancer IP
+        accessIP: ${NGINX_EXTERNAL_IP}
+      # Previews settings
+      previews:
+        providers:
+          - BMP
+          - GIF
+          - JPEG
+          - Krita
+          - MarkDown
+          - MP3
+          - OpenDocument
+          - PNG
+          - TXT
+          - XBitmap
+      onlyoffice:
+        # It will not deploy the container
+        # Only add the OnlyOffice settings
+        enabled: true
+        url: "https://${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}"
+        internal_url: "http://${SUBDOMAIN_NEXTCLOUD}.${SUBDOMAIN_NEXTCLOUD}.svc.cluster.local:10043"
+        verify_ssl: true
+        jwt: "${ONLYOFFICE_DOCUMENT_SERVER_SECRET}"
+        jwt_header: Authorization
