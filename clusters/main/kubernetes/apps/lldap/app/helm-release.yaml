@@ -84,31 +84,25 @@ spec:
               trigger:
                 schedule: 40 0 * * *
 
-    # cnpg:
-    #   main:
-    #     cluster:
-    #       singleNode: true
-    #     mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
-    #     backups:
-    #       enabled: true
-    #       credentials: ${S3_NAME}
-    #       retentionPolicy: "45d"
-    #       # revision: "2"
-    #     recovery:
-    #       credentials: ${S3_NAME}
+    cnpg:
+      main:
+        cluster:
+          singleNode: true
+        mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
+        backups:
+          enabled: true
+          credentials: ${S3_NAME}
+          retentionPolicy: "45d"
+        #       # revision: "2"
+        recovery:
+          credentials: ${S3_NAME}
     #       # revision: "1"
 
     service:
       ldap:
         enabled: true
-        type: ClusterIP
       main:
         enabled: true
-        type: LoadBalancer
-        integrations:
-          metallb:
-            enabled: true
-        loadBalancerIP: 10.11.10.197
 
     workload:
       main:
