@@ -98,8 +98,6 @@ spec:
         enabled: true
         type: LoadBalancer
         loadBalanacerIP: 10.11.10.197
-        integrations:
-          metallb: true
 
     workload:
       main:
