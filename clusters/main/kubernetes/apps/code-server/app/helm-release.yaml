@@ -117,7 +117,8 @@ spec:
 
     workload:
       podSpec:
+        enabled: true
         containers:
           main:
             command:
-              - cp /ssh-keys /root/.ssh/
+              - cp /ssh-keys/* /root/.ssh/
