@@ -91,7 +91,7 @@ spec:
         type: secret
         objectName: code-server-ssh-keys
         expandObjectName: false
-        mountPath: /root/.ssh
+        mountPath: /ssh-keys
         readOnly: false
 
       # ssh-config:
@@ -116,18 +116,19 @@ spec:
     #       - 568
     podOptions:
       hostUsers: true
-    # workload:
-    #   main:
-    #     enabled: true
-    #     primary: true
-    #     podSpec:
-    #       containers:
-    #         main:
-    #           enabled: true
-    #           primary: true
-    #           # mount keys to ssh directory, but don't overwrite ssh directory
-    #           command:
-    #             - /bin/sh
-    #             - -c
-    #             - mkdir /root/.ssh
-    #             - cp /ssh-keys/* /root/.ssh/
+
+    workload:
+      main:
+        enabled: true
+        primary: true
+        podSpec:
+          containers:
+            main:
+              enabled: true
+              primary: true
+              # mount keys to ssh directory, but don't overwrite ssh directory
+              command:
+                - /bin/sh
+                - -c
+                - mkdir -p /root/.ssh
+                - cp /ssh-keys/* /root/.ssh/
