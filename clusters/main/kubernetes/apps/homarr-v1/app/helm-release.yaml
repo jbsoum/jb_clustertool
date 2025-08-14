@@ -85,6 +85,14 @@ spec:
               trigger:
                 schedule: 40 0 * * *
 
+    service:
+      main:
+        enabled: true
+        ports:
+          main:
+            targetPort: 7575
+            port: 10245
+
     workload:
       main:
         # replicas: 1
