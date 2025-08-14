@@ -102,8 +102,6 @@ spec:
         mountPath: "/code"
 
     securityContext:
-      container:
-        privileged: true
       pod:
         fsGroup: 0
         supplementalGroups:
