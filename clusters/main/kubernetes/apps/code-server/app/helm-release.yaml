@@ -91,7 +91,7 @@ spec:
         type: secret
         objectName: code-server-ssh-keys
         expandObjectName: false
-        mountPath: /root/.ssh
+        mountPath: /ssh-keys
         readOnly: true
 
       # ssh-config:
@@ -114,3 +114,10 @@ spec:
     #     fsGroup: 0
     #     supplementalGroups:
     #       - 568
+
+    workload:
+      podSpec:
+        containers:
+          main:
+            command:
+              - cp /ssh-keys /root/.ssh/
