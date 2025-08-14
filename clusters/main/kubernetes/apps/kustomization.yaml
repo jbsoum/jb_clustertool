@@ -47,7 +47,7 @@ resources:
   - readarr/ks.yaml
   # - renovate/ks.yaml
   # - scrutiny/ks.yaml
-  - searxng/ks.yaml
+  # - searxng/ks.yaml
   # - sonarr/ks.yaml
   - truenas-gui/ks.yaml
   # - vaultwarden/ks.yaml
