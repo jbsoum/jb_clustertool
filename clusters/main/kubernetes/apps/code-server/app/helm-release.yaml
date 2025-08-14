@@ -92,7 +92,7 @@ spec:
         objectName: code-server-ssh-keys
         expandObjectName: false
         mountPath: /ssh-keys
-        readOnly: false
+        readOnly: true
 
       # ssh-config:
       #   enabled: true
@@ -114,8 +114,8 @@ spec:
     #     fsGroup: 0
     #     supplementalGroups:
     #       - 568
-    podOptions:
-      hostUsers: true
+    # podOptions:
+    #   hostUsers: true
 
     workload:
       main:
