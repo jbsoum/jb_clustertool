@@ -128,4 +128,5 @@ spec:
               command:
                 - /bin/sh
                 - -c
-                - mkdir /root/.ssh && cp /ssh-keys/* /root/.ssh/
+                - mkdir /root/.ssh
+                - cp /ssh-keys/* /root/.ssh/
