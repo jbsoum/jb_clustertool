@@ -32,7 +32,7 @@ spec:
 
   values:
     image:
-      repository: ghcr.io/homarr-labs/homarr:latest
+      repository: ghcr.io/homarr-labs/homarr
       pullPolicy: IfNotPresent
       tag: 1.32.0@sha256:f8926a52cd190bd149e268584fa0cb613cfc49d0172cbbded7e76c2e58d3f788
 
