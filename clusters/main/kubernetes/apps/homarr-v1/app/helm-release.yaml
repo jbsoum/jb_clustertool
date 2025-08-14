@@ -106,3 +106,6 @@ spec:
                 AUTH_LDAP_BASE: dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN} # Same as LLDAP_LDAP_BASE_DN
                 AUTH_LDAP_BIND_DN: uid=${AUTHELIA_LLDAP_GROUP_NAME},ou=people,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}
                 AUTH_LDAP_BIND_PASSWORD: ${AUTHELIA_LLDAP_PASSWORD} # Same as LLDAP_LDAP_USER_PASS
+
+    podOptions:
+      hostUsers: true
