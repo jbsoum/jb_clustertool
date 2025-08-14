@@ -29,7 +29,7 @@ resources:
   - kubernetes-dashboard/ks.yaml
   # - laravel/ks.yaml
   # - libreddit/ks.yaml
-  # - lidarr/ks.yaml
+  - lidarr/ks.yaml
   - lldap/ks.yaml
   - metube/ks.yaml
   - navidrome/ks.yaml
