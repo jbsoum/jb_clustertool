@@ -116,10 +116,13 @@ spec:
     #       - 568
 
     workload:
-      podSpec:
+      main:
         enabled: true
-        type: Deployment
-        containers:
-          main:
-            command:
-              - cp /ssh-keys/* /root/.ssh/
+        primary: true
+        podSpec:
+          containers:
+            main:
+              enabled: true
+              primary: true
+              command:
+                - cp /ssh-keys/* /root/.ssh/
