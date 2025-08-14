@@ -86,14 +86,22 @@ spec:
               enabled: true
               trigger:
                 schedule: 40 0 * * *
-      ssh-config:
+      secrets:
         enabled: true
-        type: nfs
-        server: ${IP_TRUENAS}
-        path: "${NFS_CODE_SERVER_CONFIG}"
-        mountPath: "/root/.ssh"
-        autoPermissions:
-          enabled: true
+        type: secret
+        objectName: code-server-ssh-keys
+        expandObjectName: false
+        mountPath: /root/.ssh
+        readOnly: true
+
+      # ssh-config:
+      #   enabled: true
+      #   type: nfs
+      #   server: ${IP_TRUENAS}
+      #   path: "${NFS_CODE_SERVER_CONFIG}"
+      #   mountPath: "/root/.ssh"
+      #   autoPermissions:
+      #     enabled: true
       code:
         enabled: true
         type: nfs
@@ -101,8 +109,8 @@ spec:
         path: "${NFS_CODE_SERVER_CODE}"
         mountPath: "/code"
 
-    securityContext:
-      pod:
-        fsGroup: 0
-        supplementalGroups:
-          - 568
+    # securityContext:
+    #   pod:
+    #     fsGroup: 0
+    #     supplementalGroups:
+    #       - 568
