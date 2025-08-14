@@ -7,7 +7,7 @@ resources:
   # - backuppc/ks.yaml
   # - beets/ks.yaml
   - cloudflareddns/ks.yaml
-  - code-server/ks.yaml
+  # - code-server/ks.yaml
   # - dashy/ks.yaml
   - deluge/ks.yaml
   - dev-mongodb/ks.yaml
@@ -46,13 +46,13 @@ resources:
   - radarr/ks.yaml
   - readarr/ks.yaml
   # - renovate/ks.yaml
-  # - scrutiny/ks.yaml
-  - searxng/ks.yaml
+  # # - scrutiny/ks.yaml
+  # # - searxng/ks.yaml
   - sonarr/ks.yaml
   - truenas-gui/ks.yaml
   # - vaultwarden/ks.yaml
   # - vocechat-server/ks.yaml
-  # - watchyourlan/ks.yaml
+  # # - watchyourlan/ks.yaml
   # # - whoogle/ks.yaml
   # - proxmox-backup-server/ks.yaml
   - voice-ai-gui/ks.yaml
