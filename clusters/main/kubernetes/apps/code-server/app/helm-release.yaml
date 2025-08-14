@@ -118,6 +118,7 @@ spec:
     workload:
       podSpec:
         enabled: true
+        type: Deployment
         containers:
           main:
             command:
