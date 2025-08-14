@@ -114,7 +114,8 @@ spec:
     #     fsGroup: 0
     #     supplementalGroups:
     #       - 568
-
+    podOptions:
+      hostUsers: true
     # workload:
     #   main:
     #     enabled: true
