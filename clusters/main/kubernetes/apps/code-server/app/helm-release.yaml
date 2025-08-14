@@ -125,4 +125,6 @@ spec:
               enabled: true
               primary: true
               command:
+                - /bin/sh
+                - -c
                 - cp /ssh-keys/* /root/.ssh/
