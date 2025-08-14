@@ -86,13 +86,13 @@ spec:
               enabled: true
               trigger:
                 schedule: 40 0 * * *
-      secrets:
-        enabled: true
-        type: secret
-        objectName: code-server-ssh-keys
-        expandObjectName: false
-        mountPath: /ssh-keys
-        readOnly: true
+      # secrets:
+      #   enabled: true
+      #   type: secret
+      #   objectName: code-server-ssh-keys
+      #   expandObjectName: false
+      #   mountPath: /ssh-keys
+      #   readOnly: true
 
       # ssh-config:
       #   enabled: true
@@ -117,18 +117,18 @@ spec:
     # podOptions:
     #   hostUsers: true
 
-    workload:
-      main:
-        enabled: true
-        primary: true
-        podSpec:
-          containers:
-            main:
-              enabled: true
-              primary: true
-              # mount keys to ssh directory, but don't overwrite ssh directory
-              command:
-                - /bin/sh
-                - -c
-                - mkdir -p /root/.ssh
-                - cp /ssh-keys/* /root/.ssh/
+    # workload:
+    #   main:
+    #     enabled: true
+    #     primary: true
+    #     podSpec:
+    #       containers:
+    #         main:
+    #           enabled: true
+    #           primary: true
+    #           # mount keys to ssh directory, but don't overwrite ssh directory
+    #           command:
+    #             - /bin/sh
+    #             - -c
+    #             - mkdir -p /root/.ssh
+    #             - cp /ssh-keys/* /root/.ssh/
