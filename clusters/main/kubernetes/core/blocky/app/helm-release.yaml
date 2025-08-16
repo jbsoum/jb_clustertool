@@ -76,5 +76,4 @@ spec:
       main:
         enabled: false
 
-    podOptions:
-      hostUsers: true
+
