@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: blocky
-      version: 18.7.0
+      version: 16.13.14
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -38,20 +38,16 @@ spec:
         externalTrafficPolicy: Local
         loadBalancerIP: ${BLOCKY_IP}
         type: LoadBalancer
-        integrations:
-          metallb:
-            enabled: true
-
     k8sgateway:
       # -- list of processed domains
       domains:
-        - domain: "${DOMAIN_0}"
-          # -- Optional configuration option for DNS01 challenge that will redirect all acme
-          # challenge requests to external cloud domain (e.g. managed by cert-manager)
-          # See: https://cert-manager.io/docs/configuration/acme/dns01/
-          dnsChallenge:
-            enabled: false
-            domain: dns01.clouddns.com
+      - domain: "${DOMAIN_0}"
+        # -- Optional configuration option for DNS01 challenge that will redirect all acme
+        # challenge requests to external cloud domain (e.g. managed by cert-manager)
+        # See: https://cert-manager.io/docs/configuration/acme/dns01/
+        dnsChallenge:
+          enabled: false
+          domain: dns01.clouddns.com
 
       forward:
         enabled: false
@@ -75,5 +71,3 @@ spec:
     cnpg:
       main:
         enabled: false
-
-
