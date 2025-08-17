@@ -133,13 +133,9 @@ spec:
                     - "/bin/sh"
                     - "-c"
                     - |
+                      sleep 3;
                       if [ ! -d "/root/.ssh" ]; then
-                        echo "root/.ssh does not exist. Diagnose this!";
-                        exit 1;
-                      fi;
-                      if [ ! -d "/ssh-keys" ]; then
-                        echo "/ssh-keys does not exist. Diagnose this!";
-                        exit 1;
+                        mkdir -p /root/.ssh
                       fi;
 
                       export status=99;
