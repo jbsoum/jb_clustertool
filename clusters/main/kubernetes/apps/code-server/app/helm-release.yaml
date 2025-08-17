@@ -129,16 +129,16 @@ spec:
             main:
               enabled: true
               primary: true
-              stdin: true
-              tty: true
+              # stdin: true
+              # tty: true
               # mount keys to ssh directory, but don't overwrite ssh directory
               lifecycle:
                 postStart:
                   type: exec
                   command:
-                    - bin/bash
+                    - bin/sh
                     - -c
-                    - ln -sf /ssh-keys/* /root/.ssh/
+                    - ln -s /ssh-keys/* /root/.ssh/
 
                 # cp  /ssh-keys /root/.ssh
                 # - -c
