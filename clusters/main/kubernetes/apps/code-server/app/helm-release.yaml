@@ -126,6 +126,7 @@ spec:
                     - "/bin/bash"
                     - "-c"
                     - |
+                      touch /container-logs/deploy-log
                       ## Setup ssh keys
                       sleep 3;
                       if [ ! -d "/root/.ssh" ]; then
@@ -134,12 +135,12 @@ spec:
 
                       export status=99;
                       export attempts=0
-                      echo "linking ssh keys to /root/.ssh...";
+                      echo "linking ssh keys to /root/.ssh..." >> /container-logs/deploy-log;
                       until [ $status -eq 0 ];
                       do
-                      echo "Attempt ${attempts}: link /ssh-keys/* to /root/.ssh..."
+                      echo "Attempt ${attempts}: link /ssh-keys/* to /root/.ssh..." >> /container-logs/deploy-log
                         if [ $attempts -gt 100]; then
-                          echo "Too many tries...";
+                          echo "Too many tries..." >> /container-logs/deploy-log;
                           exit 1;
                         fi;
 
@@ -151,17 +152,20 @@ spec:
 
                       chmod 400 /root/.ssh
                       chmod -R 600 /root/.ssh
-                      echo "keys copied!";
+                      echo "keys copied!" >> /container-logs/deploy-log;
 
                       ## Setup Dev Environments
-                      export node_enabled="true";
-                      export nvm_version="0.40.3";
+                      export node_enabled="{{ .Values.node.enabled }}";
+                      export nvm_version="{{ .Values.node.nvmVersion }}";
+
+                      echo "Node enabled: $${node_enabled}";
+                      echo "nvm_version: $${nvm_version}";
 
                       if [ "$${node_enabled}" -eq "true" ]; then
-                        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v$${nvm_version}/install.sh | bash;
+                        curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v$${nvm_version}/install.sh" | bash;
 
                         export NVM_DIR="$([ -z "$${XDG_CONFIG_HOME-}" ] && printf %s "$${HOME}/.nvm" || printf %s "$${XDG_CONFIG_HOME}/nvm")" 
                         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm, without auto-using the default version
 
-                        echo "NVM Installed!"
+                        echo "NVM Installed!" >> /container-logs/deploy-log
                       fi;
