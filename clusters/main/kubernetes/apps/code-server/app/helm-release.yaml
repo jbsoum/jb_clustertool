@@ -126,7 +126,9 @@ spec:
                     - "/bin/bash"
                     - "-c"
                     - |
-                      touch /container-logs/deploy-log
+                      mkdir -p /container-logs;
+                      touch /container-logs/deploy-log;
+
                       ## Setup ssh keys
                       sleep 3;
                       if [ ! -d "/root/.ssh" ]; then
