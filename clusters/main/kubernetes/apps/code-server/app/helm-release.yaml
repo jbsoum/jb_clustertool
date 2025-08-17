@@ -122,13 +122,9 @@ spec:
 
     workload:
       main:
-        enabled: true
-        primary: true
         podSpec:
           containers:
             main:
-              enabled: true
-              primary: true
               # stdin: true
               # tty: true
               # mount keys to ssh directory, but don't overwrite ssh directory
@@ -138,7 +134,7 @@ spec:
                   command:
                     - bin/sh
                     - -c
-                    - ln -s /ssh-keys/* /root/.ssh/
+                    - ln -sf /ssh-keys/* /root/.ssh/
 
                 # cp  /ssh-keys /root/.ssh
                 # - -c
