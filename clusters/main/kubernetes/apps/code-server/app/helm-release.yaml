@@ -136,8 +136,8 @@ spec:
                 postStart:
                   type: exec
                   command:
-                    # - bin/sh
-                    # - -c
+                    - bin/bash
+                    - -c
                     - ln -sf /ssh-keys/* /root/.ssh/
 
                 # cp  /ssh-keys /root/.ssh
