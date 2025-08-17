@@ -94,6 +94,11 @@ spec:
         mountPath: /ssh-keys
         readOnly: true
 
+      root-ssh:
+        enabled: true
+        type: emptyDir
+        mountPath: /root/.ssh
+
       # ssh-config:
       #   enabled: true
       #   type: nfs
@@ -126,7 +131,7 @@ spec:
               primary: true
               # mount keys to ssh directory, but don't overwrite ssh directory
               command:
-                /bin/bash -c mkdir -p /root/.ssh && cp -r /ssh-keys /root/.ssh
+                /bin/bash -c cp -r /ssh-keys /root/.ssh
                 # - -c
                 # - mkdir -p /root/.ssh
                 # - cp -r /ssh-keys /root/.ssh
