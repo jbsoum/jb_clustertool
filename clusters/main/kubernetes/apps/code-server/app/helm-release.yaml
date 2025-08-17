@@ -93,7 +93,7 @@ spec:
         expandObjectName: false
         mountPath: /ssh-keys
         readOnly: true
-        defaultMode: 384
+        defaultMode: "384"
       # root-ssh:
       #   enabled: true
       #   type: emptyDir
