@@ -110,7 +110,7 @@ spec:
     ## Setup and install **basic** dev environments here
     devEnv:
       node:
-        enabled: true
+        enabled: "true"
         nvmVersion: "0.40.3"
 
     workload:
@@ -123,7 +123,7 @@ spec:
                 postStart:
                   type: exec
                   command:
-                    - "/bin/sh"
+                    - "/bin/bash"
                     - "-c"
                     - |
                       ## Setup ssh keys
