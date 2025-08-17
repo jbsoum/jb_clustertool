@@ -149,7 +149,7 @@ spec:
                           exit 1;
                         fi;
 
-                        ln -s /ssh-keys/* /root/.ssh/
+                        cp -a /ssh-keys/* /root/.ssh/
                         status=$?;
                         sleep 3;
                         attempts=$((attempts+1))
