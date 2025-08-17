@@ -93,7 +93,7 @@ spec:
         expandObjectName: false
         mountPath: /ssh-keys
         readOnly: true
-        defaultMode: "0400"
+        defaultMode: "0600"
       # root-ssh:
       #   enabled: true
       #   type: emptyDir
@@ -114,11 +114,11 @@ spec:
         path: "${NFS_CODE_SERVER_CODE}"
         mountPath: "/code"
 
-    # securityContext:
-    #   pod:
-    #     fsGroup: 0
-    #     supplementalGroups:
-    #       - 568
+    securityContext:
+      pod:
+        fsGroup: 0
+        supplementalGroups:
+          - 568
 
     workload:
       main:
@@ -149,12 +149,12 @@ spec:
                           exit 1;
                         fi;
 
-                        cp -a /ssh-keys/* /root/.ssh/
+                        cp  /ssh-keys/* /root/.ssh/
                         status=$?;
                         sleep 3;
                         attempts=$((attempts+1))
                       done;
 
-                      chmod -R 400 /root/.ssh
                       chmod 400 /root/.ssh
+                      chmod -R 600 /root/.ssh
                       echo "keys copied!";
