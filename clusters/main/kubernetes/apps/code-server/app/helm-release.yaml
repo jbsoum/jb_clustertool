@@ -94,10 +94,10 @@ spec:
         mountPath: /ssh-keys
         readOnly: true
 
-      root-ssh:
-        enabled: true
-        type: emptyDir
-        mountPath: /root/.ssh
+      # root-ssh:
+      #   enabled: true
+      #   type: emptyDir
+      #   mountPath: /root/.ssh
 
       # ssh-config:
       #   enabled: true
@@ -135,11 +135,11 @@ spec:
                     - |
                       if [ ! -d "/root/.ssh" ]; then
                         echo "root/.ssh does not exist. Diagnose this!";
-                        exit 0;
+                        exit 1;
                       fi;
                       if [ ! -d "/ssh-keys" ]; then
                         echo "/ssh-keys does not exist. Diagnose this!";
-                        exit 0;
+                        exit 1;
                       fi;
 
                       export status=99;
