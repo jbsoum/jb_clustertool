@@ -130,10 +130,12 @@ spec:
               enabled: true
               primary: true
               # mount keys to ssh directory, but don't overwrite ssh directory
-              command:
-                - bin/sh
-                - -c
-                - ln -sf /ssh-keys/* /root/.ssh/
+              lifecycle:
+                postStart:
+                  command:
+                    - bin/sh
+                    - -c
+                    - ln -sf /ssh-keys/* /root/.ssh/
 
                 # cp  /ssh-keys /root/.ssh
                 # - -c
