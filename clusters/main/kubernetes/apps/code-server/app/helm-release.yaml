@@ -86,22 +86,22 @@ spec:
               enabled: true
               trigger:
                 schedule: 40 0 * * *
-      # secrets:
-      #   enabled: true
-      #   type: secret
-      #   objectName: code-server-ssh-keys
-      #   expandObjectName: false
-      #   mountPath: /ssh-keys
-      #   readOnly: true
+      secrets:
+        enabled: true
+        type: secret
+        objectName: code-server-ssh-keys
+        expandObjectName: false
+        mountPath: /ssh-keys
+        readOnly: true
 
-      # ssh-config:
-      #   enabled: true
-      #   type: nfs
-      #   server: ${IP_TRUENAS}
-      #   path: "${NFS_CODE_SERVER_CONFIG}"
-      #   mountPath: "/root/.ssh"
-      #   autoPermissions:
-      #     enabled: true
+      ssh-config:
+        enabled: true
+        type: nfs
+        server: ${IP_TRUENAS}
+        path: "${NFS_CODE_SERVER_CONFIG}"
+        mountPath: "/root/.ssh"
+        autoPermissions:
+          enabled: true
       code:
         enabled: true
         type: nfs
@@ -109,26 +109,24 @@ spec:
         path: "${NFS_CODE_SERVER_CODE}"
         mountPath: "/code"
 
-    # securityContext:
-    #   pod:
-    #     fsGroup: 0
-    #     supplementalGroups:
-    #       - 568
-    # podOptions:
-    #   hostUsers: true
+    securityContext:
+      pod:
+        fsGroup: 0
+        supplementalGroups:
+          - 568
 
-    # workload:
-    #   main:
-    #     enabled: true
-    #     primary: true
-    #     podSpec:
-    #       containers:
-    #         main:
-    #           enabled: true
-    #           primary: true
-    #           # mount keys to ssh directory, but don't overwrite ssh directory
-    #           command:
-    #             - /bin/sh
-    #             - -c
-    #             - mkdir -p /root/.ssh
-    #             - cp /ssh-keys/* /root/.ssh/
+    workload:
+      main:
+        enabled: true
+        primary: true
+        podSpec:
+          containers:
+            main:
+              enabled: true
+              primary: true
+              # mount keys to ssh directory, but don't overwrite ssh directory
+              command:
+                - /bin/sh
+                - -c
+                - mkdir -p /root/.ssh
+                - cp /ssh-keys/* /root/.ssh/
