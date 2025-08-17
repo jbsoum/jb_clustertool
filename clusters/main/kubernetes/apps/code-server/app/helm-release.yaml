@@ -93,7 +93,7 @@ spec:
         expandObjectName: false
         mountPath: /ssh-keys
         readOnly: true
-
+        defaultMode: 384
       # root-ssh:
       #   enabled: true
       #   type: emptyDir
@@ -156,4 +156,5 @@ spec:
                       done;
 
                       chmod -R 600 /root/.ssh
+                      chmod 400 /root/.ssh
                       echo "keys copied!";
