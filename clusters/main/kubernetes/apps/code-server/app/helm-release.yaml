@@ -127,7 +127,6 @@ spec:
                     - "-c"
                     - |
                       mkdir -p /container-logs;
-                      touch /container-logs/deploy-log;
 
                       ## Setup ssh keys
                       sleep 3;
@@ -135,14 +134,16 @@ spec:
                         mkdir -p /root/.ssh
                       fi;
 
+                      touch /root/deploy-log;
+
                       export status=99;
                       export attempts=0
-                      echo "linking ssh keys to /root/.ssh..." >> /container-logs/deploy-log;
+                      echo "linking ssh keys to /root/.ssh..." >> /root/deploy-log;
                       until [ $status -eq 0 ];
                       do
-                      echo "Attempt ${attempts}: link /ssh-keys/* to /root/.ssh..." >> /container-logs/deploy-log
+                      echo "Attempt ${attempts}: link /ssh-keys/* to /root/.ssh..." >> /root/deploy-log
                         if [ $attempts -gt 100]; then
-                          echo "Too many tries..." >> /container-logs/deploy-log;
+                          echo "Too many tries..." >> /root/deploy-log;
                           exit 1;
                         fi;
 
@@ -154,7 +155,7 @@ spec:
 
                       chmod 400 /root/.ssh
                       chmod -R 600 /root/.ssh
-                      echo "keys copied!" >> /container-logs/deploy-log;
+                      echo "keys copied!" >> /root/deploy-log;
 
                       ## Setup Dev Environments
                       export node_enabled="{{ .Values.node.enabled }}";
@@ -169,5 +170,5 @@ spec:
                         export NVM_DIR="$([ -z "$${XDG_CONFIG_HOME-}" ] && printf %s "$${HOME}/.nvm" || printf %s "$${XDG_CONFIG_HOME}/nvm")" 
                         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm, without auto-using the default version
 
-                        echo "NVM Installed!" >> /container-logs/deploy-log
+                        echo "NVM Installed!" >> /root/deploy-log
                       fi;
