@@ -126,24 +126,19 @@ spec:
                     - "/bin/bash"
                     - "-c"
                     - |
-                      mkdir -p /container-logs;
-
-                      ## Setup ssh keys
                       sleep 3;
                       if [ ! -d "/root/.ssh" ]; then
                         mkdir -p /root/.ssh
                       fi;
 
-                      touch /root/deploy-log;
-
                       export status=99;
                       export attempts=0
-                      echo "linking ssh keys to /root/.ssh..." >> /root/deploy-log;
+                      echo "linking ssh keys to /root/.ssh..." >> /proc/1/fd/1;
                       until [ $status -eq 0 ];
                       do
-                      echo "Attempt ${attempts}: link /ssh-keys/* to /root/.ssh..." >> /root/deploy-log
+                      echo "Attempt ${attempts}: link /ssh-keys/* to /root/.ssh..." >> /proc/1/fd/1
                         if [ $attempts -gt 100]; then
-                          echo "Too many tries..." >> /root/deploy-log;
+                          echo "Too many tries..." >> /proc/1/fd/1;
                           exit 1;
                         fi;
 
@@ -155,7 +150,7 @@ spec:
 
                       chmod 400 /root/.ssh
                       chmod -R 600 /root/.ssh
-                      echo "keys copied!" >> /root/deploy-log;
+                      echo "keys copied!" >> /proc/1/fd/1;
 
                       ## Setup Dev Environments
                       export node_enabled="{{ .Values.node.enabled }}";
@@ -171,5 +166,5 @@ spec:
                         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  --no-use # This loads nvm
                         [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-                        echo "NVM Installed!" >> /root/deploy-log
+                        echo "NVM Installed!" >> /proc/1/fd/1
                       fi;
