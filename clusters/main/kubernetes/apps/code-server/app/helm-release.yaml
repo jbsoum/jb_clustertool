@@ -109,11 +109,11 @@ spec:
         path: "${NFS_CODE_SERVER_CODE}"
         mountPath: "/code"
 
-    securityContext:
-      pod:
-        fsGroup: 0
-        supplementalGroups:
-          - 568
+    # securityContext:
+    #   pod:
+    #     fsGroup: 0
+    #     supplementalGroups:
+    #       - 568
 
     workload:
       main:
@@ -129,4 +129,4 @@ spec:
                 - /bin/sh
                 - -c
                 - mkdir -p /root/.ssh
-                - cp /ssh-keys/* /root/.ssh/
+                - cp -r /ssh-keys/* /root/.ssh/
