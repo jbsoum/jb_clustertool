@@ -154,8 +154,11 @@ spec:
                       echo "keys copied!";
 
                       ## Setup Dev Environments
-                      if [ "{{ .Values.devEnv.node.enabled }}" -eq "true" ]; then
-                        curl -o https://raw.githubusercontent.com/nvm-sh/nvm/v{{ .Values.devEnv.node.nvmVersion }}/install.sh | bash;
+                      export node_enabled="{{ .Values.devEnv.node.enabled }}";
+                      export nvm_version="{{ .Values.devEnv.node.nvmVersion }}";
+
+                      if [ "$node_enabled" -eq "true" ]; then
+                        curl -o https://raw.githubusercontent.com/nvm-sh/nvm/v$nvm_version/install.sh | bash;
 
                         export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")" 
                         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use # This loads nvm, without auto-using the default version
