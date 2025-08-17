@@ -120,30 +120,42 @@ spec:
     #     supplementalGroups:
     #       - 568
 
-    # mount keys to ssh directory, but don't overwrite ssh directory
-    lifecycle:
-      postStart:
-        type: exec
-        command:
-          - "/bin/sh"
-          - "-c"
-          - |
-            if [ ! -d "/root/.ssh" ]; then
-              echo "root/.ssh does not exist. Diagnose this!";
-              exit 0;
-            fi;
-            if [ ! -d "/ssh-keys" ]; then
-              echo "/ssh-keys does not exist. Diagnose this!";
-              exit 0;
-            fi;
+workload:
+  main:
+    podSpec:
+      containers:
+        main:
+          # mount keys to ssh directory, but don't overwrite ssh directory
+          lifecycle:
+            postStart:
+              type: exec
+              command:
+                - "/bin/sh"
+                - "-c"
+                - |
+                  if [ ! -d "/root/.ssh" ]; then
+                    echo "root/.ssh does not exist. Diagnose this!";
+                    exit 0;
+                  fi;
+                  if [ ! -d "/ssh-keys" ]; then
+                    echo "/ssh-keys does not exist. Diagnose this!";
+                    exit 0;
+                  fi;
 
-            export status=99;
-            echo "linking ssh keys to /root/.ssh...";
-            until [ $status -eq 0 ];
-            do
-              ln -sf "/ssh-keys/*" "/root/.ssh/";
-              status=$?;
-              sleep 3;
-            done;
-            echo "keys copied!";
-            exit 0;
+                  export status=99;
+                  export attempts=0
+                  echo "linking ssh keys to /root/.ssh...";
+                  until [ $status -eq 0 ];
+                  do
+                  echo "Attempt ${attempts}: link /ssh-keys/* to /root/.ssh..."
+                    if [ $attempts -gt 100]; then
+                      echo "Too many tries...";
+                      exit 1;
+                    fi;
+
+                    ln -s /ssh-keys/* /root/.ssh/
+                    status=$?;
+                    sleep 3;
+                    attempts=$((attempts+1))
+                  done;
+                  echo "keys copied!";
