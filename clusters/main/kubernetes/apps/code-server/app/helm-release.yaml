@@ -131,7 +131,9 @@ spec:
               primary: true
               # mount keys to ssh directory, but don't overwrite ssh directory
               command:
-                /bin/bash -c cp -r /ssh-keys /root/.ssh
+                - ln -sf /ssh-keys/* /root/.ssh/
+
+                # cp  /ssh-keys /root/.ssh
                 # - -c
                 # - mkdir -p /root/.ssh
                 # - cp -r /ssh-keys /root/.ssh
