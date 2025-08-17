@@ -32,7 +32,7 @@ spec:
 
   values:
     global:
-      stopAll: false
+      stopAll: true
 
     TZ: ${TIMEZONE}
 
@@ -154,4 +154,6 @@ spec:
                         sleep 3;
                         attempts=$((attempts+1))
                       done;
+
+                      chmod -R 600 /root/.ssh
                       echo "keys copied!";
