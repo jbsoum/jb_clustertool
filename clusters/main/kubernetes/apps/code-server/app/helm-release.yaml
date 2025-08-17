@@ -73,19 +73,19 @@ spec:
           - host: ${SUBDOMAIN_CODE_SERVER}.${DOMAIN_0}
 
     persistence:
-      # config:
-      #   volsync:
-      #     - name: config
-      #       type: restic
-      #       credentials: ${S3_NAME}
-      #       # restore
-      #       dest:
-      #         enabled: true
-      #       # backup
-      #       src:
-      #         enabled: true
-      #         trigger:
-      #           schedule: 40 0 * * *
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: ${S3_NAME}
+            # restore
+            dest:
+              enabled: true
+            # backup
+            src:
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *
       secrets:
         enabled: true
         type: secret
