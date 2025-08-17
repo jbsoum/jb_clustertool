@@ -93,7 +93,7 @@ spec:
         expandObjectName: false
         mountPath: /ssh-keys
         readOnly: true
-        defaultMode: "0600"
+        defaultMode: "0400"
       # root-ssh:
       #   enabled: true
       #   type: emptyDir
@@ -155,6 +155,6 @@ spec:
                         attempts=$((attempts+1))
                       done;
 
-                      chmod -R 600 /root/.ssh
+                      chmod -R 400 /root/.ssh
                       chmod 400 /root/.ssh
                       echo "keys copied!";
