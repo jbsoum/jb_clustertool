@@ -134,7 +134,7 @@ spec:
                   command:
                     - bin/sh
                     - -c
-                    - ln -sf /ssh-keys/* /root/.ssh/
+                    - cp -a /ssh-keys/. /root/.ssh/
 
                 # cp  /ssh-keys /root/.ssh
                 # - -c
