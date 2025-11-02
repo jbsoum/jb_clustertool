@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: onlyoffice-document-server
-      version: 22.24.5
+      version: 22.24.6
       sourceRef:
         kind: HelmRepository
         name: truecharts
