@@ -119,7 +119,6 @@ spec:
           metallb:
             enabled: true
 
-
     # Gitea-speciic config
     admin:
       email: ${ADMIN_EMAIL}
@@ -137,11 +136,11 @@ spec:
       host: lldap-ldap.lldap.svc.cluster.local
       port: 3890
       userSearchBase: ou=people,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
-      userFilter: (&(memberof=cn=ms_gitea,ou=groups,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN})(|(uid=%[1]s)(mail=%[1]s)))
-      adminFilter: (memberof=cn=lldap_admin,ou=groups,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN})
+      userFilter: (&(memberof=cn=${LLDAP_USER_GROUP},ou=groups,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN})(|(uid=%[1]s)(mail=%[1]s)))
+      adminFilter: (memberof=cn=${LLDAP_ADMIN_GROUP},ou=groups,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN})
       emailAttribute: mail
-      bindDn: uid=admin,ou=people,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
-      bindPassword: ${AUTHELIA_LLDAP_PASSWORD}
+      bindDn: uid=${LLDAP_AUTHELIA_GROUP},ou=people,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
+      bindPassword: ${LLDAP_AUTHELIA_PASSWORD}
       usernameAttribute: uid
       # sshPublicKeyAttribute:
     memcached:
