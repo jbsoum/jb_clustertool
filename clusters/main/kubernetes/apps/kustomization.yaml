@@ -22,7 +22,7 @@ resources:
   - homepage/ks.yaml
   - icloudpd/ks.yaml
   # - invidious/ks.yaml
-  # - jellyseerr/ks.yaml
+  - jellyseerr/ks.yaml
   - jellyfin/ks.yaml
   # - joplin-server/ks.yaml
   # - kopia/ks.yaml
