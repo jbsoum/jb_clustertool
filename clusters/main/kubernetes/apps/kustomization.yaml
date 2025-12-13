@@ -3,10 +3,10 @@ kind: Kustomization
 resources:
   # - audacity/ks.yaml
   - adguard-gui/ks.yaml
-  - authelia/ks.yaml
+  # - authelia/ks.yaml
   # - backuppc/ks.yaml
   # - beets/ks.yaml
-  - cloudflareddns/ks.yaml
+  # - cloudflareddns/ks.yaml
   - code-server/ks.yaml
   # - dashy/ks.yaml
   # - deluge/ks.yaml
@@ -14,7 +14,7 @@ resources:
   - dev-postgresql/ks.yaml
   - dev-jbsoum-org/ks.yaml
   # - docker/ks.yaml
-  - emby/ks.yaml
+  # - emby/ks.yaml
   # - emulatorjs/ks.yaml
   - firefox-syncserver/ks.yaml
   # - gitea/ks.yaml
@@ -23,8 +23,8 @@ resources:
   - icloudpd/ks.yaml
   # - invidious/ks.yaml
   - jellyseerr/ks.yaml
-  - jellyfin/ks.yaml
-  - joplin-server/ks.yaml
+  # - jellyfin/ks.yaml
+  # - joplin-server/ks.yaml
   # - kopia/ks.yaml
   - kubernetes-dashboard/ks.yaml
   # - laravel/ks.yaml
@@ -44,7 +44,7 @@ resources:
   # - proxmox-backup-server/ks.yaml
   - qbittorrent/ks.yaml
   # - radarr/ks.yaml
-  - readarr/ks.yaml
+  # - readarr/ks.yaml
   # - renovate/ks.yaml
   # # - scrutiny/ks.yaml
   # # - searxng/ks.yaml
@@ -56,3 +56,4 @@ resources:
   # # - whoogle/ks.yaml
   # -  proxmox-backup-server/ks.yaml
   - voice-ai-gui/ks.yaml
+  - homarr/ks.yaml
