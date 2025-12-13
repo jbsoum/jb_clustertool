@@ -9,6 +9,16 @@
     "git": "git config --global --add safe.directory ${containerWorkspaceFolder}"
   },
   "postAttachCommand": "fish",
-  "updateRemoteUserUID": false,
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.inheritEnv": true
+      }
+    }
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+  ],
+  "updateRemoteUserUID": true,
   "runArgs": ["--privileged"]
 }

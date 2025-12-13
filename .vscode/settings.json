@@ -8,8 +8,11 @@
         "Kubernetes": "./kubernetes/*.yaml"
     },
     "vs-kubernetes": {
-        "vs-kubernetes.kubeconfig": "/workspaces/cluster/kubeconfig",
-        "vs-kubernetes.knownKubeconfigs": ["/workspaces/cluster/kubeconfig"]
+        "vs-kubernetes.kubeconfig": "/workspaces/jb_clustertool/clusters/main/talos/generated/main-k8s-control-1.yaml",
+        "vs-kubernetes.knownKubeconfigs": [
+            "/workspaces/jb_clustertool/kubeconfig",
+            "/workspaces/jb_clustertool/clusters/main/talos/generated/main-k8s-control-1.yaml"
+        ]
     },
     "terminal.integrated.profiles.linux": {
         "bash": {
