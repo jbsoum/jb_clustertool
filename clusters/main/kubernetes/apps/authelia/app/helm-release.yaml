@@ -91,19 +91,19 @@ spec:
       authelia-configfile:
         enabled: false
 
-    # cnpg:
-    #   main:
-    #     cluster:
-    #       singleNode: true
-    #     mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
-    #     backups:
-    #       enabled: true
-    #       credentials: ${S3_NAME}
-    #       retentionPolicy: "14d"
-    #     #       # revision: "2"
-    #     recovery:
-    #       credentials: ${S3_NAME}
-    # #       # revision: "1"
+    cnpg:
+      main:
+        cluster:
+          singleNode: true
+        mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
+        backups:
+          enabled: true
+          credentials: ${S3_NAME}
+          retentionPolicy: "14d"
+        #       # revision: "2"
+        recovery:
+          credentials: ${S3_NAME}
+    #       # revision: "1"
 
     workload:
       main:
