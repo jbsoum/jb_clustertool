@@ -151,6 +151,6 @@ spec:
     collabora:
       # It will also deploy the container
       enabled: true
-    interface_mode: default
-    username: ${ADMIN_USER}
-    password: ${ADMIN_PASSWORD}
+      interface_mode: default
+      username: ${ADMIN_USER}
+      password: ${ADMIN_PASSWORD}
