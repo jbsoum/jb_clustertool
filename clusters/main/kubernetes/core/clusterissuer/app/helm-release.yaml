@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: clusterissuer
-      version: 9.6.7
+      version: 10.3.6
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -29,6 +29,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
+
     clusterIssuer:
       selfSigned:
         enabled: true
@@ -38,15 +39,15 @@ spec:
         - name: domain-0-le-staging
           # Used for both logging in to the DNS provider AND ACME registration
           email: "${DOMAIN_0_EMAIL}"
-          server: "https://acme-staging-v02.api.letsencrypt.org/directory"
+          server: 'https://acme-staging-v02.api.letsencrypt.org/directory'
           # Options: HTTP01, cloudflare, route53, akamai, digitalocean, rfc2136, acmedns, webhook
           type: "cloudflare"
           # for cloudflare
           cfapitoken: "${DOMAIN_0_CLOUDFLARE_TOKEN}"
-        - name: ${DNS_NAME}
+        - name: domain-0-le-prod
           # Used for both logging in to the DNS provider AND ACME registration
           email: "${DOMAIN_0_EMAIL}"
-          server: "https://acme-v02.api.letsencrypt.org/directory"
+          server: 'https://acme-v02.api.letsencrypt.org/directory'
           # Options: HTTP01, cloudflare, route53, akamai, digitalocean, rfc2136, acmedns, webhook
           type: "cloudflare"
           # for cloudflare
@@ -56,11 +57,11 @@ spec:
     clusterCertificates:
       # Namespaces in which the certificates must be available
       # Accepts comma-separated regex expressions
-      replicationNamespaces: ".*"
+      replicationNamespaces: '.*'
       certificates:
         - name: domain-0-wildcard
           enabled: true
           certificateIssuer: domain-0-le-prod
           hosts:
             - ${DOMAIN_0}
-            - "*.${DOMAIN_0}"
+            - '*.${DOMAIN_0}'

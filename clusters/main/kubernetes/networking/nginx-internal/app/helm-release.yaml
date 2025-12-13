@@ -3,8 +3,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: nginx-external
-  namespace: nginx-external
+  name: nginx-internal
+  namespace: nginx-internal
 spec:
   interval: 15m
   chart:
@@ -34,14 +34,16 @@ spec:
       service:
         externalTrafficPolicy: Local
         annotations:
+          # TODO: Maybe play with this
+          # internal-dns.alpha.kubernetes.io/hostname: internal.${DOMAIN_0}
           metallb.io/ip-allocated-from-pool: main
-          metallb.io/loadBalancerIPs: ${NGINX_EXTERNAL_IP}
+          metallb.io/loadBalancerIPs: ${NGINX_INTERNAL_IP}
       ingressClassByName: true
-      watchIngressWithoutClass: false
+      watchIngressWithoutClass: true
       ingressClassResource:
-        name: external
-        default: false
-        controllerValue: k8s.io/external
+        name: internal
+        default: true
+        controllerValue: k8s.io/internal
       config:
         allow-snippet-annotations: true
         annotations-risk-level: Critical
@@ -63,19 +65,19 @@ spec:
         use-forwarded-headers: "true"
       metrics:
         enabled: true
-        serviceMonitor:
-          enabled: true
-          namespaceSelector:
-            any: true
+        # serviceMonitor:
+        #   enabled: true
+        #   namespaceSelector:
+        #     any: true
       extraArgs:
-        default-ssl-certificate: "clusterissuer/certificate-issuer-domain-wildcard"
-        publish-status-address: ${NGINX_EXTERNAL_IP}
+        default-ssl-certificate: "clusterissuer/certificate-issuer-domain-0-wildcard"
+        publish-status-address: ${NGINX_INTERNAL_IP}
       terminationGracePeriodSeconds: 120
       publishService:
         enabled: false
       resources:
         requests:
-          cpu: 100m
+          cpu: 75m
         limits:
           memory: 500Mi
     defaultBackend:
