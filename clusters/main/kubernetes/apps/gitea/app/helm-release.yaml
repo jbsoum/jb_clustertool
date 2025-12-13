@@ -132,7 +132,7 @@ spec:
     ldap:
       enabled: true
       name: lldap
-      securityProtocol: unencrypted
+      # securityProtocol: unencrypted
       host: lldap-ldap.lldap.svc.cluster.local
       port: 3890
       userSearchBase: ou=people,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
@@ -143,7 +143,3 @@ spec:
       bindPassword: ${LLDAP_AUTHELIA_PASSWORD}
       usernameAttribute: uid
       # sshPublicKeyAttribute:
-    memcached:
-      enabled: true
-    oauth:
-      enabled: false
