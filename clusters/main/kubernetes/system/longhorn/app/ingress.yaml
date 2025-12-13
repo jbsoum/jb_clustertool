@@ -11,6 +11,7 @@ metadata:
     nginx.ingress.kubernetes.io/auth-signin: "https://${SUBDOMAIN_AUTHELIA}.${DOMAIN_0}?rm=$request_method"
     nginx.ingress.kubernetes.io/auth-response-headers: "Remote-User,Remote-Name,Remote-Groups,Remote-Email"
 spec:
+  ingressClassName: external
   rules:
     - host: longhorn.${DOMAIN_0}
       http:
