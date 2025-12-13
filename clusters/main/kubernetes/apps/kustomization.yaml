@@ -14,7 +14,7 @@ resources:
   - dev-postgresql/ks.yaml
   - dev-jbsoum-org/ks.yaml
   # - docker/ks.yaml
-  - emby/ks.yaml
+  # - emby/ks.yaml
   # - emulatorjs/ks.yaml
   - firefox-syncserver/ks.yaml
   # - gitea/ks.yaml

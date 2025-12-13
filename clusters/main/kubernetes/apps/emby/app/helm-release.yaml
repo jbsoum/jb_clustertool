@@ -74,17 +74,17 @@ spec:
           - host: ${SUBDOMAIN_EMBY}.${DOMAIN_0}
 
     persistence:
-      config:
-        volsync:
-          - name: config
-            type: restic
-            credentials: ${S3_NAME}
-            dest: #VolSync Destination (Restore)
-              enabled: true
-            src: #VolSync Source (Backup)
-              enabled: true
-              trigger:
-                schedule: 40 0 * * *
+      # config:
+      #   volsync:
+      #     - name: config
+      #       type: restic
+      #       credentials: ${S3_NAME}
+      #       dest: #VolSync Destination (Restore)
+      #         enabled: true
+      #       src: #VolSync Source (Backup)
+      #         enabled: true
+      #         trigger:
+      #           schedule: 40 0 * * *
       media:
         enabled: true
         type: nfs
@@ -109,4 +109,3 @@ spec:
         integrations:
           metallb:
             enabled: true
-
