@@ -96,56 +96,56 @@ spec:
               - path: /collabora/browser/dist/admin
                 pathType: Prefix
 
-    # persistence:
-    #   config:
-    #     volsync:
-    #       - name: config
-    #         type: restic
-    #         credentials: ${S3_NAME}
-    #         dest: #VolSync Destination (Restore)
-    #           enabled: true
-    #         src: #VolSync Source (Backup)
-    #           enabled: true
-    #           trigger:
-    #             schedule: 20 0 * * *
-    #   html:
-    #     volsync:
-    #       - name: html
-    #         type: restic
-    #         credentials: ${S3_NAME}
-    #         dest: #VolSync Destination (Restore)
-    #           enabled: true
-    #         src: #VolSync Source (Backup)
-    #           enabled: true
-    #           trigger:
-    #             schedule: 20 0 * * *
-    #   data:
-    #     enabled: true
-    #     type: nfs
-    #     path: ${NFS_DATA_NEXTCLOUD}
-    #     server: ${IP_TRUENAS}
-    #     mountOptions:
-    #       - nfsvers=4
-    #       - tcp
-    #       - intr
-    #       - hard
-    #       - noatime
-    #       - nodiratime
-    #       - nolock
+    persistence:
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 20 0 * * *
+      html:
+        volsync:
+          - name: html
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 20 0 * * *
+      data:
+        enabled: true
+        type: nfs
+        path: ${NFS_DATA_NEXTCLOUD}
+        server: ${IP_TRUENAS}
+        mountOptions:
+          - nfsvers=4
+          - tcp
+          - intr
+          - hard
+          - noatime
+          - nodiratime
+          - nolock
 
-    # cnpg:
-    #   main:
-    #     cluster:
-    #       singleNode: true
-    #     mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
-    #     backups:
-    #       enabled: true
-    #       credentials: ${S3_NAME}
-    #       retentionPolicy: "45d"
-    #       # revision: "2"
-    #     recovery:
-    #       credentials: ${S3_NAME}
-    #       # revision: "1"
+    cnpg:
+      main:
+        cluster:
+          singleNode: true
+        mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
+        backups:
+          enabled: true
+          credentials: ${S3_NAME}
+          retentionPolicy: "45d"
+          # revision: "2"
+        recovery:
+          credentials: ${S3_NAME}
+          # revision: "1"
 
     nextcloud:
       # Initial Credentials
