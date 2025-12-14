@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: nextcloud
-      version: 40.4.7
+      version: 40.4.8
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -127,18 +127,18 @@ spec:
         # often the loadbalancer IP
         accessIP: ${NGINX_EXTERNAL_IP}
       # Previews settings
-      previews:
-        providers:
-          - BMP
-          - GIF
-          - JPEG
-          - Krita
-          - MarkDown
-          - MP3
-          - OpenDocument
-          - PNG
-          - TXT
-          - XBitmap
+      # previews:
+      #   providers:
+      #     - BMP
+      #     - GIF
+      #     - JPEG
+      #     - Krita
+      #     - MarkDown
+      #     - MP3
+      #     - OpenDocument
+      #     - PNG
+      #     - TXT
+      #     - XBitmap
       # onlyoffice:
       #   # It will not deploy the container
       #   # Only add the OnlyOffice settings
