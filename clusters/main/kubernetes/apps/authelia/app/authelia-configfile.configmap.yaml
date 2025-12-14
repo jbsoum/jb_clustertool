@@ -89,15 +89,23 @@ data:
             - ${SUBDOMAIN_INVIDIOUS}.${DOMAIN_0}
             - ${SUBDOMAIN_EMBY}.${DOMAIN_0}
             - ${SUBDOMAIN_JELLYFIN}.${DOMAIN_0}
+            - ${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}
           domain_regex: []
           networks: []
           policy: bypass
           resources: []
           subject: []
+        # - domain: 
+        #     - ${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}
+        #   domain_regex: []
+        #   networks: []
+        #   policy: one_factor
+        #   resources:
+        #     - ^/collabora/browser/dist/admin.*$
+        #   subject: []
         - domain:
             - ${SUBDOMAIN_EMULATOR_JS}.${DOMAIN_0}
             - ${SUBDOMAIN_NAVIDROME}.${DOMAIN_0}
-            - ${SUBDOMAIN_GITEA}.${DOMAIN_0}
             - ${SUBDOMAIN_VOCECHAT_SERVER}.${DOMAIN_0}
             - ${SUBDOMAIN_JELLYSEERR}.${DOMAIN_0}
             - ${DOMAIN_0}
@@ -107,6 +115,15 @@ data:
           resources: []
           subject:
             - "group:${LLDAP_MEDIA_GROUP}"
+            - "group:${LLDAP_ADMIN_GROUP}"
+        - domain:
+            - ${SUBDOMAIN_GITEA}.${DOMAIN_0}
+          domain_regex: []
+          networks: []
+          policy: one_factor
+          resources: []
+          subject:
+            - "group:${LLDAP_DEV_GROUP}"
             - "group:${LLDAP_ADMIN_GROUP}"
         - domain:
             - "*.${DOMAIN_0}"
