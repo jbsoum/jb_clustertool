@@ -34,7 +34,7 @@ spec:
 
   values:
     global:
-      stopAll: false
+      stopAll: true
 
     TZ: ${TIMEZONE}
 
