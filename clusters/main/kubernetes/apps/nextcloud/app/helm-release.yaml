@@ -1,3 +1,17 @@
+# For future reference, one must be careful setting up persistence for this chart
+#
+# For a fresh install, if you want an nfs mount for 'data', make sure it's mounted at the initial install!
+# Nextcloud puts files in there your deploy relies on
+# On that note, make sure theres nothing in that directory from a previous install
+#
+# Also, make sure volsync and cnpg are off for the initial install
+#
+# Once the inital install is successful, *then* you can turn on volsync for the config and html directories,
+# as well as cnpg backup / restore
+# Make sure to add the annotatons in namespace for volsync and cnpg!
+#
+# Best of luck!
+
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 
@@ -97,20 +111,6 @@ spec:
             paths:
               - path: /collabora/browser/dist/admin
                 pathType: Prefix
-
-      # For future reference, one must be careful setting up persistence for this chart
-      #
-      # For a fresh install, if you want an nfs mount for 'data', make sure it's mounted at the initial install!
-      # Nextcloud puts files in there your deploy relies on
-      # On that note, make sure theres nothing in that directory from a previous install
-      #
-      # Also, make sure volsync and cnpg are off for the initial install
-      #
-      # Once the inital install is successful, *then* you can turn on volsync for the config and html directories,
-      # as well as cnpg backup / restore
-      # Make sure to add the annotatons in namespace for volsync and cnpg!
-      #
-      # Best of luck!
 
       persistence:
       #   config:
