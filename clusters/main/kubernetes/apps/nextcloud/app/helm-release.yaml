@@ -125,7 +125,7 @@ spec:
         default_phone_region: US
         # IP used for exposing nextcloud,
         # often the loadbalancer IP
-        accessIP: ${NGINX_EXTERNAL_IP}
+        # accessIP: ${NGINX_EXTERNAL_IP}
       # Previews settings
       # previews:
       #   providers:
