@@ -96,42 +96,42 @@ spec:
               - path: /collabora/browser/dist/admin
                 pathType: Prefix
 
-    persistence:
-      # config:
-      #   volsync:
-      #     - name: config
-      #       type: restic
-      #       credentials: ${S3_NAME}
-      #       dest: #VolSync Destination (Restore)
-      #         enabled: true
-      #       src: #VolSync Source (Backup)
-      #         enabled: true
-      #         trigger:
-      #           schedule: 20 0 * * *
-      # html:
-      #   volsync:
-      #     - name: html
-      #       type: restic
-      #       credentials: ${S3_NAME}
-      #       dest: #VolSync Destination (Restore)
-      #         enabled: true
-      #       src: #VolSync Source (Backup)
-      #         enabled: true
-      #         trigger:
-      #           schedule: 20 0 * * *
-      data:
-        enabled: true
-        type: nfs
-        path: ${NFS_DATA_NEXTCLOUD}
-        server: ${IP_TRUENAS}
-        # mountOptions:
-        #   - nfsvers=4
-        #   - tcp
-        #   - intr
-        #   - hard
-        #   - noatime
-        #   - nodiratime
-        #   - nolock
+    # persistence:
+    #   config:
+    #     volsync:
+    #       - name: config
+    #         type: restic
+    #         credentials: ${S3_NAME}
+    #         dest: #VolSync Destination (Restore)
+    #           enabled: true
+    #         src: #VolSync Source (Backup)
+    #           enabled: true
+    #           trigger:
+    #             schedule: 20 0 * * *
+    #   html:
+    #     volsync:
+    #       - name: html
+    #         type: restic
+    #         credentials: ${S3_NAME}
+    #         dest: #VolSync Destination (Restore)
+    #           enabled: true
+    #         src: #VolSync Source (Backup)
+    #           enabled: true
+    #           trigger:
+    #             schedule: 20 0 * * *
+    #   data:
+    #     enabled: true
+    #     type: nfs
+    #     path: ${NFS_DATA_NEXTCLOUD}
+    #     server: ${IP_TRUENAS}
+    #     mountOptions:
+    #       - nfsvers=4
+    #       - tcp
+    #       - intr
+    #       - hard
+    #       - noatime
+    #       - nodiratime
+    #       - nolock
 
     # cnpg:
     #   main:
