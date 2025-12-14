@@ -70,6 +70,31 @@ spec:
               responseHeaders: []
         hosts:
           - host: ${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}
+            paths:
+              - path: /
+                pathType: Prefix
+
+      admin:
+        enabled: true
+        ingressClassName: external
+        targetSelector:
+          collabora: collabora
+        integrations:
+          nginx:
+            enabled: true
+            # ipWhitelist: ["${IP_WHITELIST}"]
+            auth:
+              type: "authelia"
+              internalHost: "authelia.authelia.svc.cluster.local:9091"
+              externalHost: "${SUBDOMAIN_AUTHELIA}.${DOMAIN_0}"
+          certManager:
+            enabled: true
+            certificateIssuer: ${DNS_NAME}
+        hosts:
+          - host: ${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}
+            paths:
+              - path: /collabora/browser/dist/admin
+                pathType: Prefix
 
     # persistence:
     # config:
@@ -162,9 +187,18 @@ spec:
       collabora:
         # It will also deploy the container
         enabled: true
-        interface_mode: default
-        username: ${ADMIN_USER}
-        password: ${ADMIN_PASSWORD}
+      previews:
+        providers:
+          - BMP
+          - GIF
+          - JPEG
+          - Krita
+          - MarkDown
+          - MP3
+          - OpenDocument
+          - PNG
+          - TXT
+          - XBitmap
 
     # podOptions:
     #   hostUsers: true
