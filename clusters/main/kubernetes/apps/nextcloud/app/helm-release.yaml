@@ -159,12 +159,12 @@ spec:
       php:
         memory_limit: 5G
         upload_limit: 60G
-    collabora:
-      # It will also deploy the container
-      enabled: true
-      interface_mode: default
-      username: ${ADMIN_USER}
-      password: ${ADMIN_PASSWORD}
+      collabora:
+        # It will also deploy the container
+        enabled: true
+        interface_mode: default
+        username: ${ADMIN_USER}
+        password: ${ADMIN_PASSWORD}
 
     # podOptions:
     #   hostUsers: true
