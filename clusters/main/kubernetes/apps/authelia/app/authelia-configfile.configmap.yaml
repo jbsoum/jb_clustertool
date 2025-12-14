@@ -106,7 +106,7 @@ data:
           policy: one_factor
           resources: []
           subject:
-            - "group:${LLDAP_USER_GROUP}"
+            - "group:${LLDAP_MEDIA_GROUP}"
             - "group:${LLDAP_ADMIN_GROUP}"
         - domain:
             - "*.${DOMAIN_0}"
