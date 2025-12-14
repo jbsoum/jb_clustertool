@@ -112,7 +112,7 @@ spec:
               - path: /collabora/browser/dist/admin
                 pathType: Prefix
 
-      persistence:
+    persistence:
       #   config:
       #     volsync:
       #       - name: config
