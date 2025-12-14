@@ -3,12 +3,12 @@
         "*.json5": "jsonc",
         "./kubernetes/**/*.sops.toml": "plaintext"
     },
-    "sops.defaults.ageKeyFile": "age.key",
+    "sops.defaults.ageKeyFile": "age.agekey",
     "yaml.schemas": {
         "Kubernetes": "./kubernetes/*.yaml"
     },
     "vs-kubernetes": {
-        "vs-kubernetes.kubeconfig": "/workspaces/jb_clustertool/clusters/main/talos/generated/main-k8s-control-1.yaml",
+        "vs-kubernetes.kubeconfig": "/workspaces/jb_clustertool/kubeconfig",
         "vs-kubernetes.knownKubeconfigs": [
             "/workspaces/jb_clustertool/kubeconfig",
             "/workspaces/jb_clustertool/clusters/main/talos/generated/main-k8s-control-1.yaml"
