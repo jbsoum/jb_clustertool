@@ -21,12 +21,14 @@ spec:
     mode: warn
   install:
     createNamespace: true
+    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
-    cleanupOnFail: true
+    crds: CreateReplace
     remediation:
       retries: 3
+  timeout: 20m
   uninstall:
     keepHistory: false
 
@@ -124,14 +126,14 @@ spec:
         type: nfs
         path: ${NFS_DATA_NEXTCLOUD}
         server: ${IP_TRUENAS}
-        mountOptions:
-          - nfsvers=4
-          - tcp
-          - intr
-          - hard
-          - noatime
-          - nodiratime
-          - nolock
+        # mountOptions:
+        #   - nfsvers=4
+        #   - tcp
+        #   - intr
+        #   - hard
+        #   - noatime
+        #   - nodiratime
+        #   - nolock
 
     cnpg:
       main:
