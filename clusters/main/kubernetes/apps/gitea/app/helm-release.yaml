@@ -129,17 +129,17 @@ spec:
       APP_NAME: Gitea
       RUN_MODE: prod
       nodeIP: ${IP_GITEA}
-    ldap:
-      enabled: true
-      name: lldap
-      # securityProtocol: unencrypted
-      host: lldap-ldap.lldap.svc.cluster.local
-      port: 3890
-      userSearchBase: ou=people,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
-      userFilter: (&(memberof=cn=${LLDAP_USER_GROUP},ou=groups,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN})(|(uid=%[1]s)(mail=%[1]s)))
-      adminFilter: (memberof=cn=${LLDAP_ADMIN_GROUP},ou=groups,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN})
-      emailAttribute: mail
-      bindDn: uid=${LLDAP_AUTHELIA_GROUP},ou=people,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
-      bindPassword: ${LLDAP_AUTHELIA_PASSWORD}
-      usernameAttribute: uid
-      # sshPublicKeyAttribute:
+    # ldap:
+    #   enabled: true
+    #   name: lldap
+    #   # securityProtocol: unencrypted
+    #   host: lldap-ldap.lldap.svc.cluster.local
+    #   port: 3890
+    #   userSearchBase: ou=people,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
+    #   userFilter: (&(memberof=cn=${LLDAP_USER_GROUP},ou=groups,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN})(|(uid=%[1]s)(mail=%[1]s)))
+    #   adminFilter: (memberof=cn=${LLDAP_ADMIN_GROUP},ou=groups,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN})
+    #   emailAttribute: mail
+    #   bindDn: uid=${LLDAP_AUTHELIA_GROUP},ou=people,dc=${DC_SUBDOMAIN},dc=${DC_DOMAIN}
+    #   bindPassword: ${LLDAP_AUTHELIA_PASSWORD}
+    #   usernameAttribute: uid
+    #   # sshPublicKeyAttribute:
