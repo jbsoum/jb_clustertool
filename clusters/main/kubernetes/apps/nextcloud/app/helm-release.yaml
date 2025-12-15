@@ -4,10 +4,10 @@
 # Nextcloud puts files in there your deploy relies on
 # On that note, make sure theres nothing in that directory from a previous install
 #
-# Also, make sure volsync and cnpg are off for the initial install
+# Also, make sure cnpg `mode: recovery` is not set for the initial install
 #
-# Once the inital install is successful, *then* you can turn on volsync for the config and html directories,
-# as well as cnpg backup / restore
+# Once the inital install is successful, *then* you can turn on cnpg recovery
+#
 # Make sure to add the annotatons in namespace for volsync and cnpg!
 #
 # Best of luck!
@@ -153,7 +153,7 @@ spec:
       main:
         cluster:
           singleNode: true
-        # mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
+        mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
         backups:
           enabled: true
           credentials: ${S3_NAME}
