@@ -45,7 +45,7 @@ resources:
   # - proxmox-backup-server/ks.yaml
   - qbittorrent/ks.yaml
   - radarr/ks.yaml
-  # - readarr/ks.yaml
+  - readarr/ks.yaml
   # - renovate/ks.yaml
   # # - scrutiny/ks.yaml
   # # - searxng/ks.yaml
