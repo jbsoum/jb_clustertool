@@ -7,7 +7,7 @@ resources:
   # - backuppc/ks.yaml
   # - beets/ks.yaml
   # - cloudflareddns/ks.yaml
-  - code-server/ks.yaml
+  # - code-server/ks.yaml
   # - dashy/ks.yaml
   # - deluge/ks.yaml
   # - dev-mongodb/ks.yaml
