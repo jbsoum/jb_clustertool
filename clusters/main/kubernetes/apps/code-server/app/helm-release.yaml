@@ -170,7 +170,7 @@ spec:
                         echo node > .nvmrc
                         nvm install
 
-                        if [ "$?" -ne 0 ]; then
+                        if [ $? -ne 0 ]; then
                           echo "Nvm install failed..."  >> /proc/1/fd/1 ;
                           exit 1 ;
                         else
