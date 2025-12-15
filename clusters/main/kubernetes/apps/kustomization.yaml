@@ -25,7 +25,7 @@ resources:
   # - invidious/ks.yaml
   - jellyseerr/ks.yaml
   - jellyfin/ks.yaml
-  - joplin-server/ks.yaml
+  # - joplin-server/ks.yaml
   # - kopia/ks.yaml
   - kubernetes-dashboard/ks.yaml
   # - laravel/ks.yaml
