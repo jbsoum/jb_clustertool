@@ -159,19 +159,19 @@ spec:
                       echo "Node enabled: $node_enabled"  >> /proc/1/fd/1 ;
                       echo "nvm_version: $nvm_version"  >> /proc/1/fd/1 ;
 
+
                       if [ "$node_enabled" == "true" ]; then
-                        if curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v$nvm_version/install.sh" | bash; then
-                          echo "Nvm v.$nvm_version downloaded..."  >> /proc/1/fd/1 ;
-                        else
-                          echo "Nvm download failed, exiting..."  >> /proc/1/fd/1 ;
-                          exit 1
+                        curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v$nvm_version/install.sh" | bash;
+                        if [ "$?" -ne 0 ]; then
+                          echo "Nvm install failed..."  >> /proc/1/fd/1 ;
+                          exit 1 ;
                         fi
 
                         export NVM_DIR="$HOME/.nvm"
                         echo "NVM_DIR: $NVM_DIR"  >> /proc/1/fd/1 ;
 
                         # This loads nvm
-                        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  --no-use;
+                        # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  --no-use;
                         if [ -s "$NVM_DIR/nvm.sh" ]; then
                           echo "check NVM_DIR/nvm.sh...." ;
                           if \. "$NVM_DIR/nvm.sh"  --no-use; then
