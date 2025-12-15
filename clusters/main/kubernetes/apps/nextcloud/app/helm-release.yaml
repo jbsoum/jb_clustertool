@@ -113,28 +113,28 @@ spec:
                 pathType: Prefix
 
     persistence:
-      # config:
-      #   volsync:
-      #     - name: config
-      #       type: restic
-      #       credentials: ${S3_NAME}
-      #       dest: #VolSync Destination (Restore)
-      #         enabled: true
-      #       src: #VolSync Source (Backup)
-      #         enabled: true
-      #         trigger:
-      #           schedule: 20 0 * * *
-      # html:
-      #   volsync:
-      #     - name: html
-      #       type: restic
-      #       credentials: ${S3_NAME}
-      #       dest: #VolSync Destination (Restore)
-      #         enabled: true
-      #       src: #VolSync Source (Backup)
-      #         enabled: true
-      #         trigger:
-      #           schedule: 20 0 * * *
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 20 0 * * *
+      html:
+        volsync:
+          - name: html
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 20 0 * * *
       data:
         enabled: true
         type: nfs
@@ -149,25 +149,25 @@ spec:
           - nodiratime
           - nolock
 
-    # cnpg:
-    #   main:
-    #     cluster:
-    #       singleNode: true
-    #     mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
-    #     backups:
-    #       enabled: true
-    #       credentials: ${S3_NAME}
-    #       retentionPolicy: "45d"
-    #       # revision: "2"
-    #     recovery:
-    #       credentials: ${S3_NAME}
-    #       # revision: "1"
+    cnpg:
+      main:
+        cluster:
+          singleNode: true
+        # mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
+        backups:
+          enabled: true
+          credentials: ${S3_NAME}
+          retentionPolicy: "45d"
+          # revision: "2"
+        recovery:
+          credentials: ${S3_NAME}
+          # revision: "1"
 
     nextcloud:
       # Initial Credentials
       credentials:
-        initialAdminUser: "${ADMIN_USER}"
-        initialAdminPassword: "${ADMIN_PASSWORD}"
+        initialAdminUser: "${ADMIN2_USER}"
+        initialAdminPassword: "${ADMIN2_PASSWORD}"
       # General settings
       general:
         # Custom Nextcloud Scripts
