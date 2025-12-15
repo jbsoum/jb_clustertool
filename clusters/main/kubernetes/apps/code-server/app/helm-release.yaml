@@ -133,37 +133,71 @@ spec:
                       export status=99;
                       export attempts=0
                       echo "linking ssh keys to /root/.ssh..." >> /proc/1/fd/1;
-                      until [ $status -eq 0 ];
-                      do
-                      echo "Attempt $attempts: link /ssh-keys/* to /root/.ssh..." >> /proc/1/fd/1
+                      until [ $status -eq 0 ]; do
+                        echo "Attempt $attempts: link /ssh-keys/* to /root/.ssh..." >> /proc/1/fd/1 ;
+
                         if [ $attempts -gt 100]; then
                           echo "Too many tries..." >> /proc/1/fd/1;
-                          exit 1;
+                          exit 1
+                        elif cp /ssh-keys/* /root/.ssh/; then
+                          echo "Keys copied! continuing..." >> /proc/1/fd/1;
+                        else
+                          status=$?;
+                          echo "Key copy failed, try again..." >> /proc/1/fd/1;
+                          sleep 3;
+                          attempts=$((attempts+1))
                         fi;
-
-                        cp  /ssh-keys/* /root/.ssh/
-                        status=$?;
-                        sleep 3;
-                        attempts=$((attempts+1))
                       done;
 
                       chmod 400 /root/.ssh
                       chmod -R 600 /root/.ssh
-                      echo "keys copied!" >> /proc/1/fd/1;
+                      echo "key perms set!" >> /proc/1/fd/1;
 
                       ## Setup Dev Environments
                       export node_enabled="{{ .Values.node.enabled }}";
                       export nvm_version="{{ .Values.node.nvmVersion }}";
 
-                      echo "Node enabled: $node_enabled";
-                      echo "nvm_version: $nvm_version";
+                      echo "Node enabled: $node_enabled"  >> /proc/1/fd/1 ;
+                      echo "nvm_version: $nvm_version"  >> /proc/1/fd/1 ;
 
                       if [ "$node_enabled" -eq "true" ]; then
-                        curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v$nvm_version/install.sh" | bash;
+                        if curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v$nvm_version/install.sh" | bash; then
+                          echo "Nvm v.$nvm_version downloaded..."  >> /proc/1/fd/1 ;
+                        else
+                          echo "Nvm download failed, exiting..."  >> /proc/1/fd/1 ;
+                          exit 1
+                        fi
 
                         export NVM_DIR="$HOME/.nvm"
-                        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  --no-use # This loads nvm
-                        [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-                        echo "NVM Installed!" >> /proc/1/fd/1
+                        # This loads nvm
+                        if [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  --no-use; then
+                          echo "Nvm $nvm_version loaded..."  >> /proc/1/fd/1 ;
+                        else
+                          echo "Nvm loading failed, exiting..."  >> /proc/1/fd/1 ;
+                          exit 1
+                        fi
+                        
+                        # This loads nvm bash_completion
+                        if [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"; then  
+                          echo "Nvm bash completion loaded..."  >> /proc/1/fd/1 ;
+                        else
+                          echo "Nvm bash completion loading failed, exiting..."  >> /proc/1/fd/1 ;
+                          exit 1
+                        fi
+                        echo "NVM Installed! Installing latest version of node" >> /proc/1/fd/1
+                        echo "Ofc, feel free to switch to whatever version you want :D" >> /proc/1/fd/1
+
+                        if nvm install node; then
+                          echo "Latest version of node installed!"  >> /proc/1/fd/1 ;
+                        else
+                          echo "Node install failed! Exiting... :("  >> /proc/1/fd/1 ;
+                        fi
+
+                        if nvm use node; then
+                          echo "Latest version of node set!"  >> /proc/1/fd/1 ;
+                        else
+                          echo "Setting Node failed! Exiting... :("  >> /proc/1/fd/1 ;
+                          exit 1 ;
+                        fi
                       fi;
