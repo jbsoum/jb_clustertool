@@ -168,12 +168,21 @@ spec:
                         fi
 
                         export NVM_DIR="$HOME/.nvm"
+                        echo "NVM_DIR: $NVM_DIR"  >> /proc/1/fd/1 ;
 
                         # This loads nvm
-                        if [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  --no-use; then
-                          echo "Nvm $nvm_version loaded..."  >> /proc/1/fd/1 ;
+                        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  --no-use;
+                        if [ -s "$NVM_DIR/nvm.sh" ]; then
+                          echo "check NVM_DIR/nvm.sh...." ;
+                          if \. "$NVM_DIR/nvm.sh"  --no-use; then
+                            echo "Nvm $nvm_version loaded..."  >> /proc/1/fd/1 ;
+                          else
+                            echo "run NVM_DIR/nvm.sh...." ;
+                            echo "run nvm.sh failed, exiting..."  >> /proc/1/fd/1 ;
+                            exit 1;
+                          fi
                         else
-                          echo "Nvm loading failed, exiting..."  >> /proc/1/fd/1 ;
+                          echo "check nvm.sh failed, exiting..."  >> /proc/1/fd/1 ;
                           exit 1
                         fi
                         
