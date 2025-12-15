@@ -167,7 +167,7 @@ spec:
       # Initial Credentials
       credentials:
         initialAdminUser: "${ADMIN2_USER}"
-        initialAdminPassword: "${ADMIN2_PASSWORD}"
+        initialAdminPassword: "${ADMIN_PASSWORD}"
       # General settings
       general:
         # Custom Nextcloud Scripts
