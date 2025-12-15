@@ -133,21 +133,20 @@ spec:
                       export status=99;
                       export attempts=0
                       echo "linking ssh keys to /root/.ssh..." >> /proc/1/fd/1;
-                      until [ $status -eq 0 ]; do
-                        echo "Attempt $attempts: link /ssh-keys/* to /root/.ssh..." >> /proc/1/fd/1 ;
 
-                        if [ $attempts -gt 100]; then
-                          echo "Too many tries..." >> /proc/1/fd/1;
-                          exit 1
-                        elif cp /ssh-keys/* /root/.ssh/; then
-                          echo "Keys copied! continuing..." >> /proc/1/fd/1;
-                        else
-                          status=$?;
-                          echo "Key copy failed, try again..." >> /proc/1/fd/1;
-                          sleep 3;
-                          attempts=$((attempts+1))
-                        fi;
-                      done;
+                      echo "Attempt $attempts: link /ssh-keys/* to /root/.ssh..." >> /proc/1/fd/1 ;
+
+                      if [ $attempts -gt 100]; then
+                        echo "Too many tries..." >> /proc/1/fd/1;
+                        exit 1
+                      elif cp /ssh-keys/* /root/.ssh/; then
+                        echo "Keys copied! continuing..." >> /proc/1/fd/1;
+                      else
+                        status=$?;
+                        echo "Key copy failed, try again..." >> /proc/1/fd/1;
+                        sleep 3;
+                        attempts=$((attempts+1))
+                      fi;
 
                       chmod 400 /root/.ssh
                       chmod -R 600 /root/.ssh
