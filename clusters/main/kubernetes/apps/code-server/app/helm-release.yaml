@@ -161,51 +161,61 @@ spec:
 
 
                       if [ "$node_enabled" == "true" ]; then
-                        curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v$nvm_version/install.sh" | bash;
+                        export BASH_ENV=/root/.bash_env
+                        touch $BASH_ENV
+                        echo '. "${BASH_ENV}"' >> ~/.bashrc
+
+
+                        curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v$nvm_version/install.sh" | PROFILE="${BASH_ENV}" bash;
+                        echo node > .nvmrc
+                        nvm install
+
                         if [ "$?" -ne 0 ]; then
                           echo "Nvm install failed..."  >> /proc/1/fd/1 ;
                           exit 1 ;
-                        fi
-
-                        export NVM_DIR="$HOME/.nvm"
-                        echo "NVM_DIR: $NVM_DIR"  >> /proc/1/fd/1 ;
-
-                        # This loads nvm
-                        # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  --no-use;
-                        if [ -s "$NVM_DIR/nvm.sh" ]; then
-                          echo "check NVM_DIR/nvm.sh...." ;
-                          if \. "$NVM_DIR/nvm.sh"  --no-use; then
-                            echo "Nvm $nvm_version loaded..."  >> /proc/1/fd/1 ;
-                          else
-                            echo "run NVM_DIR/nvm.sh...." ;
-                            echo "run nvm.sh failed, exiting..."  >> /proc/1/fd/1 ;
-                            exit 1;
-                          fi
                         else
-                          echo "check nvm.sh failed, exiting..."  >> /proc/1/fd/1 ;
-                          exit 1
+                          echo "Nvm install succeeded!"  >> /proc/1/fd/1 ;
                         fi
+
+                        # export NVM_DIR="$HOME/.nvm"
+                        # echo "NVM_DIR: $NVM_DIR"  >> /proc/1/fd/1 ;
+
+                        # # This loads nvm
+                        # # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  --no-use;
+                        # if [ -s "$NVM_DIR/nvm.sh" ]; then
+                        #   echo "check NVM_DIR/nvm.sh...." ;
+                        #   if \. "$NVM_DIR/nvm.sh"  --no-use; then
+                        #     echo "Nvm $nvm_version loaded..."  >> /proc/1/fd/1 ;
+                        #   else
+                        #     echo "run NVM_DIR/nvm.sh...." ;
+                        #     echo "run nvm.sh failed, exiting..."  >> /proc/1/fd/1 ;
+                        #     exit 1;
+                        #   fi
+                        # else
+                        #   echo "check nvm.sh failed, exiting..."  >> /proc/1/fd/1 ;
+                        #   exit 1
+                        # fi
                         
-                        # This loads nvm bash_completion
-                        if [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"; then  
-                          echo "Nvm bash completion loaded..."  >> /proc/1/fd/1 ;
-                        else
-                          echo "Nvm bash completion loading failed, exiting..."  >> /proc/1/fd/1 ;
-                          exit 1
-                        fi
-                        echo "NVM Installed! Installing latest version of node" >> /proc/1/fd/1
-                        echo "Ofc, feel free to switch to whatever version you want :D" >> /proc/1/fd/1
+                        # # This loads nvm bash_completion
+                        # if [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"; then  
+                        #   echo "Nvm bash completion loaded..."  >> /proc/1/fd/1 ;
+                        # else
+                        #   echo "Nvm bash completion loading failed, exiting..."  >> /proc/1/fd/1 ;
+                        #   exit 1
+                        # fi
+                        # echo "NVM Installed! Installing latest version of node" >> /proc/1/fd/1
+                        # echo "Ofc, feel free to switch to whatever version you want :D" >> /proc/1/fd/1
 
-                        if nvm install node; then
-                          echo "Latest version of node installed!"  >> /proc/1/fd/1 ;
-                        else
-                          echo "Node install failed! Exiting... :("  >> /proc/1/fd/1 ;
-                        fi
+                        # if nvm install node; then
+                        #   echo "Latest version of node installed!"  >> /proc/1/fd/1 ;
+                        # else
+                        #   echo "Node install failed! Exiting... :("  >> /proc/1/fd/1 ;
+                        # fi
 
-                        if nvm use node; then
-                          echo "Latest version of node set!"  >> /proc/1/fd/1 ;
-                        else
-                          echo "Setting Node failed! Exiting... :("  >> /proc/1/fd/1 ;
-                          exit 1 ;
-                        fi
+                        # if nvm use node; then
+                        #   echo "Latest version of node set!"  >> /proc/1/fd/1 ;
+                        # else
+                        #   echo "Setting Node failed! Exiting... :("  >> /proc/1/fd/1 ;
+                        #   exit 1 ;
+                        # fi
                       fi;
