@@ -161,21 +161,21 @@ spec:
 
 
                       if [ "$node_enabled" == "true" ]; then
-                        export BASH_ENV=/root/.bash_env
-                        touch $BASH_ENV
-                        echo '. "${BASH_ENV}"' >> ~/.bashrc
+                        # export BASH_ENV=/root/.bash_env
+                        # touch $BASH_ENV
+                        # echo '. "${BASH_ENV}"' >> ~/.bashrc
 
 
-                        curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v$nvm_version/install.sh" | PROFILE="${BASH_ENV}" bash;
-                        echo node > .nvmrc
-                        nvm install
+                        # curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v$nvm_version/install.sh" | PROFILE="${BASH_ENV}" bash;
+                        # echo node > .nvmrc
+                        # nvm install
 
-                        if [ $? -ne 0 ]; then
-                          echo "Nvm install failed..."  >> /proc/1/fd/1 ;
-                          exit 1 ;
-                        else
-                          echo "Nvm install succeeded!"  >> /proc/1/fd/1 ;
-                        fi
+                        # if [ $? -ne 0 ]; then
+                        #   echo "Nvm install failed..."  >> /proc/1/fd/1 ;
+                        #   exit 1 ;
+                        # else
+                        #   echo "Nvm install succeeded!"  >> /proc/1/fd/1 ;
+                        # fi
 
                         # export NVM_DIR="$HOME/.nvm"
                         # echo "NVM_DIR: $NVM_DIR"  >> /proc/1/fd/1 ;
