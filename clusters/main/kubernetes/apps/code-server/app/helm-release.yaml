@@ -136,7 +136,7 @@ spec:
                       echo "linking ssh keys to /root/.ssh..." >> /proc/1/fd/1;
                       until [ $status -eq 0 ];
                       do
-                      echo "Attempt ${attempts}: link /ssh-keys/* to /root/.ssh..." >> /proc/1/fd/1
+                      echo "Attempt $attempts: link /ssh-keys/* to /root/.ssh..." >> /proc/1/fd/1
                         if [ $attempts -gt 100]; then
                           echo "Too many tries..." >> /proc/1/fd/1;
                           exit 1;
@@ -156,11 +156,11 @@ spec:
                       export node_enabled="{{ .Values.node.enabled }}";
                       export nvm_version="{{ .Values.node.nvmVersion }}";
 
-                      echo "Node enabled: $${node_enabled}";
-                      echo "nvm_version: $${nvm_version}";
+                      echo "Node enabled: $node_enabled";
+                      echo "nvm_version: $nvm_version";
 
-                      if [ "$${node_enabled}" -eq "true" ]; then
-                        curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v$${nvm_version}/install.sh" | bash;
+                      if [ "$node_enabled" -eq "true" ]; then
+                        curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v$nvm_version/install.sh" | bash;
 
                         export NVM_DIR="$HOME/.nvm"
                         [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  --no-use # This loads nvm
