@@ -58,3 +58,4 @@ resources:
   # -  proxmox-backup-server/ks.yaml
   - voice-ai-gui/ks.yaml
   - homarr/ks.yaml
+  - wg-easy/ks.yaml

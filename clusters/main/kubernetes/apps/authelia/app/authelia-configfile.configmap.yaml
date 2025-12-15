@@ -83,10 +83,7 @@ data:
           resources: []
           subject: []
         - domain:
-            - ${SUBDOMAIN_SEARXNG}.${DOMAIN_0}
-            - ${SUBDOMAIN_LIBREDDIT}.${DOMAIN_0}
             - ${SUBDOMAIN_VPN}.${DOMAIN_0}
-            - ${SUBDOMAIN_INVIDIOUS}.${DOMAIN_0}
             - ${SUBDOMAIN_EMBY}.${DOMAIN_0}
             - ${SUBDOMAIN_JELLYFIN}.${DOMAIN_0}
             - ${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}
