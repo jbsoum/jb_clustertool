@@ -47,6 +47,17 @@ spec:
         type: s3
         url: ${S3_URL}
 
+  service:
+    vpn:
+      loadBalancerIP: ${IP_VPN}
+      type: LoadBalancer
+      integrations:
+        metallb:
+          enabled: true
+      ports:
+        vpn:
+          port: 61820
+
     ingress:
       main:
         enabled: true
