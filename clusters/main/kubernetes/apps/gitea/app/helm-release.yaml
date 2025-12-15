@@ -123,7 +123,7 @@ spec:
     admin:
       email: ${ADMIN2_EMAIL}
       password: ${ADMIN_PASSWORD}
-      username: ${ADMIN_USER}
+      username: ${ADMIN2_USER}
     config:
       ALLOWED_HOST_LIST: 127.0.0.1
       APP_NAME: Gitea
