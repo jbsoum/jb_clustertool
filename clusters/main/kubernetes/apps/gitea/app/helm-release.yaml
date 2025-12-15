@@ -121,7 +121,7 @@ spec:
 
     # Gitea-speciic config
     admin:
-      email: ${ADMIN_EMAIL}
+      email: ${ADMIN2_EMAIL}
       password: ${ADMIN_PASSWORD}
       username: ${ADMIN_USER}
     config:
