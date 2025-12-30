@@ -50,6 +50,7 @@ resources:
   # # - scrutiny/ks.yaml
   # # - searxng/ks.yaml
   - sonarr/ks.yaml
+  - traggo/ks.yaml
   - truenas-gui/ks.yaml
   # - vaultwarden/ks.yaml
   # - vocechat-server/ks.yaml
