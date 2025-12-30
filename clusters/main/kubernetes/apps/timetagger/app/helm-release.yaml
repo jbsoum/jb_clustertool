@@ -90,4 +90,5 @@ spec:
           containers:
             main:
               env:
+                TIMETAGGER_PROXY_AUTH_ENABLED: true
                 TIMETAGGER_CREDENTIALS: admin:$$2a$$08$$ECbq6bl4SgAUyKeDoZfcvengn6HHJtwU3wrG7lNl9NtlCnFXjpaSe
