@@ -92,6 +92,6 @@ spec:
               env:
                 TIMETAGGER_PROXY_AUTH_ENABLED: true
                 TIMETAGGER_PROXY_AUTH_TRUSTED: ${NGINX_EXTERNAL_IP}
-                TIMETAGGER_PROXY_AUTH_HEADER: X-Remote-User
+                TIMETAGGER_PROXY_AUTH_HEADER: Remote-User
                 TIMETAGGER_APP_REDIRECT: true
                 TIMETAGGER_CREDENTIALS: admin:$$2a$$08$$ECbq6bl4SgAUyKeDoZfcvengn6HHJtwU3wrG7lNl9NtlCnFXjpaSe
