@@ -68,6 +68,9 @@ spec:
               externalHost: "${SUBDOMAIN_AUTHELIA}.${DOMAIN_0}"
               # Can be left default in most cases
               responseHeaders: []
+            annotations:
+              nginx.ingress.kubernetes.io/auth-snippet: |
+                proxy_set_header Authorization $http_authorization;
         hosts:
           - host: timetagger.${DOMAIN_0}
 
