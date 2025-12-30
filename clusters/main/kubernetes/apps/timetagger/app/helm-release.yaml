@@ -67,7 +67,7 @@ spec:
               internalHost: "authelia.authelia.svc.cluster.local:9091"
               externalHost: "${SUBDOMAIN_AUTHELIA}.${DOMAIN_0}"
               # Can be left default in most cases
-              responseHeaders: []
+              responseHeaders: [Remote-User]
         hosts:
           - host: timetagger.${DOMAIN_0}
 
