@@ -83,3 +83,11 @@ spec:
               enabled: true
               trigger:
                 schedule: 40 0 * * *
+
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                TIMETAGGER_CREDENTIALS: admin:$$2a$$08$$ECbq6bl4SgAUyKeDoZfcvengn6HHJtwU3wrG7lNl9NtlCnFXjpaSe
