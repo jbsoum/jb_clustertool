@@ -175,34 +175,21 @@ spec:
         # IP used for exposing nextcloud,
         # often the loadbalancer IP
         accessIP: ${NGINX_EXTERNAL_IP}
-      # Previews settings
-      # previews:
-      #   providers:
-      #     - BMP
-      #     - GIF
-      #     - JPEG
-      #     - Krita
-      #     - MarkDown
-      #     - MP3
-      #     - OpenDocument
-      #     - PNG
-      #     - TXT
-      #     - XBitmap
-      # onlyoffice:
-      #   # It will not deploy the container
-      #   # Only add the OnlyOffice settings
-      #   enabled: true
-      #   url: "https://${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}"
-      #   internal_url: "http://${SUBDOMAIN_NEXTCLOUD}.${SUBDOMAIN_NEXTCLOUD}.svc.cluster.local:10043"
-      #   verify_ssl: true
-      #   jwt: "${ONLYOFFICE_DOCUMENT_SERVER_SECRET}"
-      #   jwt_header: Authorization
+      onlyoffice:
+        # It will not deploy the container
+        # Only add the OnlyOffice settings
+        enabled: true
+        url: "https://${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}"
+        internal_url: "http://${SUBDOMAIN_NEXTCLOUD}.${SUBDOMAIN_NEXTCLOUD}.svc.cluster.local:10043"
+        verify_ssl: true
+        jwt: "${ONLYOFFICE_DOCUMENT_SERVER_SECRET}"
+        jwt_header: Authorization
       php:
         memory_limit: 5G
         upload_limit: 60G
-      collabora:
-        # It will also deploy the container
-        enabled: true
+      # collabora:
+      #   # It will also deploy the container
+      #   enabled: true
       previews:
         providers:
           - BMP
