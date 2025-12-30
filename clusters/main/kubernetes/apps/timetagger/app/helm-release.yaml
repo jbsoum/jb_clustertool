@@ -91,4 +91,6 @@ spec:
             main:
               env:
                 TIMETAGGER_PROXY_AUTH_ENABLED: true
+                TIMETAGGER_PROXY_AUTH_TRUSTED: 127.0.0.1
+                TIMETAGGER_PROXY_AUTH_HEADER: X-Remote-User
                 TIMETAGGER_CREDENTIALS: admin:$$2a$$08$$ECbq6bl4SgAUyKeDoZfcvengn6HHJtwU3wrG7lNl9NtlCnFXjpaSe
