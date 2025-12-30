@@ -75,7 +75,7 @@ spec:
               # Can be left default in most cases
               responseHeaders: []
         hosts:
-          - host: ${SUBDOMAIN_TRAGGO}.${DOMAIN_0}
+          - host: traggo.${DOMAIN_0}
 
     persistence:
       config:
