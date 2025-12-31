@@ -90,27 +90,27 @@ spec:
               - path: /
                 pathType: Prefix
 
-      admin:
-        enabled: true
-        ingressClassName: external
-        targetSelector:
-          collabora: collabora
-        integrations:
-          nginx:
-            enabled: true
-            # ipWhitelist: ["${IP_WHITELIST}"]
-            auth:
-              type: "authelia"
-              internalHost: "authelia.authelia.svc.cluster.local:9091"
-              externalHost: "${SUBDOMAIN_AUTHELIA}.${DOMAIN_0}"
-          certManager:
-            enabled: true
-            certificateIssuer: ${DNS_NAME}
-        hosts:
-          - host: ${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}
-            paths:
-              - path: /collabora/browser/dist/admin
-                pathType: Prefix
+      # admin:
+      #   enabled: true
+      #   ingressClassName: external
+      #   targetSelector:
+      #     collabora: collabora
+      #   integrations:
+      #     nginx:
+      #       enabled: true
+      #       # ipWhitelist: ["${IP_WHITELIST}"]
+      #       auth:
+      #         type: "authelia"
+      #         internalHost: "authelia.authelia.svc.cluster.local:9091"
+      #         externalHost: "${SUBDOMAIN_AUTHELIA}.${DOMAIN_0}"
+      #     certManager:
+      #       enabled: true
+      #       certificateIssuer: ${DNS_NAME}
+      #   hosts:
+      #     - host: ${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}
+      #       paths:
+      #         - path: /collabora/browser/dist/admin
+      #           pathType: Prefix
 
     persistence:
       config:
