@@ -187,9 +187,9 @@ spec:
       php:
         memory_limit: 5G
         upload_limit: 60G
-      # collabora:
-      #   # It will also deploy the container
-      #   enabled: true
+      collabora:
+        # It will also deploy the container
+        enabled: false
       previews:
         providers:
           - BMP
