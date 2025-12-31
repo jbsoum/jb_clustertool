@@ -179,8 +179,8 @@ spec:
         # It will not deploy the container
         # Only add the OnlyOffice settings
         enabled: true
-        url: "https://${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}"
-        internal_url: "http://${SUBDOMAIN_NEXTCLOUD}.${SUBDOMAIN_NEXTCLOUD}.svc.cluster.local:10043"
+        url: "https://${SUBDOMAIN_ONLYOFFICE_DOCUMENT_SERVER}.${DOMAIN_0}"
+        internal_url: "http://onlyoffice-document-server.onlyoffice-document-server.svc.cluster.local:10043"
         verify_ssl: true
         jwt: "${ONLYOFFICE_DOCUMENT_SERVER_SECRET}"
         jwt_header: Authorization
