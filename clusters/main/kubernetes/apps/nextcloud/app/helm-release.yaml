@@ -149,19 +149,19 @@ spec:
           - nodiratime
           - nolock
 
-    cnpg:
-      main:
-        cluster:
-          singleNode: true
-        mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
-        backups:
-          enabled: true
-          credentials: ${S3_NAME}
-          retentionPolicy: "45d"
-          # revision: "2"
-        recovery:
-          credentials: ${S3_NAME}
-          # revision: "1"
+    # cnpg:
+    #   main:
+    #     cluster:
+    #       singleNode: true
+    #     mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
+    #     backups:
+    #       enabled: true
+    #       credentials: ${S3_NAME}
+    #       retentionPolicy: "45d"
+    #       # revision: "2"
+    #     recovery:
+    #       credentials: ${S3_NAME}
+    #       # revision: "1"
 
     nextcloud:
       # Initial Credentials
