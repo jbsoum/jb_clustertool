@@ -35,7 +35,7 @@ resources:
   # - metube/ks.yaml
   # - navidrome/ks.yaml
   # - netbootxyz/ks.yaml
-  # - nextcloud/ks.yaml
+  - nextcloud/ks.yaml
   # - nitter/ks.yaml
   # - odoo/ks.yaml
   - onlyoffice-document-server/ks.yaml
