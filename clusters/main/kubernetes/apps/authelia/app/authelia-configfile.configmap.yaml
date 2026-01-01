@@ -8,13 +8,14 @@ data:
     server: 
       address: 0.0.0.0:9091
       endpoints: 
-        auth-request:
-          implementation: 'AuthRequest'
-          authn_strategies: 
-            - name: 'HeaderAuthorization'
-              schemes: 
-                - 'Basic'
-            - name: 'CookieSession'
+        authz:
+          auth-request:
+            implementation: 'AuthRequest'
+            authn_strategies: 
+              - name: 'HeaderAuthorization'
+                schemes: 
+                  - 'Basic'
+              - name: 'CookieSession'
     session:
       cookies:
         - domain: ${DOMAIN_0}
