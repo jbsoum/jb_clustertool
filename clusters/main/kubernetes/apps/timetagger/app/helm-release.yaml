@@ -69,9 +69,6 @@ spec:
               # Can be left default in most cases
               responseHeaders:
                 - Remote-User
-                - Remote-Groups
-                - Remote-Name
-                - Remote-Email
             # annotations:
             #   nginx.ingress.kubernetes.io/auth-snippet: |
             #     proxy_set_header Authorization $http_authorization;
