@@ -8,14 +8,13 @@ data:
     server: 
       address: 0.0.0.0:9091
       endpoints: 
-        authz:
-          forward-auth:
-            implementation: 'ForwardAuth'
-            authn_strategies: 
-              - name: 'HeaderAuthorization'
-                schemes: 
-                  - 'Basic'
-              - name: 'CookieSession'
+        auth-request:
+          implementation: 'AuthRequest'
+          authn_strategies: 
+            - name: 'HeaderAuthorization'
+              schemes: 
+                - 'Basic'
+            - name: 'CookieSession'
     session:
       cookies:
         - domain: ${DOMAIN_0}
