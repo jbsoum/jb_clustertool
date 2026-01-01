@@ -106,4 +106,5 @@ spec:
                 TIMETAGGER_PROXY_AUTH_TRUSTED: ${NGINX_EXTERNAL_IP},${NGINX_INTERNAL_IP}
                 TIMETAGGER_PROXY_AUTH_HEADER: Remote-User
                 TIMETAGGER_APP_REDIRECT: true
+                TIMETAGGER_LOG_LEVEL: warning
                 # TIMETAGGER_CREDENTIALS: admin:$$2a$$08$$ECbq6bl4SgAUyKeDoZfcvengn6HHJtwU3wrG7lNl9NtlCnFXjpaSe,jb:$$2a$$08$$p6slLd3VGduWt.TImgHGrOVn9pqoa9POSXdRXlfvuiSQsy2l3zH6u,ka:$$2a$$08$$G7dv4gPcnfczUfgj0kNn3e00/sjde2iWOONGIzUgKaNOsesCoXPju
