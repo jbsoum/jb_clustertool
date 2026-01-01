@@ -6,6 +6,7 @@ metadata:
 data:
   configuration.yaml: |
     server: 
+      address: 0.0.0.0:9091
       endpoints: 
         authz:
           forward-auth:
