@@ -67,11 +67,19 @@ spec:
               internalHost: "authelia.authelia.svc.cluster.local:9091"
               externalHost: "${SUBDOMAIN_AUTHELIA}.${DOMAIN_0}"
               # Can be left default in most cases
-              responseHeaders:
-                - Remote-User
+              responseHeaders: []
+                # - Remote-User
             # annotations:
             #   nginx.ingress.kubernetes.io/auth-snippet: |
             #     proxy_set_header Authorization $http_authorization;
+            annotations:
+              nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+              nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+              nginx.ingress.kubernetes.io/auth-method: "GET"
+              nginx.ingress.kubernetes.io/auth-url: "http://authelia.authelia.svc.cluster.local:9091/api/verify"
+              nginx.ingress.kubernetes.io/auth-signin: "https://auth.${DOMAIN_0}?rm=$request_method"
+              nginx.ingress.kubernetes.io/auth-response-headers: "Remote-User,Remote-Name,Remote-Groups,Remote-Email"
         hosts:
           - host: timetagger.${DOMAIN_0}
 
