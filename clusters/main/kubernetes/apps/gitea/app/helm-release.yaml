@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: gitea
-      version: 22.27.15
+      version: 22.27.16
       sourceRef:
         kind: HelmRepository
         name: truecharts
