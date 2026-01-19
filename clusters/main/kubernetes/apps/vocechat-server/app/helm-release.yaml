@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: vocechat-server
-      version: 6.14.17
+      version: 6.14.19
       sourceRef:
         kind: HelmRepository
         name: truecharts
