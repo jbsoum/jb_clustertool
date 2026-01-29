@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: mongodb
-      version: 16.14.18
+      version: 16.14.19
       sourceRef:
         kind: HelmRepository
         name: truecharts
