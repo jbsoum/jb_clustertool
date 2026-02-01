@@ -58,6 +58,7 @@ data:
     access_control:
       default_policy: deny
       rules:
+        # --- bypass apis and other sub-paths ---
         - domain:
             - "*.${DOMAIN_0}"
           domain_regex: []
@@ -78,6 +79,7 @@ data:
             - ^/wl.*$
             - ^/emby.*$
           subject: []
+        # --- vaultwarden admin portal behind auth ---
         - domain:
             - ${SUBDOMAIN_VAULTWARDEN}.${DOMAIN_0}
           domain_regex: []
@@ -85,7 +87,9 @@ data:
           policy: one_factor
           resources:
             - ^*/admin.*$
-          subject: []
+          subject:
+            - "group:${LLDAP_ADMIN_GROUP}"
+        # --- vaultwarden main portal bypassed ---
         - domain:
             - ${SUBDOMAIN_VAULTWARDEN}.${DOMAIN_0}
           domain_regex: []
@@ -93,24 +97,19 @@ data:
           policy: bypass
           resources: []
           subject: []
+        # --- domains with their own auth portals ---
         - domain:
             - ${SUBDOMAIN_VPN}.${DOMAIN_0}
+            - ${SUBDOMAIN_GITEA}.${DOMAIN_0}
+            - ${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}
             - ${SUBDOMAIN_EMBY}.${DOMAIN_0}
             - ${SUBDOMAIN_JELLYFIN}.${DOMAIN_0}
-            - ${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}
           domain_regex: []
           networks: []
           policy: bypass
           resources: []
           subject: []
-        # - domain: 
-        #     - ${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}
-        #   domain_regex: []
-        #   networks: []
-        #   policy: one_factor
-        #   resources:
-        #     - ^/collabora/browser/dist/admin.*$
-        #   subject: []
+        # --- media domains ---
         - domain:
             - ${SUBDOMAIN_EMULATOR_JS}.${DOMAIN_0}
             - ${SUBDOMAIN_NAVIDROME}.${DOMAIN_0}
@@ -124,9 +123,8 @@ data:
           subject:
             - "group:${LLDAP_MEDIA_GROUP}"
             - "group:${LLDAP_ADMIN_GROUP}"
+        # --- dev domains ---
         - domain:
-            - ${SUBDOMAIN_GITEA}.${DOMAIN_0}
-            - ${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}
             - ${SUBDOMAIN_VOICEAI}.${DOMAIN_0}
           domain_regex: []
           networks: []
@@ -137,6 +135,7 @@ data:
             - "group:${LLDAP_AC_GROUP}"
             - "group:${LLDAP_NEWS_GROUP}"
             - "group:${LLDAP_ADMIN_GROUP}"
+        # --- admin-only catch-all ---
         - domain:
             - "*.${DOMAIN_0}"
             - ${DOMAIN_0}
