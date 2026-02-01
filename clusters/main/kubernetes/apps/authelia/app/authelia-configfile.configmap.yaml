@@ -100,7 +100,6 @@ data:
         # --- domains with their own auth portals ---
         - domain:
             - ${SUBDOMAIN_VPN}.${DOMAIN_0}
-            - ${SUBDOMAIN_GITEA}.${DOMAIN_0}
             - ${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}
             - ${SUBDOMAIN_EMBY}.${DOMAIN_0}
             - ${SUBDOMAIN_JELLYFIN}.${DOMAIN_0}
@@ -126,6 +125,7 @@ data:
         # --- dev domains ---
         - domain:
             - ${SUBDOMAIN_VOICEAI}.${DOMAIN_0}
+            - ${SUBDOMAIN_GITEA}.${DOMAIN_0}
           domain_regex: []
           networks: []
           policy: one_factor
