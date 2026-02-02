@@ -89,16 +89,9 @@ data:
             - ^*/admin.*$
           subject:
             - "group:${LLDAP_ADMIN_GROUP}"
-        # --- vaultwarden main portal bypassed ---
-        - domain:
-            - ${SUBDOMAIN_VAULTWARDEN}.${DOMAIN_0}
-          domain_regex: []
-          networks: []
-          policy: bypass
-          resources: []
-          subject: []
         # --- domains with their own auth portals ---
         - domain:
+            - ${SUBDOMAIN_VAULTWARDEN}.${DOMAIN_0}
             - ${SUBDOMAIN_VPN}.${DOMAIN_0}
             - ${SUBDOMAIN_ONLYOFFICE_DOCUMENT_SERVER}.${DOMAIN_0}
             - ${SUBDOMAIN_NEXTCLOUD}.${DOMAIN_0}
