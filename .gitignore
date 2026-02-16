@@ -11,3 +11,5 @@ sopssecret*
 mounts/
 *clusterenv_sanitized.yaml
 removed-charts2
+^forgetool*
+forgetool
