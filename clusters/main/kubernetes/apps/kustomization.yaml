@@ -49,7 +49,7 @@ resources:
   # - renovate/ks.yaml
   # # - scrutiny/ks.yaml
   # # - searxng/ks.yaml
-  - sonarr/ks.yaml
+  # - sonarr/ks.yaml
   - timetagger/ks.yaml
   - truenas-gui/ks.yaml
   # - vaultwarden/ks.yaml
@@ -60,3 +60,4 @@ resources:
   - voice-ai-gui/ks.yaml
   - homarr/ks.yaml
   - wg-easy/ks.yaml
+  # - timetracker/ks.yaml
