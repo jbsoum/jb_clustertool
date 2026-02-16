@@ -1,24 +1,46 @@
 {
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
-  "name": "TrueCharts",
-  "image": "oci.trueforge.org/tccr/devcontainer:v4.0.1@sha256:57842f321e353c30c30dab45403926be65715b524253041f055b0f7008b14a59",
-  "postCreateCommand": {
-    "setup": "bash ${containerWorkspaceFolder}/.devcontainer/postCreateCommand.sh"
-  },
-  "postStartCommand": {
-    "git": "git config --global --add safe.directory ${containerWorkspaceFolder}"
-  },
-  "postAttachCommand": "fish",
+  "name": "JbClustertool",
+  "image": "oci.trueforge.org/containerforge/devcontainer:3.0.2@sha256:f496d62c3d275028696db5a0c68d909c9aa343f9b0199a95430b2ad2e06f99b4",
+  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+  "remoteUser": "root",
+  // "containerUser": "root",
+  // "updateRemoteUserUID": true,
+  // "postCreateCommand": {
+  //   "fixVolumePerms": "sudo chown -R $(whoami):$(whoami) /root/.ssh"
+  // },
+  // "updateRemoteUserUID": true,
+  "mounts": [
+    {
+      "source": "${localEnv:HOME}/.ssh",
+      "target": "/root/.ssh",
+      "type": "bind"
+    }
+  ],
   "customizations": {
     "vscode": {
-      "settings": {
-        "terminal.integrated.inheritEnv": true
-      }
+      "extensions": [
+        "albert.TabOut",
+        "mikestead.dotenv",
+        "mitchdenny.ecdc",
+        "signageos.signageos-vscode-sops",
+        "EditorConfig.editorconfig",
+        "PKief.material-icon-theme",
+        "usernamehw.errorlens",
+        "redhat.vscode-yaml",
+        "weaveworks.vscode-gitops-tools",
+        "Tim-Koehler.helm-intellisense",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "sandipchitale.vscode-kubernetes-helm-extras",
+        "VadzimNestsiarenka.helm-template-preview-and-more",
+        "karyan40024.helmix",
+        "eamodio.gitlens",
+        "streetsidesoftware.code-spell-checker",
+        "Codium.codium",
+        "mhutchie.git-graph",
+        "yzhang.markdown-all-in-one",
+        "DavidAnson.vscode-markdownlint"
+      ]
     }
-  },
-  "mounts": [
-    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
-  ],
-  "updateRemoteUserUID": true,
-  "runArgs": ["--privileged"]
+  }
 }
