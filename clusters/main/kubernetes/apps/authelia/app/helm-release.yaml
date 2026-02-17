@@ -87,6 +87,11 @@ spec:
         subPath: configuration.yaml
         readOnly: true
 
+      notifications:
+        enabled: true
+        type: emptyDir
+        mountPath: /notifications
+
     secret:
       authelia-configfile:
         enabled: false
