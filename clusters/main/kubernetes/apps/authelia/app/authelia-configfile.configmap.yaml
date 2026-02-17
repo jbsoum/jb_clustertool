@@ -28,15 +28,17 @@ data:
         user: uid=${AUTHELIA_LLDAP_GROUP_NAME},ou=people,DC=${DC_SUBDOMAIN},DC=${DC_DOMAIN}
         password: ${AUTHELIA_LLDAP_PASSWORD}
     notifier:
-      smtp:
-        address: submission://protonmail-bridge.protonmail-bridge.svc.cluster.local:${PROTONMAIL_PORT_SMTP}
-        username: ${PROTONMAIL_USER}
-        password: ${PROTONMAIL_PASSWORD}
-        sender: MS-Authelia <${PROTONMAIL_USER}>
-        tls:
-          server_name: protonmail-bridge.protonmail-bridge.svc.cluster.local:${PROTONMAIL_PORT_SMTP}
-          minimum_version: TLS1.2
-          skip_verify: true
+      filesystem: 
+        filename: '/notifications/notification.txt'
+      # smtp:
+      #   address: submission://protonmail-bridge.protonmail-bridge.svc.cluster.local:${PROTONMAIL_PORT_SMTP}
+      #   username: ${PROTONMAIL_USER}
+      #   password: ${PROTONMAIL_PASSWORD}
+      #   sender: MS-Authelia <${PROTONMAIL_USER}>
+      #   tls:
+      #     server_name: protonmail-bridge.protonmail-bridge.svc.cluster.local:${PROTONMAIL_PORT_SMTP}
+      #     minimum_version: TLS1.2
+      #     skip_verify: true
     password_policy:
       standard:
         enabled: false
