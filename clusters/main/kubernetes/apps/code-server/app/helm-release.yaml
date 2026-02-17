@@ -160,7 +160,7 @@ spec:
                       echo "nvm_version: $nvm_version"  >> /proc/1/fd/1 ;
 
 
-                      if [ "$node_enabled" == "true" ]; then
+                      # if [ "$node_enabled" == "true" ]; then
                         # export BASH_ENV=/root/.bash_env
                         # touch $BASH_ENV
                         # echo '. "${BASH_ENV}"' >> ~/.bashrc
@@ -218,4 +218,4 @@ spec:
                         #   echo "Setting Node failed! Exiting... :("  >> /proc/1/fd/1 ;
                         #   exit 1 ;
                         # fi
-                      fi;
+                      # fi;
