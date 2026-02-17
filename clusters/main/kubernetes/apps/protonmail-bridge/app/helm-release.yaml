@@ -62,34 +62,20 @@ spec:
 
     service:
       imap:
-        enabled: true
+        type: LoadBalancer
         loadBalancerIP: ${IP_PROTONMAIL}
         ports:
           imap:
-            enabled: true
             port: ${PROTONMAIL_PORT_IMAP}
-            protcol: tcp
-        type: LoadBalancer
         integrations:
           metallb:
             enabled: true
-
-      main:
-        enabled: false
-        ports:
-          main:
-            enabled: false
       smtp:
-        enabled: true
+        type: LoadBalancer
         loadBalancerIP: ${IP_PROTONMAIL}
         ports:
           smtp:
-            enabled: true
             port: ${PROTONMAIL_PORT_SMTP}
-            primary: true
-            protocol: tcp
-        primary: true
-        type: LoadBalancer
         integrations:
           metallb:
             enabled: true
