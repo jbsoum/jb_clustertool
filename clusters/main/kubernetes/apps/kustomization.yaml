@@ -18,19 +18,19 @@ resources:
   - emby/ks.yaml
   # - emulatorjs/ks.yaml
   - firefox-syncserver/ks.yaml
-  - gitea/ks.yaml
+  # - gitea/ks.yaml
   # - homarr-v1/ks.yaml
   - homepage/ks.yaml
   - icloudpd/ks.yaml
   # - invidious/ks.yaml
-  - jellyseerr/ks.yaml
+  # - jellyseerr/ks.yaml
   - jellyfin/ks.yaml
-  - joplin-server/ks.yaml
+  # - joplin-server/ks.yaml
   # - kopia/ks.yaml
   - kubernetes-dashboard/ks.yaml
   # - laravel/ks.yaml
   # - libreddit/ks.yaml
-  - lidarr/ks.yaml
+  # - lidarr/ks.yaml
   - lldap/ks.yaml
   # - metube/ks.yaml
   # - navidrome/ks.yaml
@@ -44,7 +44,7 @@ resources:
   - prowlarr/ks.yaml
   # - proxmox-backup-server/ks.yaml
   - qbittorrent/ks.yaml
-  - radarr/ks.yaml
+  # - radarr/ks.yaml
   # - readarr/ks.yaml
   # - renovate/ks.yaml
   # # - scrutiny/ks.yaml
@@ -58,6 +58,6 @@ resources:
   # # - whoogle/ks.yaml
   # -  proxmox-backup-server/ks.yaml
   - voice-ai-gui/ks.yaml
-  - homarr/ks.yaml
+  # - homarr/ks.yaml
   - wg-easy/ks.yaml
   # - timetracker/ks.yaml
