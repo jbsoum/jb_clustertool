@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
   "name": "JbClustertool",
-  "image": "oci.trueforge.org/containerforge/devcontainer:3.0.2@sha256:8bbe93c53de08af0d676d3459a41195d08c35766732bc25ba053aea006cdc4c8",
+  "image": "oci.trueforge.org/containerforge/devcontainer:3.0.2@sha256:6e7cb1201e521d86dd443f72c71d13144c7493a1407ceee3ef78d6921b829508",
   "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
   "remoteUser": "root",
   // "containerUser": "root",
