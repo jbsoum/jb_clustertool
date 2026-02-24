@@ -105,7 +105,7 @@ spec:
               env:
                 ND_EXTAUTH_TRUSTEDSOURCES: 0.0.0.0/0
                 ND_EXTAUTH_USERHEADER: Remote-User
-                ND_COVERARTPRIORITY: embedded,cover.*,folder.*,front.*,external
+                ND_COVERARTPRIORITY: cover.*,folder.*,front.*,embedded,external
                 # ND_ENABLEUSEREDITING: false
                 ND_SCANNER_SCHEDULE: "@every 15m"
                 ND_LOGLEVEL: info
