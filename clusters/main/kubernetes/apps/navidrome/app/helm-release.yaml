@@ -87,8 +87,8 @@ spec:
         enabled: true
         type: nfs
         server: ${IP_TRUENAS}
-        path: ${NFS_DATA_MEDIA_MUSIC}
-        # mountPath: /media
+        path: ${NFS_DATA_MEDIA}
+        mountPath: /media
         mountOptions:
         - nfsvers=4
         - tcp
@@ -102,6 +102,14 @@ spec:
         podSpec:
           containers:
             main:
+              lifecycle:
+                postStart:
+                  type: exec
+                  command:
+                    - /bin/sh
+                    - -c
+                    - |
+                      ln -s /media/music /music
               env:
                 ND_EXTAUTH_TRUSTEDSOURCES: 0.0.0.0/0
                 ND_EXTAUTH_USERHEADER: Remote-User
