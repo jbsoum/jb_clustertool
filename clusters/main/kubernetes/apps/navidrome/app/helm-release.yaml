@@ -106,7 +106,7 @@ spec:
                 ND_EXTAUTH_TRUSTEDSOURCES: 0.0.0.0/0
                 ND_EXTAUTH_USERHEADER: Remote-User
                 ND_COVERARTPRIORITY: cover.*,folder.*,front.*,embedded,external
-                # ND_ENABLEUSEREDITING: false
+                ND_ENABLEUSEREDITING: true
                 ND_SCANNER_SCHEDULE: "@every 15m"
                 ND_LOGLEVEL: info
                 ND_SESSIONTIMEOUT: 24h
