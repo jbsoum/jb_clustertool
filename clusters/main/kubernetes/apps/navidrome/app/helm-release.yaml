@@ -109,7 +109,7 @@ spec:
                     - /bin/sh
                     - -c
                     - |
-                      ln -s /media/music /music
+                      ln -s /music /media/music
               env:
                 ND_EXTAUTH_TRUSTEDSOURCES: 0.0.0.0/0
                 ND_EXTAUTH_USERHEADER: Remote-User
