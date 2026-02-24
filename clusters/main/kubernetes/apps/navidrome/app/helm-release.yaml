@@ -102,14 +102,15 @@ spec:
         podSpec:
           containers:
             main:
-              lifecycle:
-                postStart:
-                  type: exec
-                  command:
-                    - /bin/sh
-                    - -c
-                    - ln -s /media/music /music
+              # lifecycle:
+              #   postStart:
+              #     type: exec
+              #     command:
+              #       - /bin/sh
+              #       - -c
+              #       - ln -s /media/music /music
               env:
+                ND_MUSICFOLDER: /media/music
                 ND_EXTAUTH_TRUSTEDSOURCES: 0.0.0.0/0
                 ND_EXTAUTH_USERHEADER: Remote-User
                 ND_COVERARTPRIORITY: cover.*,folder.*,front.*,embedded,external
