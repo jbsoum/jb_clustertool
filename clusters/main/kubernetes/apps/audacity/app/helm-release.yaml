@@ -56,6 +56,19 @@ spec:
                 hosts:
                 - host: ${SUBDOMAIN_AUDACITY}.${DOMAIN_0}
 
+        service:
+            main:
+                ports:
+                    main:
+                        port: 10033
+                        targetPort: 3001
+            http:
+                ports:
+                    http:
+                        port: 10032
+                        protocol: http
+                        targetPort: 3000
+
         persistence:
             # config:
             #     volsync:
