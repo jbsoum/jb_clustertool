@@ -11,9 +11,14 @@
   // },
   // "updateRemoteUserUID": true,
   "mounts": [
+    // {
+    //   "source": "${localEnv:HOME}/.ssh",
+    //   "target": "/root/.ssh",
+    //   "type": "bind"
+    // }
     {
-      "source": "${localEnv:HOME}/.ssh",
-      "target": "/root/.ssh",
+      "source": ".ssh-config",
+      "target": "/root/.ssh/config",
       "type": "bind"
     }
   ],

@@ -1,3 +1,4 @@
+.ssh-config
 talconfig.json
 clusterconfig
 patches/all.yaml

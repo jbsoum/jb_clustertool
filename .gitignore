@@ -13,3 +13,4 @@ mounts/
 removed-charts2
 ^forgetool*
 forgetool
+/.ssh-config
