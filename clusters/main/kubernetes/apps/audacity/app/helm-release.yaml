@@ -63,6 +63,7 @@ spec:
                         port: 10033
                         targetPort: 3001
             http:
+                enabled: true
                 ports:
                     http:
                         port: 10032
