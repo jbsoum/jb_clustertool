@@ -66,6 +66,7 @@ spec:
                 enabled: true
                 ports:
                     http:
+                        enabled: true
                         port: 10032
                         protocol: http
                         targetPort: 3000
