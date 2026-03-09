@@ -14,6 +14,8 @@ spec:
                 name: truecharts
                 namespace: flux-system
     values:
+        image:
+            tag: 3.7.7@sha256:c43acf99bfe78ea2913f3df8503a11bcbcb90e6e203e2da027b37305dcf10f81
 
         global:
             stopAll: false
