@@ -36,14 +36,14 @@ spec:
       # Set to false to pick another CSI as default
       defaultClass: true
       # Increase to 3 for a multi-node cluster
-      defaultClassReplicaCount: "1"
+      defaultClassReplicaCount: 1
     csi:
-      attacherReplicaCount: "1"
-      provisionerReplicaCount: "1"
-      resizerReplicaCount: "1"
-      snapshotterReplicaCount: "1"
+      attacherReplicaCount: 1
+      provisionerReplicaCount: 1
+      resizerReplicaCount: 1
+      snapshotterReplicaCount: 1
     longhornUI:
-      replicas: "1"
+      replicas: 1
 
     ## Temp fix for longhorn/longhorn#12573
     image:
