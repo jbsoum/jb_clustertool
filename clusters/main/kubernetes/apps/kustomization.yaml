@@ -15,12 +15,12 @@ resources:
   # - dev-jbsoum-org/ks.yaml
   # - docker/ks.yaml
   # - docuseal/ks.yaml
-  # - emby/ks.yaml
+  - emby/ks.yaml
   # - emulatorjs/ks.yaml
-  # - firefox-syncserver/ks.yaml
+  - firefox-syncserver/ks.yaml
   - gitea/ks.yaml
   # - homarr-v1/ks.yaml
-  # - homepage/ks.yaml
+  - homepage/ks.yaml
   - icloudpd/ks.yaml
   # - invidious/ks.yaml
   - jellyseerr/ks.yaml
@@ -41,7 +41,7 @@ resources:
   - onlyoffice-document-server/ks.yaml
   # - pgadmin/ks.yaml
   - protonmail-bridge/ks.yaml
-  # - prowlarr/ks.yaml
+  - prowlarr/ks.yaml
   # - proxmox-backup-server/ks.yaml
   - qbittorrent/ks.yaml
   - radarr/ks.yaml
