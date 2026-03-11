@@ -17,7 +17,7 @@ resources:
   # - docuseal/ks.yaml
   - emby/ks.yaml
   # - emulatorjs/ks.yaml
-  - firefox-syncserver/ks.yaml
+  # - firefox-syncserver/ks.yaml
   - gitea/ks.yaml
   # - homarr-v1/ks.yaml
   - homepage/ks.yaml
