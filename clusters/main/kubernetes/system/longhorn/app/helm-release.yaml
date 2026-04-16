@@ -30,7 +30,7 @@ spec:
       # Overprovisioning might be needed when using volsync
       storageOverProvisioningPercentage: "100000"
       storageReservedPercentageForDefaultDisk: "10"
-      guaranteedInstanceManagerCPU: "5"
+      # guaranteedInstanceManagerCPU: "5"
       # v2DataEngine: true
     persistence:
       # Set to false to pick another CSI as default
@@ -46,12 +46,12 @@ spec:
       replicas: 1
 
     ## Temp fix for longhorn/longhorn#12573
-    image:
-      longhorn:
-        instanceManager:
-          # -- Registry for the Longhorn Instance Manager image.
-          registry: ""
-          # -- Repository for the Longhorn Instance Manager image.
-          repository: derekbit/longhorn-instance-manager
-          # -- Tag for the Longhorn Instance Manager image.
-          tag: v1.11.0-fix-leak@sha256:1ba4526862acce68253f848ae33ce590b8ed1443119519f49c009ae66a74902b
+    # image:
+    #   longhorn:
+    #     instanceManager:
+    #       # -- Registry for the Longhorn Instance Manager image.
+    #       registry: ""
+    #       # -- Repository for the Longhorn Instance Manager image.
+    #       repository: derekbit/longhorn-instance-manager
+    #       # -- Tag for the Longhorn Instance Manager image.
+    #       tag: v1.11.0-fix-leak@sha256:1ba4526862acce68253f848ae33ce590b8ed1443119519f49c009ae66a74902b
