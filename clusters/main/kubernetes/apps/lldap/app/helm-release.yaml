@@ -96,7 +96,7 @@ spec:
         #       # revision: "2"
         recovery:
           credentials: ${S3_NAME}
-          revision: "1"
+          # revision: "1"
 
     service:
       ldap:
