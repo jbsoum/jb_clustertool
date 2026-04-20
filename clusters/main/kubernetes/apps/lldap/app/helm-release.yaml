@@ -73,16 +73,21 @@ spec:
 
     persistence:
       data:
-        volsync:
-          - name: config
-            type: restic
-            credentials: ${S3_NAME}
-            dest: #VolSync Destination (Restore)
-              enabled: true
-            src: #VolSync Source (Backup)
-              enabled: true
-              trigger:
-                schedule: 40 0 * * *
+        enabled: true
+        type: nfs
+        server: ${IP_TRUENAS}
+        path: "${NFS_DATA_BACKUP}/lldap/data"
+        mountPath: "/data"
+        # volsync:
+        #   - name: config
+        #     type: restic
+        #     credentials: ${S3_NAME}
+        #     dest: #VolSync Destination (Restore)
+        #       enabled: true
+        #     src: #VolSync Source (Backup)
+        #       enabled: true
+        #       trigger:
+        #         schedule: 40 0 * * *
 
     cnpg:
       main:
