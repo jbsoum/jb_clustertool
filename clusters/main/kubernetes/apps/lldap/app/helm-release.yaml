@@ -76,7 +76,7 @@ spec:
         enabled: true
         type: nfs
         server: ${IP_TRUENAS}
-        path: "${NFS_DATA_BACKUP}/lldap/data"
+        path: "${NFS_DATA_LLDAP}/data"
         mountPath: "/data"
         # volsync:
         #   - name: config
