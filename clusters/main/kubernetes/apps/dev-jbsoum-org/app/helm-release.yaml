@@ -37,7 +37,7 @@ spec:
     image:
       repository: docker.io/bitnami/postgresql
       pullPolicy: IfNotPresent
-      tag: latest@sha256:9b62e6057d781853916a712ad2591a607de4529160e07c2eaf58d75ef6c45b9d
+      tag: latest@sha256:112a9c10f136a2884f44ade1a6a6908066d2baf1688d902623366c4731d04feb
 
     TZ: ${TIMEZONE}
     credentials:
