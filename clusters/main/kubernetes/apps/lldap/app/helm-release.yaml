@@ -70,7 +70,18 @@ spec:
               responseHeaders: []
         hosts:
           - host: ${SUBDOMAIN_LLDAP}.${DOMAIN_0}
-
+    service:
+      main:
+        enabled: true
+        loadBalancerIP: ${IP_LLDAP}
+        ports:
+          main:
+            port: ${PORT_LLDAP}
+        type: LoadBalancer
+        integrations:
+          metallb:
+            enabled: true
+      
     persistence:
       data:
         enabled: true
