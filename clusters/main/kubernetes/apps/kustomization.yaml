@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   # - audacity/ks.yaml
   - adguard-gui/ks.yaml
-  - authelia/ks.yaml
+  # - authelia/ks.yaml
   # - backuppc/ks.yaml
   # - beets/ks.yaml
   # - cloudflareddns/ks.yaml
