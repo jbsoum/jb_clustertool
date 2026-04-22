@@ -71,6 +71,8 @@ spec:
         hosts:
           - host: ${SUBDOMAIN_LLDAP}.${DOMAIN_0}
     service:
+      ldap:
+        enabled: true
       main:
         enabled: true
         loadBalancerIP: ${IP_LLDAP}
@@ -114,11 +116,11 @@ spec:
     #       credentials: ${S3_NAME}
     #       revision: "1"
 
-    service:
-      ldap:
-        enabled: true
-      main:
-        enabled: true
+    # service:
+    #   ldap:
+    #     enabled: true
+    #   main:
+    #     enabled: true
 
     workload:
       main:
