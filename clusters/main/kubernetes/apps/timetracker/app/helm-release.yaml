@@ -1,0 +1,130 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+
+metadata:
+  name: kimai
+  namespace: kimai
+
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 15.29.54
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  #timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    image:
+      repository: ghcr.io/drytrix/timetracker
+      tag: latest
+
+    global:
+      stopAll: false
+
+    TZ: ${TIMEZONE}
+
+    credentials:
+      backblaze:
+        accessKey: ${S3_ACCESS_KEY}
+        bucket: ${S3_BUCKET}
+        encrKey: ${S3_ENCRYPTION_KEY}
+        name: ${S3_NAME}
+        path: ""
+        secretKey: ${S3_SECRET_KEY}
+        type: s3
+        url: ${S3_URL}
+
+    service:
+      vpn:
+        loadBalancerIP: ${IP_VPN}
+        type: LoadBalancer
+        integrations:
+          metallb:
+            enabled: true
+        ports:
+          vpn:
+            port: 61820
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        integrations:
+          homepage:
+            enabled: true
+            group: Utilities
+            widget:
+              enabled: false
+          certManager:
+            enabled: true
+            certificateIssuer: ${DNS_NAME}
+          nginx:
+            enabled: true
+            auth:
+              type: "authelia"
+              internalHost: "authelia.authelia.svc.cluster.local:9091"
+              externalHost: "${SUBDOMAIN_AUTHELIA}.${DOMAIN_0}"
+              # Can be left default in most cases
+              responseHeaders: []
+        hosts:
+          - host: kimai.${DOMAIN_0}
+
+    persistence:
+      data:
+        enabled: true
+        mountPath: /opt/kimai/var/data/
+        volsync:
+          - name: data
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *
+
+      plugins:
+        enabled: true
+        mountPath: /opt/kimai/var/plugins/
+        volsync:
+          - name: plugins
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *
+
+    mariadb:
+      enabled: true
+      mariadbUsername: kimai
+      mariadbPassword: kimai
+      mariadbDatabase: kimai
+
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                DATABASE_URL: mysql://${.Values.mariadb.mariadbUsername}:${DB_PASSWORD}@mariadb:3306/${DB_NAME}?charset=utf8mb4&serverVersion=mariadb-11.0.0
