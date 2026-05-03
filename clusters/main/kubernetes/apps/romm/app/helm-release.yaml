@@ -1,0 +1,167 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+
+metadata:
+  name: romm
+  namespace: romm
+
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: romm
+      version: 17.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  #timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    global:
+      stopAll: false
+
+    TZ: ${TIMEZONE}
+
+    credentials:
+      backblaze:
+        accessKey: ${S3_ACCESS_KEY}
+        bucket: ${S3_BUCKET}
+        encrKey: ${S3_ENCRYPTION_KEY}
+        name: ${S3_NAME}
+        path: ""
+        secretKey: ${S3_SECRET_KEY}
+        type: s3
+        url: ${S3_URL}
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        integrations:
+          homepage:
+            enabled: true
+            group: Utilities
+            widget:
+              enabled: false
+          certManager:
+            enabled: true
+            certificateIssuer: ${DNS_NAME}
+          nginx:
+            enabled: true
+            auth:
+              type: "authelia"
+              internalHost: "authelia.authelia.svc.cluster.local:9091"
+              externalHost: "${SUBDOMAIN_AUTHELIA}.${DOMAIN_0}"
+              # Can be left default in most cases
+              responseHeaders: []
+        hosts:
+          - host: romm.${DOMAIN_0}
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                # IGDB client id and secret (not required but recommended to set)
+                # IGDB_CLIENT_ID: ""
+                # IGDB_CLIENT_SECRET: ""
+ 
+                # optional api: retroachievements?
+                RETROACHIEVEMENTS_API_KEY: ${RETROACHIEVEMENTS_API_KEY}
+
+                # optional api
+                # STEAMGRIDDB_API_KEY: ""
+
+                # paid API only (optional)
+                # MOBYGAMES_API_KEY: ""
+
+                # Disables playing in browser with EmulatorJS (builtin)
+                # DISABLE_EMULATOR_JS: false
+
+                # Disables playing flash games with RuffleRS (builtin)
+                # DISABLE_RUFFLE_RS: false
+
+                # Disables CSRF protection (not recommended)
+                # DISABLE_CSRF_PROTECTION: false
+
+                # Disable auth on download endpoint (WebRcade, Tinfoil)
+                # DISABLE_DOWNLOAD_ENDPOINT_AUTH: false
+
+                # Timeout for the background scan/rescan tasks (in seconds)
+                # SCAN_TIMEOUT: 14400
+
+                # Enable rescanning of library when filesystem changes
+                # ENABLE_RESCAN_ON_FILESYSTEM_CHANGE: false
+
+                # Delay in minutes before rescanning library when filesystem changes
+                # RESCAN_ON_FILESYSTEM_CHANGE_DELAY: 5
+
+                # Cron expression for scheduled rescanning
+                # SCHEDULED_RESCAN_CRON: "0 3 * * *"
+
+                # Enable scheduled updating of Switch TitleDB index
+                # ENABLE_SCHEDULED_UPDATE_SWITCH_TITLEDB: false
+
+                # Cron expression for scheduled updating of Switch TitleDB
+                # SCHEDULED_UPDATE_SWITCH_TITLEDB_CRON: "0 4 * * *"
+
+                # Enable scheduled updating of MAME XML index
+                # ENABLE_SCHEDULED_UPDATE_MAME_XML: false
+
+                # Cron expression for scheduled updating of MAME XML
+                # SCHEDULED_UPDATE_MAME_XML_CRON: "0 5 * * *"
+
+    persistence:
+      library:
+        enabled: true
+        mountPath: /romm/library
+        type: nfs
+        server: ${IP_TRUENAS}
+        path: ${NFS_ROMS}
+      resources:
+        volsync:
+          - name: resources
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *
+      assets:
+        volsync:
+          - name: assets
+            type: restic
+            credentials: ${S3_NAME}
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+              trigger:
+                schedule: 40 0 * * *

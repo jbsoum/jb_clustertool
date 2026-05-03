@@ -61,3 +61,4 @@ resources:
   - homarr/ks.yaml
   - wg-easy/ks.yaml
   # - timetracker/ks.yaml
+  - romm/ks.yaml
