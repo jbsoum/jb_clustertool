@@ -40,12 +40,8 @@ spec:
     #   enabled: false
 
     resources:
-      requests:
-        cpu: 2000m
-        memory: 8Gi
       limits:
-        cpu: 4000m
-        memory: 12Gi
+        memory: 8Gi
 
     credentials:
       backblaze:
