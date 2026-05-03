@@ -19,7 +19,7 @@ resources:
   # - emulatorjs/ks.yaml
   # - firefox-syncserver/ks.yaml
   - gitea/ks.yaml
-  # - homarr-v1/ks.yaml
+  - homarr/ks.yaml
   - homepage/ks.yaml
   - icloudpd/ks.yaml
   # - invidious/ks.yaml
