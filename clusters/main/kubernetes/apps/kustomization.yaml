@@ -63,4 +63,3 @@ resources:
   - wg-easy/ks.yaml
   # - timetracker/ks.yaml
   - romm/ks.yaml
-  - filestash/ks.yaml
