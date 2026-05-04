@@ -40,6 +40,8 @@ spec:
     #   enabled: false
 
     resources:
+      requests:
+        memory: 8Gi
       limits:
         memory: 8Gi
 
