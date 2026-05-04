@@ -18,6 +18,7 @@ resources:
   - emby/ks.yaml
   # - emulatorjs/ks.yaml
   # - firefox-syncserver/ks.yaml
+  - filestash/ks.yaml
   - gitea/ks.yaml
   - homarr/ks.yaml
   - homepage/ks.yaml
@@ -62,3 +63,4 @@ resources:
   - wg-easy/ks.yaml
   # - timetracker/ks.yaml
   - romm/ks.yaml
+  - filestash/ks.yaml
