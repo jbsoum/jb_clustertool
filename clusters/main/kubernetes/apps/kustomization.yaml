@@ -61,6 +61,6 @@ resources:
   - voice-ai-gui/ks.yaml
   # - homarr/ks.yaml
   - wg-easy/ks.yaml
-  - websurfx/ks.yaml
+  # - websurfx/ks.yaml
   # - timetracker/ks.yaml
   - romm/ks.yaml
