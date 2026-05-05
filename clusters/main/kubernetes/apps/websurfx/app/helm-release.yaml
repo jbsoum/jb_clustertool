@@ -125,12 +125,12 @@ spec:
                       if [ -f "/etc/xdg/websurfx/allowlist.txt" ]; then
                         echo "allowlist.txt exists already, no need to create..."
                       else
-                        touch "/etc/xdg/websurfx/allowlist.txt"
+                        touch /etc/xdg/websurfx/allowlist.txt
                       fi
 
                       if [ -f "/etc/xdg/websurfx/blocklist.txt" ]; then
                         echo "blocklist.txt exists already, no need to create..."
                       else
-                        touch "/etc/xdg/websurfx/blocklist.txt"
+                        touch /etc/xdg/websurfx/blocklist.txt
                       fi
 
