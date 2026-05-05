@@ -132,6 +132,7 @@ data:
         - domain:
             - ${SUBDOMAIN_VOICEAI}.${DOMAIN_0}
             - ${SUBDOMAIN_GITEA}.${DOMAIN_0}
+            - ${SUBDOMAIN_SEAFILE}.${DOMAIN_0}
           domain_regex: []
           networks: []
           policy: one_factor
