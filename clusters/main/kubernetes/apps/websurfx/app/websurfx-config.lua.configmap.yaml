@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: websurfx-config.lua
-  namespace: authelia
+  namespace: websurfx
 data:
   configuration.yaml: |
     -- ### General ###
