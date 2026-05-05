@@ -120,6 +120,8 @@ spec:
         podSpec:
           containers:
             main:
+              env:
+                RUST_BACKTRACE: 1
               lifecycle:
                 postStart:
                   type: exec
