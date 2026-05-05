@@ -71,11 +71,11 @@ spec:
         hosts:
           - host: ${SUBDOMAIN_SEAFILE}.${DOMAIN_0}
 
-    persistence:
-      storage:
-        type: nfs
-        server: ${IP_TRUENAS}
-        path: ${NFS_DATA_SEAFILE}
+    # persistence:
+    #   storage:
+    #     type: nfs
+    #     server: ${IP_TRUENAS}
+    #     path: ${NFS_DATA_SEAFILE}
 
     workload:
       main:
