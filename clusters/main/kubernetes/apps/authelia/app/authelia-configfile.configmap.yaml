@@ -104,13 +104,22 @@ data:
           policy: bypass
           resources: []
           subject: []
+        # --- main domains ---
+        - domain:
+            - ${DOMAIN_0}
+            - www.${DOMAIN_0}
+          domain_regex: []
+          networks: []
+          policy: one_factor
+          resources: []
+          subject:
+            - "group:${LLDAP_USER_GROUP}"
         # --- media domains ---
         - domain:
-            - ${SUBDOMAIN_EMULATOR_JS}.${DOMAIN_0}
+            - ${SUBDOMAIN_ROMM}.${DOMAIN_0}
             - ${SUBDOMAIN_NAVIDROME}.${DOMAIN_0}
             - ${SUBDOMAIN_VOCECHAT_SERVER}.${DOMAIN_0}
             - ${SUBDOMAIN_JELLYSEERR}.${DOMAIN_0}
-            - ${DOMAIN_0}
           domain_regex: []
           networks: []
           policy: one_factor
@@ -134,7 +143,6 @@ data:
         # --- admin-only catch-all ---
         - domain:
             - "*.${DOMAIN_0}"
-            - ${DOMAIN_0}
           domain_regex: []
           networks: []
           policy: one_factor
