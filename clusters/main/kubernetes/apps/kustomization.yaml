@@ -50,6 +50,7 @@ resources:
   # - renovate/ks.yaml
   # # - scrutiny/ks.yaml
   # # - searxng/ks.yaml
+  - seafile/ks.yaml
   - sonarr/ks.yaml
   # - timetagger/ks.yaml
   - truenas-gui/ks.yaml
@@ -64,3 +65,4 @@ resources:
   # - websurfx/ks.yaml
   # - timetracker/ks.yaml
   - romm/ks.yaml
+  - seafile/ks.yaml

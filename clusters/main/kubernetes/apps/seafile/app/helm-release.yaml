@@ -1,0 +1,95 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+
+metadata:
+  name: seafile
+  namespace: seafile
+
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: seafile
+      version: 12.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  #timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  values:
+    global:
+      stopAll: false
+
+    TZ: ${TIMEZONE}
+
+    credentials:
+      backblaze:
+        accessKey: ${S3_ACCESS_KEY}
+        bucket: ${S3_BUCKET}
+        encrKey: ${S3_ENCRYPTION_KEY}
+        name: ${S3_NAME}
+        path: ""
+        secretKey: ${S3_SECRET_KEY}
+        type: s3
+        url: ${S3_URL}
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        integrations:
+          homepage:
+            enabled: true
+            group: Utilities
+            widget:
+              enabled: false
+          certManager:
+            enabled: true
+            certificateIssuer: ${DNS_NAME}
+          nginx:
+            enabled: true
+            auth:
+              type: "authelia"
+              internalHost: "authelia.authelia.svc.cluster.local:9091"
+              externalHost: "${SUBDOMAIN_AUTHELIA}.${DOMAIN_0}"
+              # Can be left default in most cases
+              responseHeaders: []
+        hosts:
+          - host: ${SUBDOMAIN_SEAFILE}.${DOMAIN_0}
+
+    persistence:
+      storage:
+        type: nfs
+        server: ${IP_TRUENAS}
+        path: ${NFS_DATA_SEAFILE}
+
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                # Init for Seafile admin
+                INIT_SEAFILE_ADMIN_EMAIL: "${ADMIN_EMAIL}"
+                INIT_SEAFILE_ADMIN_PASSWORD: "${ADMIN_PASSWORD}"
+                # for Seafile server
+                TIME_ZONE: "${TIMEZONE}"
+                SEAFILE_LOG_TO_STDOUT: "true"
+                SITE_ROOT: "/"
+                SEAFILE_SERVER_HOSTNAME: "${SUBDOMAIN_SEAFILE}.${DOMAIN_0}"
+                # other secrets
+                JWT_PRIVATE_KEY: "${SEAFILE_SECRET_ENCRYPTION_KEY}"
