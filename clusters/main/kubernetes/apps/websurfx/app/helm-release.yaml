@@ -45,8 +45,13 @@ spec:
             targetPort: 10238
             protocol: http
 
-    global:
-      stopAll: false
+    securityContext:
+      container:
+        readOnlyRootFilesystem: false
+        runAsGroup: 0
+        runAsUser: 0
+        global:
+          stopAll: false
 
     TZ: ${TIMEZONE}
 
