@@ -106,6 +106,7 @@ data:
           subject: []
         # --- main domains ---
         - domain:
+            - ${SUBDOMAIN_LLDAP}.${DOMAIN_0}
             - ${DOMAIN_0}
             - www.${DOMAIN_0}
           domain_regex: []
