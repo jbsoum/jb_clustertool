@@ -15,3 +15,5 @@ removed-charts2
 forgetool
 /.ssh-config
 kubeconfig
+ssh-public-key.txt
+.decrypted~*.yaml
