@@ -14,3 +14,4 @@ removed-charts2
 ^forgetool*
 forgetool
 /.ssh-config
+kubeconfig
