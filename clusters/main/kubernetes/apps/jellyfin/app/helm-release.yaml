@@ -104,7 +104,7 @@ spec:
             src: #VolSync Source (Backup)
               enabled: true
               trigger:
-                schedule: 40 0 * * *
+                schedule: 0 3 * * 4
       #cache:
       #  volsync:
       #    - credentials: ${S3_NAME}
