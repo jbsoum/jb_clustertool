@@ -44,7 +44,7 @@ resources:
   - protonmail-bridge/ks.yaml
   - prowlarr/ks.yaml
   # - proxmox-backup-server/ks.yaml
-  # - qbittorrent/ks.yaml
+  - qbittorrent/ks.yaml
   - radarr/ks.yaml
   # - readarr/ks.yaml
   # - renovate/ks.yaml
