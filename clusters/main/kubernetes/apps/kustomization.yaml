@@ -7,7 +7,7 @@ resources:
   # - backuppc/ks.yaml
   # - beets/ks.yaml
   # - cloudflareddns/ks.yaml
-  - code-server/ks.yaml
+  # - code-server/ks.yaml
   # - dashy/ks.yaml
   - deluge/ks.yaml
   # - dev-mongodb/ks.yaml
@@ -21,20 +21,20 @@ resources:
   - filestash/ks.yaml
   - gitea/ks.yaml
   - homarr/ks.yaml
-  - homepage/ks.yaml
+  # - homepage/ks.yaml
   - icloudpd/ks.yaml
   # - invidious/ks.yaml
-  - jellyseerr/ks.yaml
-  - jellyfin/ks.yaml
+  # - jellyseerr/ks.yaml
+  # - jellyfin/ks.yaml
   - joplin-server/ks.yaml
   # - kopia/ks.yaml
   - kubernetes-dashboard/ks.yaml
   # - laravel/ks.yaml
   # - libreddit/ks.yaml
-  - lidarr/ks.yaml
+  # - lidarr/ks.yaml
   - lldap/ks.yaml
   # - metube/ks.yaml
-  - navidrome/ks.yaml
+  # - navidrome/ks.yaml
   # - netbootxyz/ks.yaml
   - nextcloud/ks.yaml
   # - nitter/ks.yaml
@@ -61,7 +61,7 @@ resources:
   # -  proxmox-backup-server/ks.yaml
   - voice-ai-gui/ks.yaml
   # - homarr/ks.yaml
-  - wg-easy/ks.yaml
+  # - wg-easy/ks.yaml
   # - websurfx/ks.yaml
   # - timetracker/ks.yaml
-  - romm/ks.yaml
+  # - romm/ks.yaml
