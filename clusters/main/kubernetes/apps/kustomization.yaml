@@ -63,4 +63,4 @@ resources:
   - wg-easy/ks.yaml
   # - websurfx/ks.yaml
   # - timetracker/ks.yaml
-  # - romm/ks.yaml
+  - romm/ks.yaml
