@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 18.5.0
+      version: 18.6.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -37,7 +37,7 @@ spec:
     image:
       repository: docker.io/bitnami/postgresql
       pullPolicy: IfNotPresent
-      tag: latest@sha256:b30a01e1cee6b2018eb86081dd13fef206f0997e705c53286af9eca7558affac
+      tag: latest@sha256:bb51e14bc63942fe575e353b0844a2c8d2baa78bb04836e8798f1663952957e7
 
     TZ: ${TIMEZONE}
     credentials:
