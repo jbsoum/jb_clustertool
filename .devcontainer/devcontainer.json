@@ -41,7 +41,7 @@
         "karyan40024.helmix",
         "eamodio.gitlens",
         "streetsidesoftware.code-spell-checker",
-        "Codium.codium",
+        // "Codium.codium",
         "mhutchie.git-graph",
         "yzhang.markdown-all-in-one",
         "DavidAnson.vscode-markdownlint"
