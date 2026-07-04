@@ -51,6 +51,7 @@ spec:
       vpn:
         loadBalancerIP: ${IP_VPN}
         type: LoadBalancer
+        externalTrafficPolicy: Local
         integrations:
           metallb:
             enabled: true
