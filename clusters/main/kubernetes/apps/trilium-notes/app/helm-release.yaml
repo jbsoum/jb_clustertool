@@ -2,14 +2,14 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 
 metadata:
-  name: trillium-notes
-  namespace: trillium-notes
+  name: trilium-notes
+  namespace: trilium-notes
 
 spec:
   interval: 15m
   chart:
     spec:
-      chart: trillium-notes
+      chart: trilium-notes
       version: 16.6.0
       sourceRef:
         kind: HelmRepository

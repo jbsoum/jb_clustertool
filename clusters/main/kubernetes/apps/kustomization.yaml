@@ -53,7 +53,7 @@ resources:
   # - seafile/ks.yaml
   - sonarr/ks.yaml
   # - timetagger/ks.yaml
-  - trillium-notes/ks.yaml
+  - trilium-notes/ks.yaml
   - truenas-gui/ks.yaml
   # - vaultwarden/ks.yaml
   # - vocechat-server/ks.yaml
