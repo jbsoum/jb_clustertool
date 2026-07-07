@@ -39,7 +39,7 @@ spec:
     image:
       repository: docker.io/bitnami/postgresql
       pullPolicy: IfNotPresent
-      tag: latest@sha256:2f8916e6fb2245917cfaa1a1a419a5199c1ebcf54828e671e9d9d147eae75487
+      tag: latest@sha256:91a6c3f4b4d687546c1d07c1ef7c27a5e85e2a0ce8a192fe94cad5bbde0a1aba
 
     credentials:
       backblaze:
