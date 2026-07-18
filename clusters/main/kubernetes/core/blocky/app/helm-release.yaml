@@ -51,6 +51,18 @@ spec:
         dnsChallenge:
           enabled: false
           domain: dns01.clouddns.com
+    blocking:
+      blacklist:
+      - name: mylist
+        lists:
+        - https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt
+        - https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.Spam/hosts
+        - https://v.firebog.net/hosts/static/w3kbl.txt
+        - https://big.oisd.nl/domainswild
+      clientGroupsBlock:
+        - name: default
+          groups:
+            - mylist
 
       forward:
         enabled: false
