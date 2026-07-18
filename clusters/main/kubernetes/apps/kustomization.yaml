@@ -65,3 +65,4 @@ resources:
   # - websurfx/ks.yaml
   # - timetracker/ks.yaml
   - romm/ks.yaml
+  - librespeed/ks.yaml
